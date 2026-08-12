@@ -1,189 +1,794 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>觉醒 8-9月 经营作战项目总览 v3</title>
-<style>
-:root{
-  --bg:#f0f1f4; --card:#ffffff; --ink:#1a1a2e; --sub:#6c757d; --line:#e3e6ec;
-  --lv5:#b91c1c; --lv5l:#ef4444;   /* 5级 战略 红 */
-  --lv4:#c2410c; --lv4l:#f97316;   /* 4级 橙 */
-  --lv3:#1d4ed8; --lv3l:#3b82f6;   /* 3级 蓝 */
-  --ok:#16a34a; --warn:#ca8a04; --danger:#dc2626;
-  --shadow:0 1px 3px rgba(0,0,0,.06),0 4px 14px rgba(0,0,0,.05);
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);padding:18px 20px 50px;font-size:14px;line-height:1.55}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>觉醒 · 只工作不上班 | 项目看板</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      /* 火焰主色（原 green 变量复用为火热橙红，绿=正常 仍用硬编码 #22c55e 保留语义） */
+      --green-900: #5c0a0a;
+      --green-800: #9b1c1c;
+      --green-700: #c0392b;
+      --green-600: #ff4d2e;
+      --green-500: #ff6b35;
+      --green-100: #fff1e8;
+      --green-50:  #fdf3ee;
+      --amber: #ff8c00;
+      --red: #ef4444;
+      --blue: #3b82f6;
+      --gold-500: #ffb020;
+      --gold-400: #ffd60a;
+      --flame: linear-gradient(135deg, #ff4d2e 0%, #ff8c00 100%);
+      --flame-deep: linear-gradient(135deg, #4a0808 0%, #e2371f 100%);
+      --gold-grad: linear-gradient(135deg, #ffd60a 0%, #ff8c00 100%);
+      --gray-900: #1c1410;
+      --gray-700: #4a4038;
+      --gray-500: #8a7d72;
+      --gray-300: #e9ddd2;
+      --gray-200: #efe4d8;
+      --gray-100: #f7efe7;
+      --white: #ffffff;
+      --bg: #fdf3ec;
+      --radius: 14px;
+      --shadow: 0 6px 22px rgba(220, 70, 30, 0.10);
+      --shadow-hover: 0 12px 32px rgba(220, 70, 30, 0.18);
+      --glow-fire: 0 0 16px rgba(255, 90, 40, 0.45);
+      --glow-gold: 0 0 16px rgba(255, 176, 32, 0.5);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--gray-900); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+    .topbar {
+      background: var(--flame-deep); color: #fff; box-shadow: 0 4px 22px rgba(220,60,30,.35);
+      padding: 12px 28px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand { display: flex; align-items: center; gap: 14px; }
+    .logo {
+      width: 42px; height: 42px; border-radius: 10px; background: var(--white); color: var(--green-900);
+      display: grid; place-items: center; font-weight: 800; font-size: 18px;
+    }
+    .brand-title { font-size: 18px; font-weight: 700; }
+    .brand-sub { font-size: 12px; opacity: 0.85; margin-top: 2px; }
+    .update-time { font-size: 13px; opacity: 0.85; }
+    .nav-tabs {
+      background: var(--white); border-bottom: 1px solid var(--gray-100);
+      padding: 0 28px; display: flex; gap: 0; position: sticky; top: 0; z-index: 50;
+    }
+    .nav-tab {
+      padding: 16px 26px; font-size: 15px; font-weight: 500; color: var(--gray-700);
+      cursor: pointer; border-bottom: 3px solid transparent; transition: .2s;
+    }
+    .nav-tab:hover { color: var(--green-700); }
+    .nav-tab.active { color: var(--green-600); border-bottom-color: var(--green-600); font-weight: 800; text-shadow: 0 0 12px rgba(255,90,40,.3); }
+    .container { padding: 16px 28px 18px; flex: 1; min-height: 0; display: flex; flex-direction: column; }
+    .section { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; flex: 1; min-height: 0; display: flex; flex-direction: column; }
+    .section.hidden { display: none; }
+    .section-body { padding: 16px 24px; flex: 1; min-height: 0; overflow: auto; }
 
-.hd{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px}
-.hd h1{font-size:21px;font-weight:800;letter-spacing:.3px}
-.hd .meta{color:var(--sub);font-size:12.5px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
-.tag{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11.5px;font-weight:700;background:#eef2ff;color:#3730a3}
-.tot{font-size:15px;font-weight:800}.tot b{font-size:20px;color:var(--lv5)}
+    /* Section 1: People */
+    .people-layout { display: grid; grid-template-columns: 1fr 360px; gap: 22px; align-items: stretch; }
+    .people-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .people-card {
+      background: var(--green-50); border-radius: 12px; padding: 18px;
+      border: 1px solid #ffd9c2; position: relative;
+    }
+    .people-card.temporary { border-color: #fde68a; background: #fffbeb; }
+    .people-badge {
+      position: absolute; top: 12px; right: 12px; font-size: 11px;
+      background: #fde68a; color: #92400e; padding: 3px 8px; border-radius: 999px;
+    }
+    .people-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .people-icon { font-size: 26px; }
+    .people-name { font-size: 18px; font-weight: 800; color: var(--gray-900); letter-spacing: 0.3px; }
+    .people-row { display: flex; gap: 14px; margin-bottom: 12px; }
+    .people-metrics { display: flex; gap: 12px; margin-bottom: 12px; align-items: stretch; }
+    .people-hero {
+      flex: 1.6; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+      border-radius: 10px; padding: 12px 8px;
+      background: linear-gradient(135deg, #fff1e6 0%, #ffe0c7 100%);
+      border: 1px solid #ffc4a3;
+      box-shadow: 0 0 0 1px rgba(255,107,53,0.18), 0 6px 18px rgba(255,107,53,0.16);
+    }
+    .people-hero .people-metric-label { font-size: 11px; color: #c2410c; font-weight: 700; margin-bottom: 2px; letter-spacing: 0.5px; }
+    .people-hero .people-metric-value { font-size: 34px; font-weight: 900; color: var(--green-600); letter-spacing: -1px; line-height: 1.1; text-shadow: 0 1px 0 rgba(255,255,255,0.5); }
+    .people-hero .people-metric-value.missing { font-size: 16px; color: var(--gray-400); font-weight: 600; letter-spacing: 0; text-shadow: none; }
+    .people-deltas { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+    .people-delta { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: rgba(255,255,255,0.65); border-radius: 8px; padding: 6px 4px; }
+    .people-delta-label { font-size: 10px; color: var(--gray-500); margin-bottom: 2px; }
+    .people-delta-val { font-size: 16px; font-weight: 700; color: var(--amber); }
+    .people-delta-val.zero { color: var(--gray-400); font-weight: 500; }
+    .people-channels { margin-top: 10px; }
+    .people-channel-title { font-size: 12px; color: var(--gray-500); margin-bottom: 6px; }
+    .channel-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .channel-tag {
+      font-size: 11px; padding: 4px 10px; border-radius: 999px;
+      background: var(--white); color: var(--gray-700); border: 1px solid var(--gray-200);
+    }
+    .channel-tag.missing { color: var(--gray-400); background: transparent; }
+    .people-charts { display: flex; flex-direction: column; gap: 18px; align-items: stretch; }
+    .chart-card {
+      flex: 1; min-height: 0;
+      background: linear-gradient(180deg, #fff6ef 0%, #ffecdc 100%);
+      border: 1px solid #ffd2b8; border-radius: 12px; padding: 14px 18px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; box-shadow: 0 4px 18px rgba(255,107,53,.16);
+    }
+    .chart-title { font-size: 14px; font-weight: 800; color: #7a2e12; margin-bottom: 8px; }
+    .pie-chart { width: 160px; height: 160px; margin: 0 auto; }
+    .pie-center { fill: var(--gray-50); font-size: 11px; text-anchor: middle; dominant-baseline: middle; }
+    .legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; justify-content: center; }
+    .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--gray-600); }
+    .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .note { font-size: 12px; color: var(--gray-500); margin-top: 14px; padding: 10px; background: var(--gray-50); border-radius: 8px; }
+    .missing-note { color: var(--amber); }
 
-.note{background:#f8fafc;border:1px solid var(--line);color:var(--sub);padding:7px 13px;border-radius:9px;font-size:12px;margin:10px 0 14px}
-.note b{color:var(--ink)}
+    /* Section 2: Projects - layout */
+    .projects-layout { display: flex; gap: 18px; align-items: stretch; flex: 1; min-height: 0; }
+    .projects-left { flex: 1; min-width: 0; min-height: 0; }
+    .projects-comp { flex: 0 0 250px; background: linear-gradient(180deg, #fff6ef 0%, #ffecdc 100%); border: 1px solid #ffd2b8; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 12px; min-height: 0; margin-top: 26px; align-self: stretch; }
+    .comp-card { flex: 1; min-height: 0; background: linear-gradient(180deg,#fffaf5,#fff1e8); border: 1px solid #ffe0cc; border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; align-items: center; overflow: auto; box-shadow: 0 4px 16px rgba(255,107,53,.12); }
+    .comp-title { font-size: 14px; font-weight: 800; color: #7a2e12; align-self: flex-start; margin-bottom: 4px; }
+    .comp-note { font-size: 11px; color: var(--gray-500); align-self: flex-start; margin-top: 6px; line-height: 1.4; }
+    .comp-card .pie-chart { width: 132px; height: 132px; margin: 2px auto 0; }
+    .projects-right { flex: 0 0 220px; width: 220px; }
+    .project-extra { margin: 10px 0 2px; }
+    .project-positioning { font-size: 11px; color: var(--gray-500); line-height: 1.45; margin-bottom: 7px; }
+    .project-metrics { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 7px; }
+    .metric-chip { font-size: 11px; background: var(--gray-100); color: var(--gray-700); padding: 3px 9px; border-radius: 7px; white-space: nowrap; }
+    .project-channels { font-size: 11px; color: var(--gray-500); line-height: 1.5; }
+    .project-channels b { color: var(--gray-700); }
+    .project-subtitle {
+      font-size: 13px; font-weight: 700; color: var(--gray-700);
+      margin: 16px 0 10px; display: flex; align-items: center; gap: 8px;
+      line-height: 16px;
+    }
+    .project-subtitle:first-child { margin-top: 0; }
+    .project-subtitle::before { content: ''; width: 4px; height: 14px; border-radius: 2px; background: var(--green-600); }
+    .project-subtitle.pending::before { background: var(--gray-300); }
+    .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .pending-grid { grid-template-columns: 1fr; }
+    .project-card { border-radius: 12px; border: 1px solid var(--gray-100); padding: 18px; cursor: pointer; transition: .2s; position: relative; overflow: hidden; background: var(--white); }
+    .project-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+    .project-card.span-all { grid-column: 1 / -1; }
+    .project-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; }
+    .project-card.p1::before { background: var(--red); } .project-card.p2::before { background: var(--amber); } .project-card.p3::before { background: var(--blue); }
+    .project-card.p1 { background: linear-gradient(180deg, #fff5f3 0%, #ffecea 100%); box-shadow: 0 0 0 1.5px rgba(239,68,68,.45), 0 0 22px rgba(239,68,68,.28); }
+    .project-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .project-title { font-size: 19px; font-weight: 900; color: #1a0d08; letter-spacing: -.2px; }
+    .project-meta { font-size: 12px; color: var(--gray-500); margin-top: 4px; }
+    .project-priority { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--gray-100); color: var(--gray-700); }
+    .project-card.p1 .project-priority { background: #fee2e2; color: #991b1b; }
+    .project-card.p2 .project-priority { background: #ffedd5; color: #9a3412; }
+    .project-card.p3 .project-priority { background: #dbeafe; color: #1e40af; }
+    .project-rag { width: 12px; height: 12px; border-radius: 50%; box-shadow: 0 0 0 3px rgba(0,0,0,0.05); }
+    .rag-green { background: #22c55e; } .rag-yellow { background: var(--amber); } .rag-red { background: var(--red); box-shadow: 0 0 0 3px rgba(239,68,68,.3); animation: pulseRed 1.6s ease-in-out infinite; }
+    .project-kpis { display: flex; gap: 16px; margin: 14px 0 10px; }
+    .project-kpi { flex: 1; }
+    .project-kpi-label { font-size: 11px; color: var(--gray-500); }
+    .project-kpi-value { font-size: 24px; font-weight: 900; color: var(--green-700); letter-spacing: -.5px; }
+    .project-kpi-value.small { font-size: 14px; }
+    .project-progress { margin-top: 12px; }
+    .progress-bar-bg { height: 8px; background: var(--gray-100); border-radius: 999px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; border-radius: 999px; background: var(--flame); box-shadow: 0 0 14px rgba(255,90,40,.55); animation: pulseGlow 1.6s ease-in-out infinite; }
+    .progress-label { font-size: 12px; color: var(--gray-500); margin-top: 6px; }
+    .subprojects { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--gray-200); display: none; }
+    .subprojects.open { display: block; }
+    .subproject { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; font-size: 13px; border-bottom: 1px solid var(--gray-50); }
+    .subproject:last-child { border-bottom: none; }
+    .subproject-name { color: var(--gray-700); }
+    .subproject-owner { color: var(--gray-500); font-size: 11px; }
+    .subproject-bar-wrap { width: 80px; }
+    .subproject-bar { height: 5px; background: var(--gray-100); border-radius: 999px; overflow: hidden; }
+    .subproject-bar-fill { height: 100%; background: var(--flame); border-radius: 999px; }
+    .expand-hint { font-size: 12px; color: #c0392b; font-weight: 700; margin-top: 10px; }
+    .projects-page { display: flex; flex-direction: column; height: 100%; gap: 14px; }
+    .kpi-band { display: flex; gap: 14px; background: var(--flame-deep); color: #fff; border-radius: 14px; padding: 18px 24px; box-shadow: 0 10px 34px rgba(180,30,20,.42), inset 0 1px 0 rgba(255,255,255,.14); border: 1px solid rgba(255,120,80,.4); }
+    .kpi-item { flex: 1; position: relative; }
+    .kpi-label { font-size: 12px; opacity: 0.88; font-weight: 600; letter-spacing: .3px; }
+    .kpi-big { font-size: 38px; font-weight: 900; line-height: 1.08; margin-top: 6px; text-shadow: 0 0 18px rgba(255,255,255,.3); letter-spacing: -1px; }
+    .kpi-unit { font-size: 15px; font-weight: 700; opacity: 0.9; }
+    .kpi-sub { font-size: 14px; font-weight: 700; opacity: 0.9; }
+    .kpi-bar { height: 9px; background: rgba(255,255,255,0.18); border-radius: 999px; overflow: hidden; margin-top: 12px; box-shadow: inset 0 1px 3px rgba(0,0,0,.3); }
+    .kpi-bar-fill { height: 100%; background: var(--gold-grad); border-radius: 999px; box-shadow: var(--glow-gold); }
+    .kpi-band .kpi-item:nth-child(2), .kpi-band .kpi-item:nth-child(3) { padding-left: 16px; border-left: 1px solid rgba(255,255,255,.2); }
+    .kpi-band .kpi-item:nth-child(2) .kpi-big, .kpi-band .kpi-item:nth-child(3) .kpi-big { color: var(--gold-400); text-shadow: 0 0 20px rgba(255,200,40,.75); font-size: 42px; }
 
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(305px,1fr));gap:14px;margin-bottom:14px}
+    /* Orders rail (right column, vertical marquee) */
+    .orders-rail {
+      background: linear-gradient(180deg, #fff6ef 0%, #ffecdc 100%);
+      border: 1px solid #ffc6a3; border-radius: 14px;
+      display: flex; flex-direction: column; overflow: hidden; box-shadow: var(--glow-fire);
+      margin-top: 26px; align-self: stretch;
+    }
+    .orders-rail-header {
+      padding: 11px 14px; font-size: 13px; font-weight: 800; color: #fff;
+      border-bottom: 1px solid #ffc6a3; display: flex; align-items: center; gap: 8px;
+      background: var(--flame); letter-spacing: .5px;
+    }
+    .live-dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 0 rgba(255,255,255,.8); animation: livePulse 1.4s infinite; }
+    .orders-rail-window { flex: 1; overflow: hidden; position: relative; -webkit-mask-image: linear-gradient(180deg, transparent, #000 10%, #000 88%, transparent); mask-image: linear-gradient(180deg, transparent, #000 10%, #000 88%, transparent); }
+    .orders-rail-track { will-change: transform; animation: scrollUp 22s linear infinite; }
+    .orders-rail-window:hover .orders-rail-track { animation-play-state: paused; }
+    @keyframes scrollUp { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+    @keyframes pulseGlow { 0%,100% { box-shadow: 0 0 12px rgba(255,90,40,.35); } 50% { box-shadow: 0 0 20px rgba(255,90,40,.6); } }
+    @keyframes pulseRed { 0%,100% { box-shadow: 0 0 0 4px rgba(239,68,68,.35); } 50% { box-shadow: 0 0 0 9px rgba(239,68,68,.10); } }
+    @keyframes livePulse { 0% { box-shadow: 0 0 0 0 rgba(255,255,255,.7); } 70% { box-shadow: 0 0 0 7px rgba(255,255,255,0); } 100% { box-shadow: 0 0 0 0 rgba(255,255,255,0); } }
+    .order-item { padding: 12px 14px 12px 18px; border-bottom: 1px dashed #ffd9bf; position: relative; }
+    .order-item::before { content: ''; position: absolute; left: 6px; top: 10px; bottom: 10px; width: 3px; border-radius: 3px; background: var(--gold-grad); }
+    .order-time { font-size: 15px; font-weight: 800; color: #c0392b; font-variant-numeric: tabular-nums; text-shadow: 0 0 10px rgba(192,57,43,.25); }
+    .order-product { font-size: 13px; color: #7a2e12; margin-top: 3px; line-height: 1.4; font-weight: 600; }
+    .order-member { font-size: 11px; color: #a8461f; margin-top: 5px; }
+    .order-member::before { content: '👤 '; }
 
-.pcard{background:var(--card);border-radius:13px;padding:16px 17px 15px;box-shadow:var(--shadow);border-top:4px solid var(--lv3);position:relative}
-.pcard.c5{border-top-color:var(--lv5)}.pcard.c4{border-top-color:var(--lv4)}.pcard.c3{border-top-color:var(--lv3)}
-.pcard:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.09)}
+    .focus-timeline { display: flex; flex-direction: column; gap: 16px; }
+    .focus-row { display: grid; grid-template-columns: 180px 1fr; gap: 18px; align-items: center; padding: 16px; border-radius: 10px; background: var(--gray-50); }
+    .focus-project { font-weight: 700; font-size: 14px; }
+    .focus-flow { display: flex; align-items: center; gap: 8px; }
+    .focus-stage { padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 500; background: var(--white); color: var(--gray-700); border: 1px solid var(--gray-200); white-space: nowrap; }
+    .focus-stage.current { background: linear-gradient(135deg,#fff0e6,#ffe0cc); color: #c0392b; border-color: #ffb98a; font-weight: 700; box-shadow: 0 0 12px rgba(255,107,53,.25); }
+    .focus-arrow { color: var(--gray-400); font-size: 14px; }
+    .focus-text { font-size: 13px; color: var(--gray-700); margin-top: 8px; line-height: 1.5; }
+    .weekly-page { display: flex; flex-direction: column; height: 100%; gap: 16px; }
+    .weekly-top { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; flex: 1; min-height: 0; }
+    .weekly-panel { display: flex; flex-direction: column; min-height: 0; background: #fcfdfc; border: 1px solid var(--gray-100); border-radius: 12px; padding: 6px 8px; }
+    .weekly-panel .project-subtitle { margin-top: 10px; }
+    .weekly-scroll { flex: 1; min-height: 0; overflow: auto; padding: 4px 8px 8px; }
+    .weekly-bottom { flex: 0 0 auto; }
+    .project-subtitle.alert::before { background: var(--red); }
+    .milestone-list { display: flex; flex-direction: column; gap: 10px; }
+    .timeline-list { display: flex; flex-direction: column; gap: 16px; }
+    .tl-group-head { font-size: 14px; font-weight: 800; color: #b91c1c; display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; padding-bottom: 4px; border-bottom: 1px dashed #ffd2b8; }
+    .tl-range { font-size: 11px; font-weight: 400; color: var(--gray-500); }
+    .milestone { display: flex; gap: 14px; align-items: flex-start; padding: 10px 12px; background: linear-gradient(180deg,#fffaf6,#fff2ea); border: 1px solid #ffe6d6; border-radius: 10px; }
+    .milestone-date { font-weight: 800; color: #c0392b; font-size: 13px; white-space: nowrap; width: 60px; }
+    .milestone-body { font-size: 13px; color: var(--gray-700); }
+    .milestone-proj { font-size: 11px; color: var(--gray-500); margin-top: 3px; }
+    .escalate-list { display: flex; flex-direction: column; gap: 10px; }
+    .escalate { display: flex; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 10px; background: var(--gray-50); border-left: 4px solid var(--gray-300); }
+    .escalate.red { border-left-color: var(--red); background: linear-gradient(90deg, #fff0ef 0%, var(--gray-50) 70%); box-shadow: 0 0 16px rgba(239,68,68,.22); }
+    .escalate.yellow { border-left-color: var(--amber); }
+    .escalate-dot { width: 10px; height: 10px; border-radius: 50%; flex: 0 0 auto; }
+    .escalate.red .escalate-dot { background: var(--red); box-shadow: 0 0 0 3px rgba(239,68,68,.3); animation: pulseRed 1.2s ease-in-out infinite; }
+    .escalate.yellow .escalate-dot { background: var(--amber); }
+    .escalate-text { font-size: 13px; color: #1a0d08; font-weight: 800; }
+    .escalate-proj { font-size: 11px; color: var(--gray-500); margin-top: 2px; }
+    .health-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .health-card { background: var(--gray-50); border-radius: 12px; padding: 18px; }
+    .health-card-title { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 14px; }
+    .bar-chart { display: flex; flex-direction: column; gap: 10px; }
+    .bar-item { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+    .bar-label { width: 60px; color: var(--gray-700); white-space: nowrap; }
+    .bar-track { flex: 1; height: 10px; background: var(--white); border-radius: 999px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 999px; }
+    .bar-value { width: 30px; text-align: right; color: var(--gray-500); }
+    /* Section 4: 资源与决策 */
+    .rd-page { display: flex; flex-direction: column; gap: 16px; height: 100%; }
+    .rd-hero { background: var(--flame-deep); border-radius: 14px; padding: 18px 22px; color: #fff; box-shadow: 0 8px 26px rgba(220,60,30,.25); }
+    .rd-hero-head { font-size: 13px; opacity: .85; margin-bottom: 12px; }
+    .rd-hero-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .rd-hero-card { background: rgba(255,255,255,0.10); border: 1px solid rgba(255,255,255,0.18); border-radius: 10px; padding: 14px 16px; }
+    .rd-hero-num { font-size: 12px; opacity: .7; }
+    .rd-hero-name { font-size: 15px; font-weight: 700; margin: 6px 0 4px; }
+    .rd-hero-desc { font-size: 12px; opacity: .85; line-height: 1.5; }
+    .rd-bottom { display: grid; grid-template-columns: 1.2fr 1fr 1fr; gap: 16px; flex: 1; min-height: 0; }
+    .rd-panel { background: var(--gray-50); border-radius: 12px; padding: 16px 18px; display: flex; flex-direction: column; min-height: 0; }
+    .rd-panel-title { font-size: 14px; font-weight: 700; color: var(--gray-900); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .rd-panel-title::before { content: ''; width: 4px; height: 14px; border-radius: 2px; background: var(--green-600); }
+    .rd-scroll { flex: 1; min-height: 0; overflow: auto; }
+    .rd-matrix { display: flex; flex-direction: column; gap: 8px; }
+    .rd-mrow { display: grid; grid-template-columns: 1.4fr 0.6fr 0.9fr 0.9fr; gap: 8px; align-items: center; padding: 10px 12px; background: var(--white); border-radius: 8px; font-size: 13px; }
+    .rd-mrow.head { background: transparent; font-size: 11px; color: var(--gray-500); padding: 4px 12px; }
+    .rd-mproj { font-weight: 700; color: var(--gray-900); }
+    .rd-mlevel { font-size: 11px; padding: 2px 8px; border-radius: 999px; display: inline-block; }
+    .rd-mlevel.l5 { background: #fee2e2; color: #991b1b; }
+    .rd-mlevel.l4 { background: #ffedd5; color: #9a3412; }
+    .rd-mlevel.l3 { background: #dbeafe; color: #1e40af; }
+    .rd-mowner, .rd-mop { color: var(--gray-700); }
+    .rd-load { display: flex; flex-direction: column; gap: 10px; }
+    .rd-load-row { display: flex; align-items: center; gap: 10px; padding: 10px 12px; background: var(--white); border-radius: 8px; }
+    .rd-load-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--green-100); color: var(--green-800); display: grid; place-items: center; font-weight: 700; font-size: 14px; flex: 0 0 auto; }
+    .rd-load-info { flex: 1; min-width: 0; }
+    .rd-load-name { font-size: 13px; font-weight: 700; color: var(--gray-900); }
+    .rd-load-projs { font-size: 11px; color: var(--gray-500); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .rd-load-count { font-size: 24px; font-weight: 900; letter-spacing: -.5px; }
+    .rd-load-count.normal { color: #22c55e; }
+    .rd-load-count.high { color: var(--amber); }
+    .rd-load-count.over { color: var(--red); }
+    .rd-load-tag { font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 999px; margin-left: 6px; vertical-align: middle; }
+    .rd-load-tag.normal { background: #dcfce7; color: #166534; }
+    .rd-load-tag.high { background: #ffedd5; color: #9a3412; }
+    .rd-load-tag.over { background: #fee2e2; color: #991b1b; }
+    .rd-budget { display: flex; flex-direction: column; gap: 10px; }
+    .rd-budget-row { padding: 10px 12px; background: var(--white); border-radius: 8px; border-left: 4px solid var(--gray-300); }
+    .rd-budget-row.high { border-left-color: var(--red); background: linear-gradient(90deg, #fff0ef 0%, #fff 70%); box-shadow: 0 0 16px rgba(239,68,68,.2); }
+    .rd-budget-row.medium { border-left-color: var(--amber); }
+    .rd-budget-row.low { border-left-color: #22c55e; }
+    .rd-budget-proj { font-size: 13px; font-weight: 700; color: var(--gray-900); }
+    .rd-budget-status { font-size: 12px; color: var(--gray-600); margin-top: 2px; }
+    .rd-budget-risk { font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 999px; margin-left: 6px; vertical-align: middle; }
+    .rd-budget-risk.high { background: #fee2e2; color: #991b1b; }
+    .rd-budget-risk.medium { background: #ffedd5; color: #9a3412; }
+    .rd-budget-risk.low { background: #dcfce7; color: #166534; }
 
-/* row1: name + star + owner + bossflag */
-.pc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
-.pc-name{display:flex;align-items:center;gap:7px;font-size:16px;font-weight:800}
-.pc-name .ico{font-size:18px}
-.pc-stars{color:#f59e0b;font-size:12px;letter-spacing:1px;margin-top:2px}
-.pc-owner{color:var(--sub);font-size:12px;white-space:nowrap}
-.bflag{position:absolute;top:14px;right:14px;font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:20px}
-.bflag.r{background:#fef2f2;color:var(--danger)}.bflag.y{background:#fffbeb;color:var(--warn)}.bflag.g{background:#f0fdf4;color:var(--ok)}
-/* push name down so it doesn't collide with flag */
-.pc-name{margin-right:74px}
+    .principles-footer { background: var(--white); border-top: 1px solid var(--gray-100); padding: 12px 28px; display: flex; align-items: center; gap: 18px; flex: 0 0 auto; }
+    .pf-title { font-size: 13px; font-weight: 800; color: #b91c1c; white-space: nowrap; flex: 0 0 auto; }
+    .pf-items { display: flex; flex-wrap: wrap; gap: 8px 22px; }
+    .pf-items span { font-size: 12px; color: var(--gray-600); line-height: 1.5; }
 
-/* hero money */
-.pc-money{margin:9px 0 2px}
-.pc-money .amt{font-size:34px;font-weight:900;line-height:1.05}
-.pc-money .pct{font-size:20px;font-weight:800;margin-left:6px}
-.c5 .pc-money .amt,.c5 .pc-money .pct{color:var(--lv5)}
-.c4 .pc-money .amt,.c4 .pc-money .pct{color:var(--lv4)}
-.c3 .pc-money .amt,.c3 .pc-money .pct{color:var(--lv3)}
-.pc-sub{font-size:11.5px;color:var(--sub);font-weight:600;margin-top:-2px}
-
-.pc-fml{color:var(--sub);font-size:12.5px;margin:7px 0 8px}
-.pb{height:10px;background:#eef0f4;border-radius:6px;overflow:hidden;margin-bottom:9px}
-.pb .fill{height:100%;border-radius:6px;transition:width .5s}
-.c5 .pb .fill{background:linear-gradient(90deg,var(--lv5),var(--lv5l))}
-.c4 .pb .fill{background:linear-gradient(90deg,var(--lv4),var(--lv4l))}
-.c3 .pb .fill{background:linear-gradient(90deg,var(--lv3),var(--lv3l))}
-
-.pc-metrics{display:flex;flex-wrap:wrap;gap:5px 14px;font-size:12.5px;align-items:center}
-.pc-metrics .m-val{font-weight:700}
-.m-ok{color:var(--ok)}.m-warn{color:var(--warn)}.m-danger{color:var(--danger)}
-.ddl{font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:6px;background:#f1f5f9;color:#475569}
-.ddl.tight{background:#fef2f2;color:var(--danger)}
-.ddl.soon{background:#fffbeb;color:var(--warn)}
-
-.sumbar{background:#1e293b;color:#fff;border-radius:12px;padding:15px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.sumbar .sl{font-size:14px;font-weight:700}
-.sumbar .sr{font-size:12.5px;color:#94a3b8}
-.sumbar .sp{font-size:17px;font-weight:900;color:#fbbf24}
-
-footer{margin-top:24px;color:#94a3b8;font-size:11px;text-align:center}
-@media(max-width:720px){.grid{grid-template-columns:1fr}.pc-name{margin-right:0}}
-</style>
+    @media (max-width: 1100px) {
+      .people-layout { grid-template-columns: 1fr; }
+      .people-charts { flex-direction: row; }
+      .health-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 900px) {
+      .projects-layout { flex-direction: column; }
+      .projects-comp { width: 100%; flex: auto; flex-direction: row; margin-top: 0; }
+      .projects-right { width: 100%; flex: auto; }
+      .orders-rail { height: 240px; margin-top: 0; }
+      .weekly-top { grid-template-columns: 1fr; }
+      .weekly-panel { max-height: 320px; }
+      .rd-hero-cards { grid-template-columns: 1fr; }
+      .rd-bottom { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 760px) {
+      .people-grid { grid-template-columns: 1fr; }
+      .people-charts { flex-direction: column; }
+      .chart-card { min-height: 200px; }
+      .health-grid { grid-template-columns: 1fr; }
+      .project-grid { grid-template-columns: 1fr; }
+      .project-card.span-all { grid-column: auto; }
+      .focus-row { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
-
-<div class="hd">
-  <h1>觉醒 8-9月 经营作战项目总览</h1>
-  <div class="meta">
-    <span>更新至 2026/08/11</span>
-    <span class="tag">目标版 · 待接入实际数据</span>
-    <span class="tot">合计目标 <b>120万</b></span>
-    <span style="color:var(--sub)">整体 ≈6%</span>
-  </div>
-</div>
-
-<div class="note">
-<b>参考图我学到的（留下）：</b>卡片即项目、金额当主角、进度条、每卡老板介入状态、底部汇总栏。
-<b>参考图我丢掉的（不适合本盘）：</b>不叫"GMV四项目"（引流咨询非营收）、不套它的四色（改用<b>按星级分级配色</b>呼应"资源按等级投"）、不搬它的"本次配额"等专属标签。
-</div>
-
-<div class="grid">
-
-<!-- 1. 线下活动 5级 -->
-<div class="pcard c5">
-  <span class="bflag r">🔴 需决策</span>
-  <div class="pc-top">
-    <div>
-      <div class="pc-name"><span class="ico">🎪</span> 线下活动</div>
-      <div class="pc-stars">★★★★★ 5级 · 公司战略</div>
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo">觉</div>
+      <div><div class="brand-title">觉醒 · 只工作不上班</div><div class="brand-sub">8-9月 经营作战项目看板</div></div>
     </div>
-    <div class="pc-owner">小楠 / 若醒</div>
+    <div class="update-time" id="updateTime">更新：—</div>
   </div>
-  <div class="pc-money"><span class="amt">100万</span><span class="pct">—%</span></div>
-  <div class="pc-fml">200人招募 × 觉醒合伙人转化 = 100万营收</div>
-  <div class="pb"><div class="fill" style="width:0%"></div></div>
-  <div class="pc-metrics">
-    <span>招募 <span class="m-val m-danger">0/200</span></span>
-    <span>阶段 <span class="m-val m-warn">待筹备</span></span>
-    <span>成本 <span class="m-val m-danger">待预算会议</span></span>
-    <span class="ddl">⏳ 距复盘 9/20 剩40天</span>
-  </div>
-</div>
 
-<!-- 2. 引流咨询 4级 -->
-<div class="pcard c4">
-  <span class="bflag y">🟡 需关注</span>
-  <div class="pc-top">
-    <div>
-      <div class="pc-name"><span class="ico">💬</span> 引流咨询</div>
-      <div class="pc-stars">★★★★ 4级 · 模型验证</div>
-    </div>
-    <div class="pc-owner">阿猫 / 长安</div>
+  <div class="nav-tabs">
+    <div class="nav-tab active" data-tab="people" onclick="showTab('people')">项目人数</div>
+    <div class="nav-tab" data-tab="projects" onclick="showTab('projects')">本月项目</div>
+    <div class="nav-tab" data-tab="weekly" onclick="showTab('weekly')">本周的重点</div>
+    <div class="nav-tab" data-tab="rd" onclick="showTab('rd')">资源与决策</div>
   </div>
-  <div class="pc-money"><span class="amt">验证期</span></div>
-  <div class="pc-sub">非营收目标 · 跑通 流量→咨询→成交</div>
-  <div class="pc-fml">30有效咨询 × 10%转化 = 3单合伙人</div>
-  <div class="pb"><div class="fill" style="width:0%"></div></div>
-  <div class="pc-metrics">
-    <span>有效咨询 <span class="m-val m-warn">0/30</span></span>
-    <span>已成交 <span class="m-val m-danger">0/3</span></span>
-    <span>待优化 <span class="m-val m-warn">问卷·分层·流程·方法论·团队</span></span>
-  </div>
-</div>
 
-<!-- 3. 新书共创 3级 -->
-<div class="pcard c3">
-  <span class="bflag g">🟢 不需要</span>
-  <div class="pc-top">
-    <div>
-      <div class="pc-name"><span class="ico">📖</span> 新书共创</div>
-      <div class="pc-stars">★★★ 3级 · 专项推进</div>
-    </div>
-    <div class="pc-owner">堂主 / 若醒</div>
-  </div>
-  <div class="pc-money"><span class="amt">15万</span><span class="pct">47%</span></div>
-  <div class="pc-fml">15位共创作者 × 1万/人 = 15万营收</div>
-  <div class="pb"><div class="fill" style="width:47%"></div></div>
-  <div class="pc-metrics">
-    <span>已招募 <span class="m-val m-ok">7/15</span></span>
-    <span>已收款 <span class="m-val m-ok">≈7万</span></span>
-    <span class="ddl soon">⏳ 交出版社 8/20 剩9天</span>
-  </div>
-</div>
+  <div class="container" id="app"></div>
+  <footer class="principles-footer" id="principlesFooter"></footer>
 
-<!-- 4. 内训营 3级 -->
-<div class="pcard c3">
-  <span class="bflag y">🟡 需关注</span>
-  <div class="pc-top">
-    <div>
-      <div class="pc-name"><span class="ico">🎓</span> 内训营</div>
-      <div class="pc-stars">★★★ 3级 · 专项推进</div>
-    </div>
-    <div class="pc-owner">小楠 / 小杨</div>
-  </div>
-  <div class="pc-money"><span class="amt">5万</span><span class="pct">—%</span></div>
-  <div class="pc-fml">合作内训营 × 客单价2999 = 5万营收</div>
-  <div class="pb"><div class="fill" style="width:0%"></div></div>
-  <div class="pc-metrics">
-    <span>窗口 <span class="m-val m-warn">8/10–8/23</span></span>
-    <span>核心成员 <span class="m-val m-danger">待补充</span></span>
-    <span class="ddl soon">⏳ 结营 8/23 剩12天</span>
-  </div>
-</div>
+  <script>
+    const DATA = {
+      "title": "觉醒 8-9月 经营作战项目总览",
+      "period": "2026年8月 – 9月",
+      "updatedAt": "2026-08-12",
+      "goals": { "revenueTarget": 28, "revenueDone": 7, "twoMonthTarget": 100, "twoMonthNote": "8月+9月合计，深圳大会8月中旬启动", "monthlyBaseline": 30, "profitTarget": "30-40%", "partnerTarget": 3, "partnerDone": 0, "threeDirections": ["建立新的增长渠道", "优化用户转化链路", "打造阶段性营收突破项目"] },
+      "principles": [
+        "每个项目必须明确负责人：负责人对项目结果（目标/资源/节奏/问题升级）负责，不是执行者",
+        "操盘手负责推进落地：日常推进 / 节点管理 / 协调资源 / 执行结果",
+        "公司资源根据项目等级投入：优先流向高价值、高增长、核心能力建设项目",
+        "每周进行项目状态同步：当前进度 / 当前问题 / 下一阶段重点 / 是否需要资源支持"
+      ],
+      "people": {
+        "note": "项目人数看板：具体到每个核心人群/项目的当前人数、本周/本月新增、新增渠道、GMV贡献。私董/合伙人/新商学数据待补充；新书共创为临时增加的临时项目。",
+        "items": [
+          {"id": "sidong", "name": "私董", "current": null, "weekAdd": null, "monthAdd": null, "weekChannels": [], "monthChannels": [], "weekGMV": null, "monthGMV": null, "target": null, "icon": "👤"},
+          {"id": "partner", "name": "合伙人", "current": null, "weekAdd": null, "monthAdd": null, "weekChannels": [], "monthChannels": [], "weekGMV": null, "monthGMV": null, "target": 30, "icon": "🤝"},
+          {"id": "newbiz", "name": "新商学", "current": null, "weekAdd": null, "monthAdd": null, "weekChannels": [], "monthChannels": [], "weekGMV": null, "monthGMV": null, "target": null, "icon": "📚"},
+          {"id": "bookco", "name": "新书共创", "current": 7, "weekAdd": 6, "monthAdd": 7, "weekChannels": [{"name": "待补充", "value": 0}], "monthChannels": [{"name": "待补充", "value": 0}], "weekGMV": 9.98, "monthGMV": 9.98, "target": null, "icon": "📖", "temporary": true}
+        ]
+      },
+      "orders": [
+        {"time": "14:32", "product": "新书共创·作者席位", "member": "王女士", "channel": "视频号"},
+        {"time": "13:15", "product": "内训营·2999席位", "member": "李先生", "channel": "朋友圈"},
+        {"time": "11:08", "product": "觉醒合伙人", "member": "赵总", "channel": "线下活动"},
+        {"time": "09:50", "product": "新书共创·作者席位", "member": "陈先生", "channel": "视频号"}
+      ],
+      "priorities": {
+        "note": "按 P1/P2/P3 优先级分组。P1=公司级战略（5级），P2=核心业务验证（4级），P3=专项推进（3级）。",
+        "groups": [
+          {"level": "P1", "label": "公司级战略", "criteria": "5级项目，直接影响阶段性增长", "projects": ["offline"]},
+          {"level": "P2", "label": "核心业务验证", "criteria": "4级项目，验证未来模型", "projects": ["consult"]},
+          {"level": "P3", "label": "专项推进", "criteria": "3级项目，独立推进、目标明确", "projects": ["book", "training"]}
+        ]
+      },
+      "monthlyProjects": {"august": ["offline", "consult", "book", "training", "hangzhou"], "future": []},
+      "weeklyProgress": [
+        {"id": "offline", "lastWeekStage": "—", "thisWeekStage": "筹备启动", "thisWeekFocus": "完成方案设计与资源规划；召开预算会议确定成本结构", "nextWeekStage": "方案定稿 & 招募启动", "rag": "red"},
+        {"id": "consult", "lastWeekStage": "—", "thisWeekStage": "模型测试", "thisWeekFocus": "优化用户问卷、用户分层、咨询流程与咨询方法论", "nextWeekStage": "跑通首个完整咨询闭环", "rag": "yellow"},
+        {"id": "book", "lastWeekStage": "已招募 7/15", "thisWeekStage": "冲刺招募 15/15", "thisWeekFocus": "完成剩余 8 位共创作者招募，确认收款与合同", "nextWeekStage": "内容共创 & 8/20 前提交出版社", "rag": "green"},
+        {"id": "training", "lastWeekStage": "—", "thisWeekStage": "销售阶段", "thisWeekFocus": "完成用户触达、成交人数、销售转化率目标", "nextWeekStage": "直播转化阶段", "rag": "yellow"},
+        {"id": "hangzhou", "lastWeekStage": "—", "thisWeekStage": "招募冲刺", "thisWeekFocus": "完成30人招募，嘉宾/操盘手到位，确保周六活动成行", "nextWeekStage": "活动执行 & 复盘", "rag": "yellow"}
+      ],
+      "timeline": [
+        {"group": "本周", "range": "8/10 – 8/16", "items": [
+          {"date": "本周", "project": "引流咨询", "text": "跑通首个完整咨询闭环"},
+          {"date": "本周", "project": "内训营", "text": "销售阶段推进，冲刺本周成交目标"},
+          {"date": "8/15", "project": "杭州线下", "text": "杭州线下活动举办，目标30人招募"}
+        ]},
+        {"group": "本月", "range": "8月", "items": [
+          {"date": "8/20", "project": "新书共创", "text": "完成 15 位作者内容共创，提交出版社"},
+          {"date": "8/23", "project": "内训营", "text": "内训营结营（8/10–8/23 销售+交付）"},
+          {"date": "8月内", "project": "线下活动", "text": "方案定稿 & 招募启动（待预算会议决策）"}
+        ]},
+        {"group": "9月", "range": "9月（线下大会）", "items": [
+          {"date": "8/17-31", "project": "线下活动", "text": "筹备：方案/招募策略/分工/转化流程/资源"},
+          {"date": "9/1-11", "project": "线下活动", "text": "执行阶段"},
+          {"date": "9/12-13", "project": "线下活动", "text": "正式举办（招募 200 人）"},
+          {"date": "9/20前", "project": "线下活动", "text": "收尾复盘"}
+        ]}
+      ],
+      "monthlyRevenue": { "target": 28, "done": 7, "breakdown": [
+        {"id": "book", "name": "书籍招募", "target": 15, "done": 7, "note": "目标15万，已加入GMV 7万（7位作者）"},
+        {"id": "consult", "name": "免费咨询", "target": 5, "done": 0, "note": "目标5万，已收款待补充"},
+        {"id": "training", "name": "内训营", "target": 3, "done": 0},
+        {"id": "hangzhou", "name": "杭州线下", "target": 5, "done": 0, "note": "本周六(8/15)举办"}
+      ]},
+      "rd": {
+        "directions": [
+          {"name": "建立新的增长渠道", "desc": "拓展公域/私域获客来源"},
+          {"name": "优化用户转化链路", "desc": "跑通流量→咨询→成交"},
+          {"name": "打造阶段性营收突破项目", "desc": "线下活动等核心增长项目"}
+        ],
+        "budget": [
+          {"project": "线下活动", "status": "待预算会议（场地/人员/物料/招募/奖金）", "risk": "high"},
+          {"project": "引流咨询", "status": "暂无明确预算", "risk": "medium"},
+          {"project": "新书共创", "status": "归入新书整体，无需单独预算", "risk": "low"},
+          {"project": "内训营", "status": "核心成员待补充，成本待明确", "risk": "high"}
+        ]
+      },
+      "projects": [
+        {
+          "id": "offline", "name": "线下活动", "level": 5, "priority": "P1", "owner": "小楠", "operator": "若醒",
+          "period": "8-9月", "icon": "🎪", "revenueTarget": 100, "revenueDone": 0, "progress": null,
+          "formula": "200人招募 × 觉醒合伙人转化 = 100万营收", "stage": "待筹备", "cost": "待预算会议确定", "positioning": "公司阶段性核心增长项目：用户聚集 + 信任建立 + 觉醒合伙人转化", "metrics": ["招募 200 人", "营收 100 万", "核心转化：觉醒合伙人"],
+          "flag": "red", "flagText": "需决策", "focus": "完成方案设计",
+          "subProjects": [
+            {"name": "活动方案", "status": "待完成", "progress": 0, "owner": "若醒"}, {"name": "招募策略", "status": "待完成", "progress": 0, "owner": "小楠"},
+            {"name": "转化流程", "status": "待完成", "progress": 0, "owner": "若醒"}, {"name": "预算成本", "status": "待决策", "progress": 0, "owner": "小楠"}
+          ]
+        },
+        {
+          "id": "consult", "name": "引流咨询", "level": 4, "priority": "P2", "owner": "阿猫", "operator": "长安",
+      "period": "8-10月", "icon": "💬", "revenueTarget": 5, "revenueDone": 0, "progress": null,
+      "formula": "免费咨询目标 5万（模型验证 + 转化）", "stage": "模型测试阶段", "cost": "暂无明确预算", "positioning": "长期增长模型验证：跑通「流量→咨询→成交」核心转化链路", "metrics": ["8月 30 有效咨询", "成交 3 单觉醒合伙人", "持续 2-3 个月"], "channels": [{"src":"公域(小红书/抖音)","owner":"长安"},{"src":"公众号","owner":"柒青"},{"src":"私域","owner":"童童"}],
+          "flag": "yellow", "flagText": "需关注", "focus": "完成咨询流程优化",
+          "subProjects": [
+            {"name": "用户问卷", "status": "优化中", "progress": 30, "owner": "长安"}, {"name": "用户分层", "status": "优化中", "progress": 20, "owner": "长安"},
+            {"name": "咨询流程 SOP", "status": "梳理中", "progress": 20, "owner": "长安"}, {"name": "咨询方法论", "status": "待建立", "progress": 10, "owner": "阿猫"}
+          ]
+        },
+        {
+          "id": "book", "name": "新书共创", "level": 3, "priority": "P3", "owner": "堂主", "operator": "若醒",
+          "period": "8月", "icon": "📖", "revenueTarget": 15, "revenueDone": 7, "progress": 47,
+          "formula": "15位共创作者 × 1万/人 = 15万营收", "stage": "已启动（已招 7/15）", "cost": "暂不单独计算，归入新书整体", "positioning": "围绕《只工作不上班》打造共创内容，用户参与案例共创并创造额外营收（IP生态）", "metrics": ["招募 15 位共创作者", "客单价 1 万/人", "营收 15 万"],
+          "flag": "green", "flagText": "不需要", "focus": "完成15人招募",
+          "subProjects": [
+            {"name": "作者招募", "status": "进行中", "progress": 47, "owner": "若醒"}, {"name": "合同与收款", "status": "进行中", "progress": 47, "owner": "若醒"},
+            {"name": "内容共创", "status": "待启动", "progress": 0, "owner": "堂主"}, {"name": "出版社提交", "status": "待启动", "progress": 0, "owner": "堂主"}
+          ]
+        },
+        {
+          "id": "training", "name": "内训营", "level": 3, "priority": "P3", "owner": "小楠", "operator": "小杨",
+      "period": "8/10-8/23", "icon": "🎓", "revenueTarget": 3, "revenueDone": 0, "progress": null,
+      "formula": "合作内训营 × 客单价2999 = 3万营收", "stage": "销售阶段（本周）", "cost": "待补充", "positioning": "打造标准化内训产品，验证内训模型，形成新现金流", "metrics": ["合作内训营", "客单价 2999 元", "目标营收 3 万"],
+          "flag": "yellow", "flagText": "需关注", "focus": "完成销售目标",
+          "subProjects": [
+            {"name": "销售招募", "status": "进行中", "progress": 20, "owner": "小杨"}, {"name": "直播转化", "status": "待启动", "progress": 0, "owner": "小杨"},
+            {"name": "内容打磨", "status": "待启动", "progress": 0, "owner": "待补充"}, {"name": "交付 SOP", "status": "待启动", "progress": 0, "owner": "待补充"}
+          ]
+        },
+        {
+          "id": "hangzhou", "name": "杭州线下", "level": 3, "priority": "P3", "owner": "林若醒", "operator": "待补充",
+          "period": "8月15日（本周六）", "icon": "🏙️", "revenueTarget": 5, "revenueDone": 0, "progress": 27,
+          "formula": "30人招募 × 15%转化 = 3单合伙人", "stage": "招募冲刺（本周六举办）", "cost": "待补充", "positioning": "本周六(8/15)杭州线下活动，作为 9月大型活动的预演与本地触点", "metrics": ["招募 30 人", "转化 3 单合伙人", "本周六举办"],
+          "flag": "yellow", "flagText": "需关注", "focus": "完成30人招募，嘉宾与操盘手到位",
+          "subProjects": [
+            {"name": "嘉宾邀约", "status": "已确认3人", "progress": 100, "owner": "林若醒"}, {"name": "用户招募", "status": "8/30", "progress": 27, "owner": "林若醒"},
+            {"name": "付费报名", "status": "1人", "progress": 10, "owner": "林若醒"}, {"name": "合伙人转化", "status": "2单待确认", "progress": 20, "owner": "林若醒"}
+          ]
+        }
+      ]
+    };
 
-</div>
+    const app = document.getElementById('app');
+    document.getElementById('updateTime').textContent = `更新：${DATA.updatedAt} | 2026-W33`;
 
-<div class="sumbar">
-  <div class="sl">合计目标 <b style="font-size:20px;color:#fbbf24">120万</b>　·　可量化营收 120万 + 引流咨询(验证期不计)</div>
-  <div class="sr">已收款 ≈7万（新书7人×1万，其余待启动）｜ 线下成本待预算会议</div>
-  <div class="sp">整体 ≈6%</div>
-</div>
+    function fmtNum(n) { return (n === null || n === undefined) ? '—' : n; }
+    function fmtMoney(n) { return (n === null || n === undefined) ? '—' : n + '万'; }
 
-<footer>觉醒经营作战仪表盘 v3 · 数据源：飞书《觉醒 8-9月经营作战项目盘点》· 目标版（实际数据接入后自动刷新）</footer>
+    function renderPeople() {
+      const cards = DATA.people.items.map(p => {
+        const missing = p.current === null || p.current === undefined;
+        const weekChannels = p.weekChannels && p.weekChannels.length ? p.weekChannels.map(c => `<span class="channel-tag">${c.name} ${c.value || ''}</span>`).join('') : '<span class="channel-tag missing">待补充</span>';
+        const monthChannels = p.monthChannels && p.monthChannels.length ? p.monthChannels.map(c => `<span class="channel-tag">${c.name} ${c.value || ''}</span>`).join('') : '<span class="channel-tag missing">待补充</span>';
+        return `
+          <div class="people-card ${p.temporary ? 'temporary' : ''}">
+            ${p.temporary ? '<div class="people-badge">临时</div>' : ''}
+            <div class="people-top"><div class="people-icon">${p.icon}</div><div class="people-name">${p.name}</div></div>
+            <div class="people-metrics">
+              <div class="people-hero">
+                <div class="people-metric-label">现有 · 累计</div>
+                <div class="people-metric-value ${missing ? 'missing' : ''}">${missing ? '待填' : p.current}</div>
+              </div>
+              <div class="people-deltas">
+                <div class="people-delta"><div class="people-delta-label">本周新增</div><div class="people-delta-val ${p.weekAdd === null ? 'zero' : ''}">${p.weekAdd === null ? '待填' : '+' + fmtNum(p.weekAdd)}</div></div>
+                <div class="people-delta"><div class="people-delta-label">本月新增</div><div class="people-delta-val ${p.monthAdd === null ? 'zero' : ''}">${p.monthAdd === null ? '待填' : '+' + fmtNum(p.monthAdd)}</div></div>
+              </div>
+            </div>
+            <div class="people-channels"><div class="people-channel-title">本周新增渠道</div><div class="channel-tags">${weekChannels}</div></div>
+            <div class="people-channels"><div class="people-channel-title">本月新增渠道</div><div class="channel-tags">${monthChannels}</div></div>
+            ${p.target ? `<div class="note" style="margin-top:10px;padding:6px 10px;font-size:11px">目标：${p.target} 人</div>` : ''}
+          </div>`;
+      }).join('');
 
+      const weekPie = makeDonut(DATA.people.items.map(p => ({
+        label: p.name, value: p.weekGMV || 0, color: p.id === 'sidong' ? '#e23744' : p.id === 'partner' ? '#ff6b35' : p.id === 'newbiz' ? '#ff8c66' : '#ffb020'
+      })), '本周');
+      const monthPie = makeDonut(DATA.people.items.map(p => ({
+        label: p.name, value: p.monthGMV || 0, color: p.id === 'sidong' ? '#e23744' : p.id === 'partner' ? '#ff6b35' : p.id === 'newbiz' ? '#ff8c66' : '#ffb020'
+      })), '本月');
+
+      const body = `
+        <div class="people-layout">
+          <div class="people-grid">${cards}</div>
+          <div class="people-charts">
+            <div class="chart-card"><div class="chart-title">本周 GMV 分布</div>${weekPie.svg}<div class="legend">${weekPie.legend}</div></div>
+            <div class="chart-card"><div class="chart-title">本月 GMV 分布</div>${monthPie.svg}<div class="legend">${monthPie.legend}</div></div>
+          </div>
+        </div>
+        <div class="note missing-note">${DATA.people.note}</div>
+      `;
+      return section('people', '项目人数', body);
+    }
+
+    function isProjectRunning(p) {
+      if (p.progress && p.progress > 0) return true;
+      if (p.stage && (p.stage.includes('销售') || p.stage.includes('交付') || p.stage.includes('测试') || p.stage.includes('已启动'))) return true;
+      return false;
+    }
+
+    function projectCard(p, spanAll) {
+      const progress = p.progress || 0;
+      const progressText = p.progress ? `${p.progress}%` : '待启动';
+      const revDone = p.revenueDone !== null ? `${p.revenueDone}万` : '—';
+      const revTarget = p.revenueTarget !== null ? `${p.revenueTarget}万` : '非直接营收';
+      const subRows = p.subProjects.map(s => `
+        <div class="subproject"><div><div class="subproject-name">${s.name}</div><div class="subproject-owner">${s.owner} · ${s.status}</div></div><div class="subproject-bar-wrap"><div class="subproject-bar"><div class="subproject-bar-fill" style="width:${s.progress}%"></div></div></div></div>`).join('');
+      return `
+        <div class="project-card ${p.priority.toLowerCase()} ${spanAll ? 'span-all' : ''}" onclick="toggleSub('${p.id}')">
+          <div class="project-top"><div><div class="project-title">${p.icon} ${p.name}</div><div class="project-meta">负责人 ${p.owner} · 操盘手 ${p.operator} · ${p.period}</div></div><div style="display:flex;align-items:center;gap:10px"><span class="project-priority">${p.priority}</span><div class="project-rag rag-${p.flag}"></div></div></div>
+          <div class="project-kpis"><div class="project-kpi"><div class="project-kpi-label">本月目标营收</div><div class="project-kpi-value">${revTarget}</div></div><div class="project-kpi"><div class="project-kpi-label">已完成</div><div class="project-kpi-value">${revDone}</div></div><div class="project-kpi"><div class="project-kpi-label">状态</div><div class="project-kpi-value small">${p.flagText}</div></div></div>
+          <div class="project-progress"><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${progress}%"></div></div><div class="progress-label">项目进度：${progressText}</div></div>
+          <div class="project-extra">
+            ${p.positioning ? `<div class="project-positioning">📍 ${p.positioning}</div>` : ''}
+            ${p.metrics && p.metrics.length ? `<div class="project-metrics">${p.metrics.map(m => `<span class="metric-chip">${m}</span>`).join('')}</div>` : ''}
+            ${p.channels && p.channels.length ? `<div class="project-channels"><b>渠道分工：</b>${p.channels.map(c => `${c.src} ${c.owner}`).join(' · ')}</div>` : ''}
+          </div>
+          <div class="expand-hint">点击展开 4 个小项目 ▼</div><div class="subprojects" id="sub-${p.id}">${subRows}</div>
+        </div>`;
+    }
+
+    // 小鹅通实时出单接口地址（留空 = 使用下方占位示例；接入 Worker 后填入其 /orders 地址）
+    const ORDERS_API = '';
+
+    function startOrderFeed() {
+      if (!ORDERS_API) return;
+      const track = () => document.querySelector('.orders-rail-track');
+      async function update() {
+        try {
+          const res = await fetch(ORDERS_API, { cache: 'no-store' });
+          if (!res.ok) return;
+          const list = await res.json();
+          if (!Array.isArray(list) || !list.length) return;
+          const html = list.map(orderItemHTML).join('');
+          const t = track();
+          if (t) t.innerHTML = html + html; // 复制一份保证滚动无缝
+        } catch (e) { /* 网络异常时保留占位示例，不影响其他板块 */ }
+      }
+      update();
+      setInterval(update, 30000); // 每 30 秒刷新一次
+    }
+
+    function orderItemHTML(o) {
+      const amt = (o.amount != null && o.amount !== '' && o.amount !== 0) ? ` <span style="color:#ffb020;font-size:11px;margin-left:4px">¥${o.amount}</span>` : '';
+      return `<div class="order-item"><div class="order-time">${o.time}</div><div class="order-product">${o.product}${amt}</div><div class="order-member">${o.member}${o.channel && o.channel !== '—' ? ' · ' + o.channel : ''}</div></div>`;
+    }
+
+    function renderOrders() {
+      const one = DATA.orders.map(orderItemHTML).join('');
+      return `
+        <div class="orders-rail">
+          <div class="orders-rail-header">🔥 实时出单<span class="live-dot"></span>LIVE</div>
+          <div class="orders-rail-window"><div class="orders-rail-track">${one}${one}</div></div>
+        </div>`;
+    }
+
+    function renderRevenueComposition() {
+      const colors = { book: '#e23744', consult: '#ff6b35', training: '#ffb020', hangzhou: '#ff8c66' };
+      const bd = DATA.monthlyRevenue.breakdown;
+      const targetData = bd.map(d => ({label: d.name, value: d.target, color: colors[d.id] || '#94a3b8'}));
+      const doneData = bd.map(d => ({label: d.name, value: d.done || 0, color: colors[d.id] || '#94a3b8'}));
+      const targetDonut = makeDonut(targetData, '目标');
+      const doneDonut = makeDonut(doneData, '已收');
+      const pct = Math.round((DATA.monthlyRevenue.done / DATA.monthlyRevenue.target) * 100);
+      return `
+        <div class="projects-comp">
+          <div class="comp-card">
+            <div class="comp-title">🎯 8月目标 GMV 构成</div>
+            ${targetDonut.svg}
+            <div class="legend">${targetDonut.legend}</div>
+          </div>
+          <div class="comp-card">
+            <div class="comp-title">✅ 当前已完成构成</div>
+            ${doneDonut.svg}
+            <div class="legend">${doneDonut.legend}</div>
+            <div class="comp-note">整体完成率 ${pct}%（${DATA.monthlyRevenue.done}万 / ${DATA.monthlyRevenue.target}万）</div>
+          </div>
+        </div>`;
+    }
+
+    function renderProjects() {
+      const all = [...DATA.projects].sort((a, b) => {
+        const ar = isProjectRunning(a), br = isProjectRunning(b);
+        if (ar && !br) return -1;
+        if (!ar && br) return 1;
+        const order = {P1:1, P2:2, P3:3};
+        return order[a.priority] - order[b.priority];
+      });
+      const running = all.filter(isProjectRunning).sort((a, b) => (b.revenueTarget || 0) - (a.revenueTarget || 0));
+      const pending = all.filter(p => !isProjectRunning(p));
+
+      const runningCards = running.map((p, i) => projectCard(p, running.length === 3 && i === 0));
+      const pendingCards = pending.map(p => projectCard(p, false));
+
+      const target = DATA.monthlyRevenue.target, done = DATA.monthlyRevenue.done;
+      const pct = Math.round(done / target * 100);
+      const kpiBand = `
+        <div class="kpi-band">
+          <div class="kpi-item"><div class="kpi-label">8月营收目标</div><div class="kpi-big">${target}<span class="kpi-unit">万</span></div></div>
+          <div class="kpi-item"><div class="kpi-label">当前已收款</div><div class="kpi-big">${done}<span class="kpi-unit">万</span> <span class="kpi-sub">/ ${target}万</span></div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:${pct}%"></div></div></div>
+          <div class="kpi-item"><div class="kpi-label">整体完成率</div><div class="kpi-big">${pct}<span class="kpi-unit">%</span></div></div>
+          <div class="kpi-item"><div class="kpi-label">在跑项目</div><div class="kpi-big">${running.length}<span class="kpi-unit">/${all.length}</span></div></div>
+        </div>`;
+
+      const left = `
+        <div class="project-subtitle">进行中项目 · ${running.length} 个</div>
+        <div class="project-grid">${runningCards.join('')}</div>
+        ${pending.length ? `<div class="project-subtitle pending">待启动项目 · ${pending.length} 个</div><div class="project-grid pending-grid">${pendingCards.join('')}</div>` : ''}`;
+
+      const body = `<div class="projects-page">${kpiBand}<div class="projects-layout"><div class="projects-left">${left}</div>${renderRevenueComposition()}${renderOrders()}</div></div>`;
+      return section('projects', '本月项目', body);
+    }
+
+    function renderWeekly() {
+      const dynRows = DATA.weeklyProgress.map(w => {
+        const p = DATA.projects.find(x => x.id === w.id);
+        return `<div class="focus-row"><div class="focus-project">${p.icon} ${p.name} <span style="font-weight:400;color:#6b7280">· ${p.owner}</span></div><div><div class="focus-flow"><div class="focus-stage">${w.lastWeekStage}</div><div class="focus-arrow">→</div><div class="focus-stage current">${w.thisWeekStage}</div><div class="focus-arrow">→</div><div class="focus-stage">${w.nextWeekStage}</div></div><div class="focus-text"><strong>本周重点：</strong>${w.thisWeekFocus}</div></div></div>`;
+      }).join('');
+
+      const tlGroups = (DATA.timeline || []).map(g => {
+        const items = g.items.map(m => `<div class="milestone"><div class="milestone-date">${m.date}</div><div><div class="milestone-body">${m.text}</div><div class="milestone-proj">${m.project}</div></div></div>`).join('');
+        return `<div class="tl-group"><div class="tl-group-head">${g.group}<span class="tl-range">${g.range}</span></div>${items}</div>`;
+      }).join('');
+
+      const body = `<div class="weekly-page">
+        <div class="weekly-top">
+          <div class="weekly-panel"><div class="project-subtitle">关键节点时间轴（8–9月）</div><div class="weekly-scroll timeline-list">${tlGroups}</div></div>
+          <div class="weekly-panel"><div class="project-subtitle">本周项目动态</div><div class="weekly-scroll focus-timeline">${dynRows}</div></div>
+        </div>
+      </div>`;
+      return section('weekly', '本周的重点', body);
+    }
+
+    function renderRD() {
+      const hero = `
+        <div class="rd-hero">
+          <div class="rd-hero-head">🎯 8-9月 三大作战方向（阶段经营核心）<div class="rd-hero-sub" style="font-size:13px;font-weight:500;opacity:.9;margin-top:6px">｜ 阶段基准：月营收 <b>30万</b> ・ 利润率 <b>30-40%</b> ｜ 8月目标 <b>28万</b> ・ 8-9月合计 <b>100万</b>（深圳大会8月中旬启动）</div></div>
+          <div class="rd-hero-cards">
+            ${DATA.rd.directions.map((d, i) => `
+              <div class="rd-hero-card">
+                <div class="rd-hero-num">方向 0${i+1}</div>
+                <div class="rd-hero-name">${d.name}</div>
+                <div class="rd-hero-desc">${d.desc}</div>
+              </div>`).join('')}
+          </div>
+        </div>`;
+
+      const matrixInner = `
+        <div class="rd-matrix">
+          <div class="rd-mrow head"><div>项目</div><div>等级</div><div>核心负责人</div><div>操盘手</div></div>
+          ${DATA.projects.map(p => `
+            <div class="rd-mrow">
+              <div class="rd-mproj">${p.icon} ${p.name}</div>
+              <div><span class="rd-mlevel l${p.level}">${p.level}级</span></div>
+              <div class="rd-mowner">${p.owner}</div>
+              <div class="rd-mop">${p.operator}</div>
+            </div>`).join('')}
+        </div>`;
+
+      const loadMap = {};
+      DATA.projects.forEach(p => {
+        [p.owner, p.operator].forEach(n => {
+          if (!loadMap[n]) loadMap[n] = [];
+          if (!loadMap[n].includes(p.name)) loadMap[n].push(p.name);
+        });
+      });
+      const loadRows = Object.keys(loadMap).map(name => {
+        const projs = loadMap[name], cnt = projs.length;
+        const st = cnt >= 4 ? 'over' : cnt >= 3 ? 'high' : 'normal';
+        const label = st === 'over' ? '过载' : st === 'high' ? '偏高' : '正常';
+        return `<div class="rd-load-row"><div class="rd-load-avatar">${name[0]}</div><div class="rd-load-info"><div class="rd-load-name">${name}<span class="rd-load-tag ${st}">${label}</span></div><div class="rd-load-projs">${projs.join(' · ')}</div></div><div class="rd-load-count ${st}">${cnt}</div></div>`;
+      }).join('');
+
+      const budgetRows = DATA.rd.budget.map(b => `
+        <div class="rd-budget-row ${b.risk}"><div class="rd-budget-proj">${b.project}<span class="rd-budget-risk ${b.risk}">${b.risk === 'high' ? '高风险' : b.risk === 'medium' ? '中风险' : '低风险'}</span></div><div class="rd-budget-status">${b.status}</div></div>`).join('');
+
+      const bottom = `
+        <div class="rd-bottom">
+          <div class="rd-panel"><div class="rd-panel-title">负责人 · 操盘手矩阵</div><div class="rd-scroll">${matrixInner}</div></div>
+          <div class="rd-panel"><div class="rd-panel-title">人力 · 精力负载</div><div class="rd-scroll"><div class="rd-load">${loadRows}</div></div></div>
+          <div class="rd-panel"><div class="rd-panel-title">成本预算状态</div><div class="rd-scroll"><div class="rd-budget">${budgetRows}</div></div></div>
+        </div>`;
+
+      const body = `<div class="rd-page">${hero}${bottom}</div>`;
+      return section('rd', '资源与决策', body);
+    }
+
+    function section(tabId, title, body) {
+      const hidden = tabId === 'people' ? '' : ' hidden';
+      return `<div class="section tab-panel${hidden}" id="tab-${tabId}" aria-label="${title}"><div class="section-body">${body}</div></div>`;
+    }
+
+    function makePie(data) {
+      const total = data.reduce((a, b) => a + b.value, 0) || 1;
+      let acc = 0;
+      const slices = data.map(d => {
+        const start = acc / total * Math.PI * 2; acc += d.value;
+        const end = acc / total * Math.PI * 2;
+        const x1 = 50 + 40 * Math.cos(start), y1 = 50 + 40 * Math.sin(start);
+        const x2 = 50 + 40 * Math.cos(end), y2 = 50 + 40 * Math.sin(end);
+        const large = end - start > Math.PI ? 1 : 0;
+        return `<path d="M50,50 L${x1},${y1} A40,40 0 ${large},1 ${x2},${y2} Z" fill="${d.color}" stroke="#fff" stroke-width="1" />`;
+      }).join('');
+      const legend = data.map(d => `<div class="legend-item"><div class="legend-dot" style="background:${d.color}"></div>${d.label} ${d.value}</div>`).join('');
+      return {svg: `<svg class="pie-chart" viewBox="0 0 100 100">${slices}</svg>`, legend};
+    }
+
+    function makeDonut(data, labelPrefix) {
+      const total = data.reduce((a, b) => a + b.value, 0) || 1;
+      let acc = 0;
+      const slices = data.map(d => {
+        const start = acc / total * Math.PI * 2; acc += d.value;
+        const end = acc / total * Math.PI * 2;
+        const x1 = 50 + 40 * Math.cos(start), y1 = 50 + 40 * Math.sin(start);
+        const x2 = 50 + 40 * Math.cos(end), y2 = 50 + 40 * Math.sin(end);
+        const large = end - start > Math.PI ? 1 : 0;
+        return `<path d="M50,50 L${x1},${y1} A40,40 0 ${large},1 ${x2},${y2} Z" fill="${d.color}" stroke="#fff" stroke-width="1" />`;
+      }).join('');
+      const legend = data.map(d => `<div class="legend-item"><div class="legend-dot" style="background:${d.color}"></div>${d.label} ${d.value ? d.value + '万' : '—'}</div>`).join('');
+      const centerText = total > 0 ? `${labelPrefix}<tspan x="50" dy="12">${total}万</tspan>` : '暂无';
+      return {svg: `<svg class="pie-chart" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="transparent"/>${slices}<circle cx="50" cy="50" r="24" fill="#f3f4f6"/><text x="50" y="48" class="pie-center">${centerText}</text></svg>`, legend};
+    }
+
+    window.showTab = function(id) {
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+      document.getElementById('tab-' + id).classList.remove('hidden');
+      document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+      document.querySelector('[data-tab="' + id + '"]').classList.add('active');
+    };
+    window.toggleSub = function(id) { document.getElementById('sub-' + id).classList.toggle('open'); };
+
+    app.innerHTML = renderPeople() + renderProjects() + renderWeekly() + renderRD();
+    startOrderFeed();
+
+    document.getElementById('principlesFooter').innerHTML =
+      '<div class="pf-title">📌 项目管理原则</div><div class="pf-items">' +
+      DATA.principles.map((t, i) => `<span>${'①②③④'[i]} ${t}</span>`).join('') + '</div>';
+  </script>
 </body>
 </html>
