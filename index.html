@@ -124,10 +124,11 @@
     .missing-note { color: var(--amber); }
 
     /* Section 2: Projects - layout */
-    .projects-layout { display: flex; gap: 18px; align-items: stretch; flex: 1; min-height: 0; }
+    .projects-layout { display: flex; gap: 18px; align-items: stretch; }
     .projects-left { flex: 1; min-width: 0; min-height: 0; }
-    .projects-comp { flex: 0 0 250px; background: linear-gradient(180deg, #fff6ef 0%, #ffecdc 100%); border: 1px solid #ffd2b8; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 12px; min-height: 0; margin-top: 26px; align-self: stretch; }
-    .comp-card { flex: 1; min-height: 0; background: linear-gradient(180deg,#fffaf5,#fff1e8); border: 1px solid #ffe0cc; border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; align-items: center; overflow: auto; box-shadow: 0 4px 16px rgba(255,107,53,.12); }
+    .projects-right { display: flex; flex-direction: column; gap: 14px; flex: 0 0 250px; min-height: 0; align-self: stretch; }
+    .projects-comp { flex: 1; min-height: 0; overflow: hidden; background: linear-gradient(180deg, #fff6ef 0%, #ffecdc 100%); border: 1px solid #ffd2b8; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 12px; align-self: auto; }
+    .comp-card { flex: 1; min-height: 0; background: linear-gradient(180deg,#fffaf5,#fff1e8); border: 1px solid #ffe0cc; border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: auto; box-shadow: 0 4px 16px rgba(255,107,53,.12); }
     .comp-title { font-size: 14px; font-weight: 800; color: #7a2e12; align-self: flex-start; margin-bottom: 4px; }
     .comp-note { font-size: 11px; color: var(--gray-500); align-self: flex-start; margin-top: 6px; line-height: 1.4; }
     .comp-card .pie-chart { width: 132px; height: 132px; margin: 2px auto 0; }
@@ -182,7 +183,7 @@
     .subproject-bar { height: 5px; background: var(--gray-100); border-radius: 999px; overflow: hidden; }
     .subproject-bar-fill { height: 100%; background: var(--flame); border-radius: 999px; }
     .expand-hint { font-size: 12px; color: #c0392b; font-weight: 700; margin-top: 10px; }
-    .projects-page { display: flex; flex-direction: column; height: 100%; gap: 14px; }
+    .projects-page { display: flex; flex-direction: column; min-height: 100%; gap: 14px; }
     .kpi-band { display: flex; gap: 14px; background: var(--flame-deep); color: #fff; border-radius: 14px; padding: 18px 24px; box-shadow: 0 10px 34px rgba(180,30,20,.42), inset 0 1px 0 rgba(255,255,255,.14); border: 1px solid rgba(255,120,80,.4); }
     .kpi-item { flex: 1; position: relative; }
     .kpi-label { font-size: 12px; opacity: 0.88; font-weight: 600; letter-spacing: .3px; }
@@ -196,10 +197,11 @@
 
     /* Orders rail (right column, vertical marquee) */
     .orders-rail {
+      flex: 1; min-height: 0; overflow: hidden;
       background: linear-gradient(180deg, #fff6ef 0%, #ffecdc 100%);
       border: 1px solid #ffc6a3; border-radius: 14px;
-      display: flex; flex-direction: column; overflow: hidden; box-shadow: var(--glow-fire);
-      margin-top: 26px; align-self: stretch;
+      display: flex; flex-direction: column; box-shadow: var(--glow-fire);
+      align-self: auto;
     }
     .orders-rail-header {
       padding: 11px 14px; font-size: 13px; font-weight: 800; color: #fff;
@@ -207,8 +209,8 @@
       background: var(--flame); letter-spacing: .5px;
     }
     .live-dot { width: 8px; height: 8px; border-radius: 50%; background: #fff; box-shadow: 0 0 0 0 rgba(255,255,255,.8); animation: livePulse 1.4s infinite; }
-    .orders-rail-window { flex: 1; overflow: hidden; position: relative; -webkit-mask-image: linear-gradient(180deg, transparent, #000 10%, #000 88%, transparent); mask-image: linear-gradient(180deg, transparent, #000 10%, #000 88%, transparent); }
-    .orders-rail-track { will-change: transform; animation: scrollUp 22s linear infinite; }
+    .orders-rail-window { flex: 1; overflow: hidden; position: relative; min-height: 0; -webkit-mask-image: linear-gradient(180deg, transparent, #000 10%, #000 88%, transparent); mask-image: linear-gradient(180deg, transparent, #000 10%, #000 88%, transparent); }
+    .orders-rail-track { position: absolute; top: 0; left: 0; right: 0; will-change: transform; animation: scrollUp 22s linear infinite; }
     .orders-rail-window:hover .orders-rail-track { animation-play-state: paused; }
     @keyframes scrollUp { from { transform: translateY(0); } to { transform: translateY(-50%); } }
     @keyframes pulseGlow { 0%,100% { box-shadow: 0 0 12px rgba(255,90,40,.35); } 50% { box-shadow: 0 0 20px rgba(255,90,40,.6); } }
@@ -604,7 +606,7 @@
       return `
         <div class="orders-rail">
           <div class="orders-rail-header">🔥 实时出单<span class="live-dot"></span>LIVE</div>
-          <div class="orders-rail-window"><div class="orders-rail-track">${one}${one}</div></div>
+          <div class="orders-rail-window"><div class="orders-rail-track">${one}${one}${one}${one}</div></div>
         </div>`;
     }
 
@@ -656,12 +658,9 @@
           <div class="kpi-item"><div class="kpi-label">在跑项目</div><div class="kpi-big">${running.length}<span class="kpi-unit">/${all.length}</span></div></div>
         </div>`;
 
-      const left = `
-        <div class="project-subtitle">进行中项目 · ${running.length} 个</div>
-        <div class="project-grid">${runningCards.join('')}</div>
-        ${pending.length ? `<div class="project-subtitle pending">待启动项目 · ${pending.length} 个</div><div class="project-grid pending-grid">${pendingCards.join('')}</div>` : ''}`;
+      const leftBody = `<div class="project-grid">${runningCards.join('')}</div>${pending.length ? `<div class="project-subtitle pending">待启动项目 · ${pending.length} 个</div><div class="project-grid pending-grid">${pendingCards.join('')}</div>` : ''}`;
 
-      const body = `<div class="projects-page">${kpiBand}<div class="projects-layout"><div class="projects-left">${left}</div>${renderRevenueComposition()}${renderOrders()}</div></div>`;
+      const body = `<div class="projects-page">${kpiBand}<div class="project-subtitle">进行中项目 · ${running.length} 个</div><div class="projects-layout"><div class="projects-left">${leftBody}</div><div class="projects-right">${renderOrders()}${renderRevenueComposition()}</div></div></div>`;
       return section('projects', '本月项目', body);
     }
 
