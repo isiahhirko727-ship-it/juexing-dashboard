@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>觉醒 8-9月 经营作战项目总览 v3</title>
+<style>
+:root{
+  --bg:#f0f1f4; --card:#ffffff; --ink:#1a1a2e; --sub:#6c757d; --line:#e3e6ec;
+  --lv5:#b91c1c; --lv5l:#ef4444;   /* 5级 战略 红 */
+  --lv4:#c2410c; --lv4l:#f97316;   /* 4级 橙 */
+  --lv3:#1d4ed8; --lv3l:#3b82f6;   /* 3级 蓝 */
+  --ok:#16a34a; --warn:#ca8a04; --danger:#dc2626;
+  --shadow:0 1px 3px rgba(0,0,0,.06),0 4px 14px rgba(0,0,0,.05);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);padding:18px 20px 50px;font-size:14px;line-height:1.55}
+
+.hd{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.hd h1{font-size:21px;font-weight:800;letter-spacing:.3px}
+.hd .meta{color:var(--sub);font-size:12.5px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.tag{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11.5px;font-weight:700;background:#eef2ff;color:#3730a3}
+.tot{font-size:15px;font-weight:800}.tot b{font-size:20px;color:var(--lv5)}
+
+.note{background:#f8fafc;border:1px solid var(--line);color:var(--sub);padding:7px 13px;border-radius:9px;font-size:12px;margin:10px 0 14px}
+.note b{color:var(--ink)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(305px,1fr));gap:14px;margin-bottom:14px}
+
+.pcard{background:var(--card);border-radius:13px;padding:16px 17px 15px;box-shadow:var(--shadow);border-top:4px solid var(--lv3);position:relative}
+.pcard.c5{border-top-color:var(--lv5)}.pcard.c4{border-top-color:var(--lv4)}.pcard.c3{border-top-color:var(--lv3)}
+.pcard:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.09)}
+
+/* row1: name + star + owner + bossflag */
+.pc-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.pc-name{display:flex;align-items:center;gap:7px;font-size:16px;font-weight:800}
+.pc-name .ico{font-size:18px}
+.pc-stars{color:#f59e0b;font-size:12px;letter-spacing:1px;margin-top:2px}
+.pc-owner{color:var(--sub);font-size:12px;white-space:nowrap}
+.bflag{position:absolute;top:14px;right:14px;font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:20px}
+.bflag.r{background:#fef2f2;color:var(--danger)}.bflag.y{background:#fffbeb;color:var(--warn)}.bflag.g{background:#f0fdf4;color:var(--ok)}
+/* push name down so it doesn't collide with flag */
+.pc-name{margin-right:74px}
+
+/* hero money */
+.pc-money{margin:9px 0 2px}
+.pc-money .amt{font-size:34px;font-weight:900;line-height:1.05}
+.pc-money .pct{font-size:20px;font-weight:800;margin-left:6px}
+.c5 .pc-money .amt,.c5 .pc-money .pct{color:var(--lv5)}
+.c4 .pc-money .amt,.c4 .pc-money .pct{color:var(--lv4)}
+.c3 .pc-money .amt,.c3 .pc-money .pct{color:var(--lv3)}
+.pc-sub{font-size:11.5px;color:var(--sub);font-weight:600;margin-top:-2px}
+
+.pc-fml{color:var(--sub);font-size:12.5px;margin:7px 0 8px}
+.pb{height:10px;background:#eef0f4;border-radius:6px;overflow:hidden;margin-bottom:9px}
+.pb .fill{height:100%;border-radius:6px;transition:width .5s}
+.c5 .pb .fill{background:linear-gradient(90deg,var(--lv5),var(--lv5l))}
+.c4 .pb .fill{background:linear-gradient(90deg,var(--lv4),var(--lv4l))}
+.c3 .pb .fill{background:linear-gradient(90deg,var(--lv3),var(--lv3l))}
+
+.pc-metrics{display:flex;flex-wrap:wrap;gap:5px 14px;font-size:12.5px;align-items:center}
+.pc-metrics .m-val{font-weight:700}
+.m-ok{color:var(--ok)}.m-warn{color:var(--warn)}.m-danger{color:var(--danger)}
+.ddl{font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:6px;background:#f1f5f9;color:#475569}
+.ddl.tight{background:#fef2f2;color:var(--danger)}
+.ddl.soon{background:#fffbeb;color:var(--warn)}
+
+.sumbar{background:#1e293b;color:#fff;border-radius:12px;padding:15px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.sumbar .sl{font-size:14px;font-weight:700}
+.sumbar .sr{font-size:12.5px;color:#94a3b8}
+.sumbar .sp{font-size:17px;font-weight:900;color:#fbbf24}
+
+footer{margin-top:24px;color:#94a3b8;font-size:11px;text-align:center}
+@media(max-width:720px){.grid{grid-template-columns:1fr}.pc-name{margin-right:0}}
+</style>
+</head>
+<body>
+
+<div class="hd">
+  <h1>觉醒 8-9月 经营作战项目总览</h1>
+  <div class="meta">
+    <span>更新至 2026/08/11</span>
+    <span class="tag">目标版 · 待接入实际数据</span>
+    <span class="tot">合计目标 <b>120万</b></span>
+    <span style="color:var(--sub)">整体 ≈6%</span>
+  </div>
+</div>
+
+<div class="note">
+<b>参考图我学到的（留下）：</b>卡片即项目、金额当主角、进度条、每卡老板介入状态、底部汇总栏。
+<b>参考图我丢掉的（不适合本盘）：</b>不叫"GMV四项目"（引流咨询非营收）、不套它的四色（改用<b>按星级分级配色</b>呼应"资源按等级投"）、不搬它的"本次配额"等专属标签。
+</div>
+
+<div class="grid">
+
+<!-- 1. 线下活动 5级 -->
+<div class="pcard c5">
+  <span class="bflag r">🔴 需决策</span>
+  <div class="pc-top">
+    <div>
+      <div class="pc-name"><span class="ico">🎪</span> 线下活动</div>
+      <div class="pc-stars">★★★★★ 5级 · 公司战略</div>
+    </div>
+    <div class="pc-owner">小楠 / 若醒</div>
+  </div>
+  <div class="pc-money"><span class="amt">100万</span><span class="pct">—%</span></div>
+  <div class="pc-fml">200人招募 × 觉醒合伙人转化 = 100万营收</div>
+  <div class="pb"><div class="fill" style="width:0%"></div></div>
+  <div class="pc-metrics">
+    <span>招募 <span class="m-val m-danger">0/200</span></span>
+    <span>阶段 <span class="m-val m-warn">待筹备</span></span>
+    <span>成本 <span class="m-val m-danger">待预算会议</span></span>
+    <span class="ddl">⏳ 距复盘 9/20 剩40天</span>
+  </div>
+</div>
+
+<!-- 2. 引流咨询 4级 -->
+<div class="pcard c4">
+  <span class="bflag y">🟡 需关注</span>
+  <div class="pc-top">
+    <div>
+      <div class="pc-name"><span class="ico">💬</span> 引流咨询</div>
+      <div class="pc-stars">★★★★ 4级 · 模型验证</div>
+    </div>
+    <div class="pc-owner">阿猫 / 长安</div>
+  </div>
+  <div class="pc-money"><span class="amt">验证期</span></div>
+  <div class="pc-sub">非营收目标 · 跑通 流量→咨询→成交</div>
+  <div class="pc-fml">30有效咨询 × 10%转化 = 3单合伙人</div>
+  <div class="pb"><div class="fill" style="width:0%"></div></div>
+  <div class="pc-metrics">
+    <span>有效咨询 <span class="m-val m-warn">0/30</span></span>
+    <span>已成交 <span class="m-val m-danger">0/3</span></span>
+    <span>待优化 <span class="m-val m-warn">问卷·分层·流程·方法论·团队</span></span>
+  </div>
+</div>
+
+<!-- 3. 新书共创 3级 -->
+<div class="pcard c3">
+  <span class="bflag g">🟢 不需要</span>
+  <div class="pc-top">
+    <div>
+      <div class="pc-name"><span class="ico">📖</span> 新书共创</div>
+      <div class="pc-stars">★★★ 3级 · 专项推进</div>
+    </div>
+    <div class="pc-owner">堂主 / 若醒</div>
+  </div>
+  <div class="pc-money"><span class="amt">15万</span><span class="pct">47%</span></div>
+  <div class="pc-fml">15位共创作者 × 1万/人 = 15万营收</div>
+  <div class="pb"><div class="fill" style="width:47%"></div></div>
+  <div class="pc-metrics">
+    <span>已招募 <span class="m-val m-ok">7/15</span></span>
+    <span>已收款 <span class="m-val m-ok">≈7万</span></span>
+    <span class="ddl soon">⏳ 交出版社 8/20 剩9天</span>
+  </div>
+</div>
+
+<!-- 4. 内训营 3级 -->
+<div class="pcard c3">
+  <span class="bflag y">🟡 需关注</span>
+  <div class="pc-top">
+    <div>
+      <div class="pc-name"><span class="ico">🎓</span> 内训营</div>
+      <div class="pc-stars">★★★ 3级 · 专项推进</div>
+    </div>
+    <div class="pc-owner">小楠 / 小杨</div>
+  </div>
+  <div class="pc-money"><span class="amt">5万</span><span class="pct">—%</span></div>
+  <div class="pc-fml">合作内训营 × 客单价2999 = 5万营收</div>
+  <div class="pb"><div class="fill" style="width:0%"></div></div>
+  <div class="pc-metrics">
+    <span>窗口 <span class="m-val m-warn">8/10–8/23</span></span>
+    <span>核心成员 <span class="m-val m-danger">待补充</span></span>
+    <span class="ddl soon">⏳ 结营 8/23 剩12天</span>
+  </div>
+</div>
+
+</div>
+
+<div class="sumbar">
+  <div class="sl">合计目标 <b style="font-size:20px;color:#fbbf24">120万</b>　·　可量化营收 120万 + 引流咨询(验证期不计)</div>
+  <div class="sr">已收款 ≈7万（新书7人×1万，其余待启动）｜ 线下成本待预算会议</div>
+  <div class="sp">整体 ≈6%</div>
+</div>
+
+<footer>觉醒经营作战仪表盘 v3 · 数据源：飞书《觉醒 8-9月经营作战项目盘点》· 目标版（实际数据接入后自动刷新）</footer>
+
+</body>
+</html>
