@@ -66,69 +66,82 @@
     .section.hidden { display: none; }
     .section-body { padding: 16px 24px; flex: 1; min-height: 0; overflow: auto; }
 
-    /* Section 1: People */
-    .people-layout { display: grid; grid-template-columns: 1fr 360px; gap: 22px; align-items: stretch; }
-    .people-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    /* Section 1: Products */
+    .products-page { display: flex; flex-direction: column; gap: 18px; height: 100%; }
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; align-items: stretch; }
     .people-card {
-      background: var(--green-50); border-radius: 12px; padding: 18px;
-      border: 1px solid #ffd9c2; position: relative;
+      border-radius: 14px; border: 1px solid var(--gray-100); padding: 20px;
+      transition: .2s; position: relative; overflow: hidden;
+      background: var(--white); box-shadow: 0 4px 16px rgba(0,0,0,.05);
+      display: flex; flex-direction: column; min-height: 460px;
     }
-    .people-card.temporary { border-color: #fde68a; background: #fffbeb; }
-    .people-badge {
-      position: absolute; top: 12px; right: 12px; font-size: 11px;
-      background: #fde68a; color: #92400e; padding: 3px 8px; border-radius: 999px;
+    .people-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+    .people-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 6px; }
+    .people-card .people-top { margin-bottom: 8px; }
+    .people-name { font-size: 32px; font-weight: 900; letter-spacing: -.3px; line-height: 1.15; }
+    .people-owner { font-size: 15px; color: var(--gray-700); margin-top: 6px; font-weight: 800; display: flex; align-items: baseline; gap: 7px; }
+    .people-owner .owner-k { font-size: 12px; font-weight: 800; color: var(--gray-500); }
+    .people-owner .owner-v { font-size: 19px; font-weight: 900; letter-spacing: -.3px; }
+    .people-numbers { display: flex; align-items: baseline; gap: 14px; margin: 14px 0 6px; }
+    .people-target { font-size: 36px; font-weight: 900; letter-spacing: -1px; line-height: 1; }
+    .people-target .unit { font-size: 16px; font-weight: 700; margin-left: 2px; }
+    .people-pct { font-size: 26px; font-weight: 900; letter-spacing: -1px; }
+    .people-labels { display: flex; gap: 14px; font-size: 11px; color: var(--gray-500); margin-bottom: 12px; }
+    .people-progress { margin-bottom: 14px; }
+    .people-summary { display: flex; gap: 10px; margin: 10px 0 12px; flex-wrap: wrap; }
+    .people-summary-item {
+      flex: 1; min-width: 80px; background: rgba(255,255,255,.55); border: 1px solid rgba(0,0,0,.05);
+      border-radius: 10px; padding: 10px 8px; text-align: center;
     }
-    .people-top { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-    .people-icon { font-size: 26px; }
-    .people-name { font-size: 18px; font-weight: 800; color: var(--gray-900); letter-spacing: 0.3px; }
-    .people-row { display: flex; gap: 14px; margin-bottom: 12px; }
-    .people-metrics { display: flex; gap: 12px; margin-bottom: 12px; align-items: stretch; }
-    .people-hero {
-      flex: 1.6; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
-      border-radius: 10px; padding: 12px 8px;
-      background: linear-gradient(135deg, #fff1e6 0%, #ffe0c7 100%);
-      border: 1px solid #ffc4a3;
-      box-shadow: 0 0 0 1px rgba(255,107,53,0.18), 0 6px 18px rgba(255,107,53,0.16);
-    }
-    .people-hero .people-metric-label { font-size: 11px; color: #c2410c; font-weight: 700; margin-bottom: 2px; letter-spacing: 0.5px; }
-    .people-hero .people-metric-value { font-size: 34px; font-weight: 900; color: var(--green-600); letter-spacing: -1px; line-height: 1.1; text-shadow: 0 1px 0 rgba(255,255,255,0.5); }
-    .people-hero .people-metric-value.missing { font-size: 16px; color: var(--gray-400); font-weight: 600; letter-spacing: 0; text-shadow: none; }
-    .people-deltas { flex: 1; display: flex; flex-direction: column; gap: 10px; }
-    .people-delta { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: rgba(255,255,255,0.65); border-radius: 8px; padding: 6px 4px; }
-    .people-delta-label { font-size: 10px; color: var(--gray-500); margin-bottom: 2px; }
-    .people-delta-val { font-size: 16px; font-weight: 700; color: var(--amber); }
-    .people-delta-val.zero { color: var(--gray-400); font-weight: 500; }
-    .people-channels { margin-top: 10px; }
-    .people-channel-title { font-size: 12px; color: var(--gray-500); margin-bottom: 6px; }
-    .channel-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .people-summary-label { font-size: 10px; font-weight: 800; opacity: .65; margin-bottom: 3px; }
+    .people-summary-value { font-size: 18px; font-weight: 900; letter-spacing: -.5px; }
+    .people-channels { margin-top: 6px; }
+    .people-channel-title { font-size: 11px; font-weight: 800; color: var(--gray-500); margin-bottom: 5px; }
+    .channel-tags { display: flex; flex-wrap: wrap; gap: 5px; }
     .channel-tag {
-      font-size: 11px; padding: 4px 10px; border-radius: 999px;
-      background: var(--white); color: var(--gray-700); border: 1px solid var(--gray-200);
+      font-size: 10px; padding: 3px 8px; border-radius: 999px;
+      background: rgba(255,255,255,.7); color: var(--gray-700); border: 1px solid rgba(0,0,0,.06);
+      font-weight: 600;
     }
     .channel-tag.missing { color: var(--gray-400); background: transparent; }
-    .people-charts { display: flex; flex-direction: column; gap: 18px; align-items: stretch; }
-
-    /* Section 1 (renamed): Products */
-    .products-page { display: flex; flex-direction: column; gap: 18px; }
-    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .products-charts { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-    .products-charts .chart-card { min-height: 220px; }
-
-    .chart-card {
-      background: linear-gradient(180deg, #fff6ef 0%, #ffecdc 100%);
-      border: 1px solid #ffd2b8; border-radius: 12px; padding: 18px 22px;
-      display: flex; flex-direction: row; align-items: center; justify-content: space-between;
-      gap: 24px; box-shadow: 0 4px 18px rgba(255,107,53,.16);
-    }
-    .chart-card-left { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; flex: 1; }
-    .chart-title { font-size: 15px; font-weight: 800; color: #7a2e12; }
-    .pie-chart { width: 180px; height: 180px; flex: 0 0 auto; }
-    .pie-center { fill: #7a2e12; font-size: 11px; font-weight: 700; text-anchor: middle; dominant-baseline: middle; }
-    .legend { display: flex; flex-direction: column; gap: 10px; }
-    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-700); }
-    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .people-comp { margin-top: auto; padding-top: 16px; border-top: 1px dashed rgba(0,0,0,.08); display: flex; align-items: center; gap: 18px; }
+    .people-comp-pie { flex: 0 0 200px; }
+    .people-comp-pie .pie-chart { width: 200px; height: 200px; }
+    .people-comp .legend { flex: 1; gap: 12px; }
+    .people-comp .legend-item { font-size: 14px; font-weight: 700; line-height: 1.35; }
+    .people-comp .legend-dot { width: 12px; height: 12px; }
     .note { font-size: 12px; color: var(--gray-500); margin-top: 14px; padding: 10px; background: var(--gray-50); border-radius: 8px; }
     .missing-note { color: var(--amber); }
+
+    /* Product themes — match project-card themes for strong contrast */
+    .people-card.theme-red::before { background: #e23744; }
+    .people-card.theme-red { border-color: rgba(226,55,68,.28); background: linear-gradient(180deg, #fffbfb 0%, #fff0f0 100%); }
+    .people-card.theme-red .people-name { color: #be123c; }
+    .people-card.theme-red .people-target { color: #e23744; }
+    .people-card.theme-red .people-pct { color: #e23744; }
+    .people-card.theme-red .people-summary-value { color: #e23744; }
+    .people-card.theme-red .people-owner .owner-v { color: #be123c; }
+    .people-card.theme-red .progress-bar-fill { background: linear-gradient(90deg, #e23744, #ff6b6b); }
+
+    .people-card.theme-blue::before { background: #3b82f6; }
+    .people-card.theme-blue { border-color: rgba(59,130,246,.28); background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%); }
+    .people-card.theme-blue .people-name { color: #1d4ed8; }
+    .people-card.theme-blue .people-target { color: #3b82f6; }
+    .people-card.theme-blue .people-pct { color: #3b82f6; }
+    .people-card.theme-blue .people-summary-value { color: #3b82f6; }
+    .people-card.theme-blue .people-owner .owner-v { color: #1d4ed8; }
+    .people-card.theme-blue .progress-bar-fill { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+
+    .people-card.theme-green::before { background: #22c55e; }
+    .people-card.theme-green { border-color: rgba(34,197,94,.28); background: linear-gradient(180deg, #f6fdf8 0%, #eefdf3 100%); }
+    .people-card.theme-green .people-name { color: #15803d; }
+    .people-card.theme-green .people-target { color: #22c55e; }
+    .people-card.theme-green .people-pct { color: #22c55e; }
+    .people-card.theme-green .people-summary-value { color: #22c55e; }
+    .people-card.theme-green .people-owner .owner-v { color: #15803d; }
+    .people-card.theme-green .progress-bar-fill { background: linear-gradient(90deg, #22c55e, #4ade80); }
+    .pie-chart { display: block; }
+    .pie-center { fill: #1a0d08; font-weight: 700; text-anchor: middle; dominant-baseline: middle; }
 
     /* Section 2: Projects - layout */
     .projects-layout { display: flex; gap: 18px; align-items: stretch; }
@@ -138,7 +151,7 @@
     .comp-card { flex: 1; min-height: 0; background: linear-gradient(180deg,#fffaf5,#fff1e8); border: 1px solid #ffe0cc; border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: auto; box-shadow: 0 4px 16px rgba(255,107,53,.12); }
     .comp-title { font-size: 14px; font-weight: 800; color: #7a2e12; align-self: flex-start; margin-bottom: 4px; }
     .comp-note { font-size: 11px; color: var(--gray-500); align-self: flex-start; margin-top: 6px; line-height: 1.4; }
-    .comp-card .pie-chart { width: 132px; height: 132px; margin: 2px auto 0; }
+    .comp-card .pie-chart { width: 160px; height: 160px; margin: 2px auto 0; }
     .projects-right { flex: 0 0 220px; width: 220px; }
     .project-extra { margin: 10px 0 2px; }
     .project-positioning { font-size: 11px; color: var(--gray-500); line-height: 1.45; margin-bottom: 7px; }
@@ -161,7 +174,9 @@
     .project-card .project-top { display: flex; justify-content: space-between; align-items: flex-start; }
     .project-title { font-size: 32px; font-weight: 900; color: #1a0d08; letter-spacing: -.3px; display: flex; align-items: center; gap: 8px; }
     .project-title .project-icon { font-size: 22px; }
-    .project-meta { font-size: 12px; color: var(--gray-500); margin-top: 6px; }
+    .project-meta { font-size: 14px; margin-top: 8px; display: flex; flex-wrap: wrap; gap: 18px; align-items: baseline; }
+    .project-meta .meta-k { font-size: 12px; font-weight: 800; color: var(--gray-500); margin-right: 5px; letter-spacing: .5px; }
+    .project-meta .meta-v { font-size: 19px; font-weight: 900; letter-spacing: -.3px; }
     .project-stars { font-size: 13px; letter-spacing: 1px; }
     .project-stars .empty { opacity: .25; }
     .project-body { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; margin-top: 12px; }
@@ -202,6 +217,7 @@
     .project-card.theme-red::before { background: #e23744; }
     .project-card.theme-red { border-color: rgba(226,55,68,.25); background: linear-gradient(180deg, #fffbfb 0%, #fff5f5 100%); }
     .project-card.theme-red .project-title { color: #be123c; }
+    .project-card.theme-red .project-meta .meta-v { color: #be123c; }
     .project-card.theme-red .project-target { color: #e23744; }
     .project-card.theme-red .project-pct { color: #e23744; }
     .project-card.theme-red .progress-bar-fill { background: linear-gradient(90deg, #e23744, #ff6b6b); }
@@ -210,6 +226,7 @@
     .project-card.theme-blue::before { background: #3b82f6; }
     .project-card.theme-blue { border-color: rgba(59,130,246,.25); background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%); }
     .project-card.theme-blue .project-title { color: #1d4ed8; }
+    .project-card.theme-blue .project-meta .meta-v { color: #1d4ed8; }
     .project-card.theme-blue .project-target { color: #3b82f6; }
     .project-card.theme-blue .project-pct { color: #3b82f6; }
     .project-card.theme-blue .progress-bar-fill { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
@@ -218,6 +235,7 @@
     .project-card.theme-green::before { background: #22c55e; }
     .project-card.theme-green { border-color: rgba(34,197,94,.25); background: linear-gradient(180deg, #f6fdf8 0%, #eefdf3 100%); }
     .project-card.theme-green .project-title { color: #15803d; }
+    .project-card.theme-green .project-meta .meta-v { color: #15803d; }
     .project-card.theme-green .project-target { color: #22c55e; }
     .project-card.theme-green .project-pct { color: #22c55e; }
     .project-card.theme-green .progress-bar-fill { background: linear-gradient(90deg, #22c55e, #4ade80); }
@@ -226,6 +244,7 @@
     .project-card.theme-purple::before { background: #8b5cf6; }
     .project-card.theme-purple { border-color: rgba(139,92,246,.25); background: linear-gradient(180deg, #fbf8ff 0%, #f5f0ff 100%); }
     .project-card.theme-purple .project-title { color: #6d28d9; }
+    .project-card.theme-purple .project-meta .meta-v { color: #6d28d9; }
     .project-card.theme-purple .project-target { color: #8b5cf6; }
     .project-card.theme-purple .project-pct { color: #8b5cf6; }
     .project-card.theme-purple .progress-bar-fill { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
@@ -234,6 +253,7 @@
     .project-card.theme-amber::before { background: #f59e0b; }
     .project-card.theme-amber { border-color: rgba(245,158,11,.25); background: linear-gradient(180deg, #fffbf5 0%, #fff5e6 100%); }
     .project-card.theme-amber .project-title { color: #b45309; }
+    .project-card.theme-amber .project-meta .meta-v { color: #b45309; }
     .project-card.theme-amber .project-target { color: #f59e0b; }
     .project-card.theme-amber .project-pct { color: #f59e0b; }
     .project-card.theme-amber .progress-bar-fill { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
@@ -454,8 +474,8 @@
     const DATA = {
       "title": "觉醒 8-9月 经营作战项目总览",
       "period": "2026年8月 – 9月",
-      "updatedAt": "2026-08-12",
-      "goals": { "revenueTarget": 28, "revenueDone": 7, "twoMonthTarget": 100, "twoMonthNote": "8月+9月合计，深圳大会8月中旬启动", "monthlyBaseline": 30, "profitTarget": "30-40%", "partnerTarget": 3, "partnerDone": 0, "threeDirections": ["建立新的增长渠道", "优化用户转化链路", "打造阶段性营收突破项目"] },
+      "updatedAt": "2026-08-13",
+      "goals": { "revenueTarget": 28, "revenueDone": 14, "twoMonthTarget": 100, "twoMonthNote": "8月+9月合计，深圳大会8月中旬启动", "monthlyBaseline": 30, "profitTarget": "30-40%", "partnerTarget": 3, "partnerDone": 0, "threeDirections": ["建立新的增长渠道", "优化用户转化链路", "打造阶段性营收突破项目"] },
       "principles": [
         "每个项目必须明确负责人：负责人对项目结果（目标/资源/节奏/问题升级）负责，不是执行者",
         "操盘手负责推进落地：日常推进 / 节点管理 / 协调资源 / 执行结果",
@@ -465,9 +485,9 @@
       "products": {
         "note": "产品情况：私董 / 合伙人 / 新商学的人数、本周/本月新增、新增渠道与 GMV 贡献。",
         "items": [
-          {"id": "sidong", "name": "私董", "current": null, "weekAdd": null, "monthAdd": null, "weekChannels": [], "monthChannels": [], "weekGMV": null, "monthGMV": null, "target": null, "icon": "👤"},
-          {"id": "partner", "name": "合伙人", "current": null, "weekAdd": null, "monthAdd": null, "weekChannels": [], "monthChannels": [], "weekGMV": null, "monthGMV": null, "target": 30, "icon": "🤝"},
-          {"id": "newbiz", "name": "新商学", "current": null, "weekAdd": null, "monthAdd": null, "weekChannels": [], "monthChannels": [], "weekGMV": null, "monthGMV": null, "target": null, "icon": "📚"}
+          {"id": "sidong", "name": "私董", "current": 36, "weekAdd": 0, "monthAdd": 0, "weekChannels": [], "monthChannels": [], "weekGMV": 0, "monthGMV": 0, "target": null, "owner": "小竹", "theme": "theme-red", "composition": [{"name": "已续费", "value": 31, "color": "#e23744"}, {"name": "未续费", "value": 5, "color": "#fca5a5"}]},
+          {"id": "partner", "name": "合伙人", "current": 452, "weekAdd": 0, "monthAdd": 1, "weekChannels": [], "monthChannels": [{"name": "微信读书(一人公司)", "value": 1}], "weekGMV": 0, "monthGMV": 0, "target": 30, "owner": "长安", "theme": "theme-blue", "composition": [{"name": "1年合伙人", "value": 13, "color": "#3b82f6"}, {"name": "其他年限", "value": 439, "color": "#bfdbfe"}]},
+          {"id": "newbiz", "name": "新商学", "current": 991, "weekAdd": 1, "monthAdd": 3, "weekChannels": [{"name": "私董高价产品附赠·流月", "value": 1}], "monthChannels": [{"name": "合伙人权益", "value": 2}, {"name": "私董高价产品附赠", "value": 1}], "weekGMV": 0, "monthGMV": 0, "target": null, "owner": "童童", "theme": "theme-green", "composition": [{"name": "合伙人", "value": 400, "color": "#22c55e"}, {"name": "非合伙人", "value": 591, "color": "#bbf7d0"}]}
         ]
       },
       "orders": [
@@ -510,11 +530,11 @@
           {"date": "9/20前", "project": "深圳线下", "text": "收尾复盘"}
         ]}
       ],
-      "monthlyRevenue": { "target": 28, "done": 7, "breakdown": [
-        {"id": "book", "name": "书籍招募", "target": 15, "done": 7, "note": "目标15万，已加入GMV 7万（7位作者）"},
-        {"id": "consult", "name": "引流咨询", "target": 5, "done": 0, "note": "目标5万，已收款待补充"},
-        {"id": "training", "name": "内训营", "target": 3, "done": 0},
-        {"id": "hangzhou", "name": "杭州线下", "target": 5, "done": 0, "note": "本周六(8/15)举办"}
+      "monthlyRevenue": { "target": 28, "done": 14, "breakdown": [
+        {"id": "book", "name": "新书共创", "target": 15, "done": 13, "note": "目标15万，已收款13万（13位作者×1万）"},
+        {"id": "consult", "name": "引流咨询", "target": 5, "done": 1, "note": "目标5万，升单1合伙人≈1万"},
+        {"id": "training", "name": "内训营", "target": 3, "done": 0, "note": "销售期启动"},
+        {"id": "hangzhou", "name": "杭州线下", "target": 5, "done": 0, "note": "本周六(8/15)举办，已招募12人"}
       ]},
       "rd": {
         "directions": [
@@ -532,8 +552,8 @@
       "projects": [
         {
           "id": "offline", "name": "深圳线下", "star": 5, "level": 5, "priority": "P1", "owner": "小楠", "operator": "若醒",
-          "period": "8-9月", "icon": "🎪", "revenueTarget": 100, "revenueDone": 0, "progress": null,
-          "formula": "200人招募 × 觉醒合伙人转化 = 100万营收", "stage": "待筹备", "cost": "待预算会议确定", "positioning": "公司阶段性核心增长项目：用户聚集 + 信任建立 + 觉醒合伙人转化", "metrics": ["招募 200 人", "营收 100 万", "核心转化：觉醒合伙人"],
+          "period": "8/17–9/12（大会9/12-13）", "icon": "🎪", "revenueTarget": 100, "revenueDone": 0, "progress": null,
+          "formula": "200人招募 × 觉醒合伙人转化 = 100万营收", "stage": "内部沟通，下周一正式启动", "cost": "待预算会议确定", "positioning": "公司阶段性核心增长项目：用户聚集 + 信任建立 + 觉醒合伙人转化", "metrics": ["招募 200 人", "营收 100 万", "核心转化：觉醒合伙人"],
           "flag": "red", "flagText": "需决策", "focus": "完成方案设计",
           "subProjects": [
             {"name": "活动方案", "status": "待完成", "progress": 0, "owner": "若醒"}, {"name": "招募策略", "status": "待完成", "progress": 0, "owner": "小楠"},
@@ -542,8 +562,8 @@
         },
         {
           "id": "consult", "name": "引流咨询", "star": 4, "level": 4, "priority": "P2", "owner": "阿猫", "operator": "长安",
-      "period": "8-10月", "icon": "💬", "revenueTarget": 5, "revenueDone": 0, "progress": null,
-      "formula": "引流咨询目标 5万（模型验证 + 转化）", "stage": "模型测试阶段", "cost": "暂无明确预算", "positioning": "长期增长模型验证：跑通「流量→咨询→成交」核心转化链路", "metrics": ["8月 30 有效咨询", "成交 3 单觉醒合伙人", "持续 2-3 个月"], "channels": [{"src":"公域(小红书/抖音)","owner":"长安"},{"src":"公众号","owner":"柒青"},{"src":"私域","owner":"童童"}],
+      "period": "8-10月", "icon": "💬", "revenueTarget": 5, "revenueDone": 1, "progress": 20,
+      "formula": "引流咨询目标 5万（模型验证 + 转化）；升单觉醒合伙人 ≈ 1万/单", "stage": "咨询转化阶段（已升单1合伙人）", "cost": "暂无明确预算", "positioning": "长期增长模型验证：跑通「流量→咨询→成交」核心转化链路", "metrics": ["合计引流 11 人", "已咨询 3 人", "升单 1 合伙人"], "channels": [{"src":"公域(小红书/抖音)","owner":"长安"},{"src":"公众号","owner":"柒青"},{"src":"私域","owner":"童童"}],
           "flag": "yellow", "flagText": "需关注", "focus": "完成咨询流程优化",
           "subProjects": [
             {"name": "用户问卷", "status": "优化中", "progress": 30, "owner": "长安"}, {"name": "用户分层", "status": "优化中", "progress": 20, "owner": "长安"},
@@ -552,8 +572,8 @@
         },
         {
           "id": "book", "name": "新书共创", "star": 3, "level": 3, "priority": "P3", "owner": "堂主", "operator": "若醒",
-          "period": "8月", "icon": "📖", "revenueTarget": 15, "revenueDone": 7, "progress": 47,
-          "formula": "15位共创作者 × 1万/人 = 15万营收", "stage": "已启动（已招 7/15）", "cost": "暂不单独计算，归入新书整体", "positioning": "围绕《只工作不上班》打造共创内容，用户参与案例共创并创造额外营收（IP生态）", "metrics": ["招募 15 位共创作者", "客单价 1 万/人", "营收 15 万"],
+          "period": "8月", "icon": "📖", "revenueTarget": 15, "revenueDone": 13, "progress": 87,
+          "formula": "15位共创作者 × 1万/人 = 15万营收", "stage": "已招募 13/15（本周升3人）", "cost": "暂不单独计算，归入新书整体", "positioning": "围绕《只工作不上班》打造共创内容，用户参与案例共创并创造额外营收（IP生态）", "metrics": ["招募 13/15 位作者", "客单价 1 万/人", "营收 13 万"],
           "flag": "green", "flagText": "不需要", "focus": "完成15人招募",
           "subProjects": [
             {"name": "作者招募", "status": "进行中", "progress": 47, "owner": "若醒"}, {"name": "合同与收款", "status": "进行中", "progress": 47, "owner": "若醒"},
@@ -562,8 +582,8 @@
         },
         {
           "id": "training", "name": "内训营", "star": 3, "level": 3, "priority": "P3", "owner": "小楠", "operator": "小杨",
-      "period": "8/10-8/23", "icon": "🎓", "revenueTarget": 3, "revenueDone": 0, "progress": null,
-      "formula": "合作内训营 × 客单价2999 = 3万营收", "stage": "销售阶段（本周）", "cost": "待补充", "positioning": "打造标准化内训产品，验证内训模型，形成新现金流", "metrics": ["合作内训营", "客单价 2999 元", "目标营收 3 万"],
+      "period": "8/10-8/23", "icon": "🎓", "revenueTarget": 3, "revenueDone": 0, "progress": 10,
+      "formula": "合作内训营 × 客单价2999 = 3万营收", "stage": "销售期（今日拉群，社群进人）", "cost": "待补充", "positioning": "打造标准化内训产品，验证内训模型，形成新现金流", "metrics": ["合作内训营", "客单价 2999 元", "目标营收 3 万"],
           "flag": "yellow", "flagText": "需关注", "focus": "完成销售目标",
           "subProjects": [
             {"name": "销售招募", "status": "进行中", "progress": 20, "owner": "小杨"}, {"name": "直播转化", "status": "待启动", "progress": 0, "owner": "小杨"},
@@ -571,9 +591,9 @@
           ]
         },
         {
-          "id": "hangzhou", "name": "杭州线下", "star": 3, "level": 3, "priority": "P3", "owner": "林若醒", "operator": "待补充",
-          "period": "8月15日（本周六）", "icon": "🏙️", "revenueTarget": 5, "revenueDone": 0, "progress": 27,
-          "formula": "30人招募 × 15%转化 = 3单合伙人", "stage": "招募冲刺（本周六举办）", "cost": "待补充", "positioning": "本周六(8/15)杭州线下活动，作为 9月大型活动的预演与本地触点", "metrics": ["招募 30 人", "转化 3 单合伙人", "本周六举办"],
+          "id": "hangzhou", "name": "杭州线下", "star": 3, "level": 3, "priority": "P3", "owner": "林若醒", "operator": "林若醒",
+          "period": "8月15日（本周六）", "icon": "🏙️", "revenueTarget": 5, "revenueDone": 0, "progress": 40,
+          "formula": "30人招募 × 15%转化 = 3单合伙人", "stage": "招募中（已确认 12 人）", "cost": "待补充", "positioning": "本周六(8/15)杭州线下活动，作为 9月大型活动的预演与本地触点", "metrics": ["招募 30 人（已12）", "转化 3 单合伙人", "本周六举办"],
           "flag": "yellow", "flagText": "需关注", "focus": "完成30人招募，嘉宾与操盘手到位",
           "subProjects": [
             {"name": "嘉宾邀约", "status": "已确认3人", "progress": 100, "owner": "林若醒"}, {"name": "用户招募", "status": "8/30", "progress": 27, "owner": "林若醒"},
@@ -592,44 +612,41 @@
     function renderProducts() {
       const cards = DATA.products.items.map(p => {
         const missing = p.current === null || p.current === undefined;
+        const hasTarget = p.target !== null && p.target !== undefined && p.target > 0;
+        const progressBase = hasTarget ? (p.monthAdd || 0) : 0;
+        const progress = hasTarget ? Math.min(100, Math.round(progressBase / p.target * 100)) : 0;
+        const progressText = hasTarget ? `${progress}%` : '—';
         const weekChannels = p.weekChannels && p.weekChannels.length ? p.weekChannels.map(c => `<span class="channel-tag">${c.name} ${c.value || ''}</span>`).join('') : '<span class="channel-tag missing">待补充</span>';
         const monthChannels = p.monthChannels && p.monthChannels.length ? p.monthChannels.map(c => `<span class="channel-tag">${c.name} ${c.value || ''}</span>`).join('') : '<span class="channel-tag missing">待补充</span>';
+        const comp = p.composition ? makeDonut(p.composition.map(c => ({label: c.name, value: c.value, color: c.color})), '', '人') : null;
         return `
-          <div class="people-card">
-            <div class="people-top"><div class="people-icon">${p.icon}</div><div class="people-name">${p.name}</div></div>
-            <div class="people-metrics">
-              <div class="people-hero">
-                <div class="people-metric-label">现有 · 累计</div>
-                <div class="people-metric-value ${missing ? 'missing' : ''}">${missing ? '待填' : p.current}</div>
+          <div class="people-card ${p.theme || ''}">
+            <div class="people-top">
+              <div>
+                <div class="people-name">${p.name}</div>
+                <div class="people-owner"><span class="owner-k">负责人</span><span class="owner-v">${p.owner || '待补充'}</span></div>
               </div>
-              <div class="people-deltas">
-                <div class="people-delta"><div class="people-delta-label">本周新增</div><div class="people-delta-val ${p.weekAdd === null ? 'zero' : ''}">${p.weekAdd === null ? '待填' : '+' + fmtNum(p.weekAdd)}</div></div>
-                <div class="people-delta"><div class="people-delta-label">本月新增</div><div class="people-delta-val ${p.monthAdd === null ? 'zero' : ''}">${p.monthAdd === null ? '待填' : '+' + fmtNum(p.monthAdd)}</div></div>
-              </div>
+            </div>
+            <div class="people-numbers">
+              <div class="people-target">${missing ? '待填' : p.current}<span class="unit">人</span></div>
+              <div class="people-pct">${progressText}</div>
+            </div>
+            <div class="people-labels"><span>现有累计</span><span>${hasTarget ? '本月进度' : '暂无目标'}</span></div>
+            ${hasTarget ? `<div class="people-progress"><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${progress}%"></div></div></div>` : ''}
+            <div class="people-summary">
+              <div class="people-summary-item"><div class="people-summary-label">本周新增</div><div class="people-summary-value">${p.weekAdd === null ? '—' : (p.weekAdd === 0 ? '0' : '+' + fmtNum(p.weekAdd))}</div></div>
+              <div class="people-summary-item"><div class="people-summary-label">本月新增</div><div class="people-summary-value">${p.monthAdd === null ? '—' : (p.monthAdd === 0 ? '0' : '+' + fmtNum(p.monthAdd))}</div></div>
+              ${hasTarget ? `<div class="people-summary-item"><div class="people-summary-label">目标</div><div class="people-summary-value">${p.target}</div></div>` : ''}
             </div>
             <div class="people-channels"><div class="people-channel-title">本周新增渠道</div><div class="channel-tags">${weekChannels}</div></div>
             <div class="people-channels"><div class="people-channel-title">本月新增渠道</div><div class="channel-tags">${monthChannels}</div></div>
-            ${p.target ? `<div class="note" style="margin-top:10px;padding:6px 10px;font-size:11px">目标：${p.target} 人</div>` : ''}
+            ${comp ? `<div class="people-comp"><div class="people-comp-pie">${comp.svg}</div><div class="legend">${comp.legend}</div></div>` : ''}
           </div>`;
       }).join('');
-
-      const color = p => p.id === 'sidong' ? '#e23744' : p.id === 'partner' ? '#ff6b35' : '#ff8c66';
-      const weekPie = makeDonut(DATA.products.items.map(p => ({ label: p.name, value: p.weekGMV || 0, color: color(p) })), '本周');
-      const monthPie = makeDonut(DATA.products.items.map(p => ({ label: p.name, value: p.monthGMV || 0, color: color(p) })), '本月');
 
       const body = `
         <div class="products-page">
           <div class="products-grid">${cards}</div>
-          <div class="products-charts">
-            <div class="chart-card">
-              <div class="chart-card-left"><div class="chart-title">本周 GMV 分布</div><div class="legend">${weekPie.legend}</div></div>
-              ${weekPie.svg}
-            </div>
-            <div class="chart-card">
-              <div class="chart-card-left"><div class="chart-title">本月 GMV 分布</div><div class="legend">${monthPie.legend}</div></div>
-              ${monthPie.svg}
-            </div>
-          </div>
           <div class="note missing-note">${DATA.products.note}</div>
         </div>
       `;
@@ -652,8 +669,8 @@
     }
 
     function projectCard(p, spanAll) {
-      const progress = p.progress || 0;
-      const progressText = p.progress ? `${p.progress}%` : '待启动';
+      const progress = p.revenueTarget ? Math.round((p.revenueDone || 0) / p.revenueTarget * 100) : (p.progress || 0);
+      const progressText = progress > 0 ? `${progress}%` : '待启动';
       const theme = projectTheme[p.id] || 'theme-red';
       const subRows = p.subProjects.map(s => `
         <div class="subproject"><div><div class="subproject-name">${s.name}</div><div class="subproject-owner">${s.owner} · ${s.status}</div></div><div class="subproject-bar-wrap"><div class="subproject-bar"><div class="subproject-bar-fill" style="width:${s.progress}%"></div></div></div></div>`).join('');
@@ -674,7 +691,11 @@
           <div class="project-top">
             <div>
               <div class="project-title">${p.name}</div>
-              <div class="project-meta">负责人 ${p.owner} · 操盘手 ${p.operator} · ${p.period}</div>
+              <div class="project-meta">
+                <span class="meta-item"><span class="meta-k">负责人</span><span class="meta-v">${p.owner}</span></span>
+                <span class="meta-item"><span class="meta-k">操盘手</span><span class="meta-v">${p.operator}</span></span>
+                <span class="meta-item"><span class="meta-k">时间</span><span class="meta-v">${p.period}</span></span>
+              </div>
             </div>
             <div>${renderStars(p.star)}</div>
           </div>
@@ -867,7 +888,8 @@
       return {svg: `<svg class="pie-chart" viewBox="0 0 100 100">${slices}</svg>`, legend};
     }
 
-    function makeDonut(data, labelPrefix) {
+    function makeDonut(data, labelPrefix, unit) {
+      unit = unit || '万';
       const total = data.reduce((a, b) => a + b.value, 0) || 1;
       let acc = 0;
       const cx = 60, cy = 60, r = 48, hole = 30;
@@ -877,11 +899,15 @@
         const x1 = cx + r * Math.cos(start), y1 = cy + r * Math.sin(start);
         const x2 = cx + r * Math.cos(end), y2 = cy + r * Math.sin(end);
         const large = end - start > Math.PI ? 1 : 0;
-        return `<path d="M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${large},1 ${x2},${y2} Z" fill="${d.color}" stroke="#fff" stroke-width="1.5" />`;
+        return `<path d="M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${large},1 ${x2},${y2} Z" fill="${d.color}" stroke="#fff" stroke-width="2" />`;
       }).join('');
-      const legend = data.map(d => `<div class="legend-item"><div class="legend-dot" style="background:${d.color}"></div>${d.label} ${d.value ? d.value + '万' : '—'}</div>`).join('');
-      const centerText = total > 0 ? `${labelPrefix}<tspan x="${cx}" dy="13">${total}万</tspan>` : '暂无';
-      return {svg: `<svg class="pie-chart" viewBox="0 0 120 120"><circle cx="${cx}" cy="${cy}" r="${r}" fill="transparent"/>${slices}<circle cx="${cx}" cy="${cy}" r="${hole}" fill="#fffaf7"/><text x="${cx}" y="${cy-2}" class="pie-center">${centerText}</text></svg>`, legend};
+      const legend = data.map(d => {
+        const pct = total ? Math.round(d.value / total * 100) : 0;
+        return `<div class="legend-item"><div class="legend-dot" style="background:${d.color}"></div><span>${d.label} <b>${d.value}${unit}</b> · ${pct}%</span></div>`;
+      }).join('');
+      const centerLabel = labelPrefix ? `<tspan x="${cx}" dy="-10" font-size="10" opacity="0.7">${labelPrefix}</tspan>` : '';
+      const centerText = total > 0 ? `<tspan x="${cx}" dy="${labelPrefix ? 6 : -4}" font-size="16" font-weight="900">${total}</tspan><tspan x="${cx}" dy="15" font-size="10" opacity="0.7">${unit}</tspan>` : '<tspan x="60" dy="4" font-size="12">暂无</tspan>';
+      return {svg: `<svg class="pie-chart" viewBox="0 0 120 120"><circle cx="${cx}" cy="${cy}" r="${r}" fill="transparent"/>${slices}<circle cx="${cx}" cy="${cy}" r="${hole}" fill="#fffaf7"/><text x="${cx}" y="${cy}" class="pie-center" text-anchor="middle" dominant-baseline="middle">${centerLabel}${centerText}</text></svg>`, legend};
     }
 
     window.showTab = function(id) {
@@ -891,6 +917,10 @@
       document.querySelector('[data-tab="' + id + '"]').classList.add('active');
     };
     window.toggleSub = function(id) { document.getElementById('sub-' + id).classList.toggle('open'); };
+    if (location.hash) {
+      const hashTab = location.hash.slice(1);
+      if (document.querySelector('[data-tab="' + hashTab + '"]')) showTab(hashTab);
+    }
 
     app.innerHTML = renderProjects() + renderProducts() + renderWeekly() + renderRD();
     startOrderFeed();
