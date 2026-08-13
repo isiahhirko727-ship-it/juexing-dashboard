@@ -154,43 +154,92 @@
     .project-subtitle:first-child { margin-top: 0; }
     .project-subtitle::before { content: ''; width: 4px; height: 14px; border-radius: 2px; background: var(--green-600); }
     .project-subtitle.pending::before { background: var(--gray-300); }
-    .project-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    .pending-grid { grid-template-columns: 1fr; }
-    .project-card { border-radius: 12px; border: 1px solid var(--gray-100); padding: 18px; cursor: pointer; transition: .2s; position: relative; overflow: hidden; background: var(--white); }
+    .project-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .project-card { border-radius: 14px; border: 1px solid var(--gray-100); padding: 18px; cursor: pointer; transition: .2s; position: relative; overflow: hidden; background: var(--white); box-shadow: 0 4px 16px rgba(0,0,0,.05); display: flex; flex-direction: column; }
     .project-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
-    .project-card.span-all { grid-column: 1 / -1; }
     .project-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; }
-    .project-card.p1::before { background: var(--red); } .project-card.p2::before { background: var(--amber); } .project-card.p3::before { background: var(--blue); }
-    .project-card.p1 { background: linear-gradient(180deg, #fff5f3 0%, #ffecea 100%); box-shadow: 0 0 0 1.5px rgba(239,68,68,.45), 0 0 22px rgba(239,68,68,.28); }
-    .project-top { display: flex; justify-content: space-between; align-items: flex-start; }
-    .project-title { font-size: 19px; font-weight: 900; color: #1a0d08; letter-spacing: -.2px; }
-    .project-meta { font-size: 12px; color: var(--gray-500); margin-top: 4px; }
-    .project-priority { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--gray-100); color: var(--gray-700); }
-    .project-card.p1 .project-priority { background: #fee2e2; color: #991b1b; }
-    .project-card.p2 .project-priority { background: #ffedd5; color: #9a3412; }
-    .project-card.p3 .project-priority { background: #dbeafe; color: #1e40af; }
-    .project-rag { width: 12px; height: 12px; border-radius: 50%; box-shadow: 0 0 0 3px rgba(0,0,0,0.05); }
-    .rag-green { background: #22c55e; } .rag-yellow { background: var(--amber); } .rag-red { background: var(--red); box-shadow: 0 0 0 3px rgba(239,68,68,.3); animation: pulseRed 1.6s ease-in-out infinite; }
-    .project-kpis { display: flex; gap: 16px; margin: 14px 0 10px; }
-    .project-kpi { flex: 1; }
-    .project-kpi-label { font-size: 11px; color: var(--gray-500); }
-    .project-kpi-value { font-size: 24px; font-weight: 900; color: var(--green-700); letter-spacing: -.5px; }
-    .project-kpi-value.small { font-size: 14px; }
-    .project-progress { margin-top: 12px; }
-    .progress-bar-bg { height: 8px; background: var(--gray-100); border-radius: 999px; overflow: hidden; }
-    .progress-bar-fill { height: 100%; border-radius: 999px; background: var(--flame); box-shadow: 0 0 14px rgba(255,90,40,.55); animation: pulseGlow 1.6s ease-in-out infinite; }
-    .progress-label { font-size: 12px; color: var(--gray-500); margin-top: 6px; }
+    .project-card .project-top { display: flex; justify-content: space-between; align-items: flex-start; }
+    .project-title { font-size: 32px; font-weight: 900; color: #1a0d08; letter-spacing: -.3px; display: flex; align-items: center; gap: 8px; }
+    .project-title .project-icon { font-size: 22px; }
+    .project-meta { font-size: 12px; color: var(--gray-500); margin-top: 6px; }
+    .project-stars { font-size: 13px; letter-spacing: 1px; }
+    .project-stars .empty { opacity: .25; }
+    .project-body { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; margin-top: 12px; }
+    .project-numbers { display: flex; align-items: baseline; gap: 14px; margin: 10px 0 6px; }
+    .project-target { font-size: 36px; font-weight: 900; letter-spacing: -1px; line-height: 1; }
+    .project-target .unit { font-size: 16px; font-weight: 700; margin-left: 2px; }
+    .project-pct { font-size: 26px; font-weight: 900; letter-spacing: -1px; }
+    .project-labels { display: flex; gap: 14px; font-size: 11px; color: var(--gray-500); margin-bottom: 14px; }
+    .project-progress { margin-top: auto; }
+    .progress-bar-bg { height: 10px; background: var(--gray-100); border-radius: 999px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; border-radius: 999px; }
+    .project-extra { margin: 10px 0 2px; }
+    .project-positioning { font-size: 11px; color: var(--gray-500); line-height: 1.45; margin-bottom: 7px; }
+    .project-metrics { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 7px; }
+    .metric-chip { font-size: 11px; background: var(--gray-100); color: var(--gray-700); padding: 3px 9px; border-radius: 7px; white-space: nowrap; }
+    .project-channels { font-size: 11px; color: var(--gray-500); line-height: 1.5; }
+    .project-channels b { color: var(--gray-700); }
     .subprojects { margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--gray-200); display: none; }
     .subprojects.open { display: block; }
+    .project-detail-block { background: rgba(255,255,255,.55); border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; }
+    .detail-row { font-size: 12px; color: var(--gray-600); line-height: 1.6; margin-bottom: 6px; }
+    .detail-row:last-child { margin-bottom: 0; }
+    .detail-row b { color: var(--gray-800); font-weight: 700; }
+    .detail-tags { font-size: 12px; color: var(--gray-600); line-height: 1.6; margin-bottom: 6px; }
+    .detail-tags b { color: var(--gray-800); font-weight: 700; }
+    .detail-tag { display: inline-block; background: var(--gray-100); color: var(--gray-700); padding: 2px 8px; border-radius: 6px; margin: 2px 4px 2px 0; font-size: 11px; }
+    .subproject-divider { font-size: 11px; font-weight: 800; color: var(--gray-400); text-transform: uppercase; letter-spacing: .5px; margin: 14px 0 10px; }
     .subproject { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; font-size: 13px; border-bottom: 1px solid var(--gray-50); }
     .subproject:last-child { border-bottom: none; }
     .subproject-name { color: var(--gray-700); }
     .subproject-owner { color: var(--gray-500); font-size: 11px; }
     .subproject-bar-wrap { width: 80px; }
     .subproject-bar { height: 5px; background: var(--gray-100); border-radius: 999px; overflow: hidden; }
-    .subproject-bar-fill { height: 100%; background: var(--flame); border-radius: 999px; }
-    .expand-hint { font-size: 12px; color: #c0392b; font-weight: 700; margin-top: 10px; }
-    .projects-page { display: flex; flex-direction: column; min-height: 100%; gap: 14px; }
+    .subproject-bar-fill { height: 100%; border-radius: 999px; }
+    .expand-hint { font-size: 12px; font-weight: 700; margin-top: 12px; display: flex; align-items: center; gap: 4px; }
+
+    /* Project themes */
+    .project-card.theme-red::before { background: #e23744; }
+    .project-card.theme-red { border-color: rgba(226,55,68,.25); background: linear-gradient(180deg, #fffbfb 0%, #fff5f5 100%); }
+    .project-card.theme-red .project-title { color: #be123c; }
+    .project-card.theme-red .project-target { color: #e23744; }
+    .project-card.theme-red .project-pct { color: #e23744; }
+    .project-card.theme-red .progress-bar-fill { background: linear-gradient(90deg, #e23744, #ff6b6b); }
+    .project-card.theme-red .expand-hint { color: #be123c; }
+
+    .project-card.theme-blue::before { background: #3b82f6; }
+    .project-card.theme-blue { border-color: rgba(59,130,246,.25); background: linear-gradient(180deg, #f8fbff 0%, #eef5ff 100%); }
+    .project-card.theme-blue .project-title { color: #1d4ed8; }
+    .project-card.theme-blue .project-target { color: #3b82f6; }
+    .project-card.theme-blue .project-pct { color: #3b82f6; }
+    .project-card.theme-blue .progress-bar-fill { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+    .project-card.theme-blue .expand-hint { color: #1d4ed8; }
+
+    .project-card.theme-green::before { background: #22c55e; }
+    .project-card.theme-green { border-color: rgba(34,197,94,.25); background: linear-gradient(180deg, #f6fdf8 0%, #eefdf3 100%); }
+    .project-card.theme-green .project-title { color: #15803d; }
+    .project-card.theme-green .project-target { color: #22c55e; }
+    .project-card.theme-green .project-pct { color: #22c55e; }
+    .project-card.theme-green .progress-bar-fill { background: linear-gradient(90deg, #22c55e, #4ade80); }
+    .project-card.theme-green .expand-hint { color: #15803d; }
+
+    .project-card.theme-purple::before { background: #8b5cf6; }
+    .project-card.theme-purple { border-color: rgba(139,92,246,.25); background: linear-gradient(180deg, #fbf8ff 0%, #f5f0ff 100%); }
+    .project-card.theme-purple .project-title { color: #6d28d9; }
+    .project-card.theme-purple .project-target { color: #8b5cf6; }
+    .project-card.theme-purple .project-pct { color: #8b5cf6; }
+    .project-card.theme-purple .progress-bar-fill { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+    .project-card.theme-purple .expand-hint { color: #6d28d9; }
+
+    .project-card.theme-amber::before { background: #f59e0b; }
+    .project-card.theme-amber { border-color: rgba(245,158,11,.25); background: linear-gradient(180deg, #fffbf5 0%, #fff5e6 100%); }
+    .project-card.theme-amber .project-title { color: #b45309; }
+    .project-card.theme-amber .project-target { color: #f59e0b; }
+    .project-card.theme-amber .project-pct { color: #f59e0b; }
+    .project-card.theme-amber .progress-bar-fill { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+    .project-card.theme-amber .expand-hint { color: #b45309; }
+
+    .projects-page { display: flex; flex-direction: column; height: 100%; gap: 18px; }
     .kpi-band { display: flex; gap: 14px; background: var(--flame-deep); color: #fff; border-radius: 14px; padding: 18px 24px; box-shadow: 0 10px 34px rgba(180,30,20,.42), inset 0 1px 0 rgba(255,255,255,.14); border: 1px solid rgba(255,120,80,.4); }
     .kpi-item { flex: 1; position: relative; }
     .kpi-label { font-size: 12px; opacity: 0.88; font-weight: 600; letter-spacing: .3px; }
@@ -203,17 +252,21 @@
     .kpi-band .kpi-item:nth-child(2) .kpi-big, .kpi-band .kpi-item:nth-child(3) .kpi-big { color: var(--gold-400); text-shadow: 0 0 20px rgba(255,200,40,.75); font-size: 42px; }
 
     .kpi-band.v2 { background: transparent; color: var(--gray-900); border: none; box-shadow: none; padding: 0; gap: 16px; }
-    .kpi-card { flex: 1; background: var(--white); border: 1px solid var(--gray-100); border-radius: 12px; padding: 16px 18px; position: relative; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,.05); }
-    .kpi-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--flame); }
-    .kpi-card:nth-child(2)::before { background: var(--gold-400); }
-    .kpi-card:nth-child(3)::before { background: var(--green-600); }
-    .kpi-card:nth-child(4)::before { background: var(--blue); }
-    .kpi-card-label { font-size: 12px; color: var(--gray-500); font-weight: 700; letter-spacing: .3px; }
-    .kpi-card-value { font-size: 34px; font-weight: 900; color: var(--gray-900); line-height: 1.1; margin-top: 6px; letter-spacing: -1px; }
-    .kpi-card:nth-child(2) .kpi-card-value { color: var(--gold-500); }
-    .kpi-card-value .unit { font-size: 14px; font-weight: 700; color: var(--gray-500); margin-left: 2px; }
-    .kpi-card-sub { font-size: 11px; color: var(--gray-500); margin-top: 8px; line-height: 1.4; }
-    .kpi-card-bar { height: 7px; background: var(--gray-100); border-radius: 999px; overflow: hidden; margin-top: 10px; }
+    .kpi-card { flex: 1; background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%); border: 1px solid var(--gray-200); border-radius: 16px; padding: 24px 22px; position: relative; overflow: hidden; box-shadow: 0 8px 28px rgba(0,0,0,.08); }
+    .kpi-card::before { content: ''; position: absolute; left: 0; top: 0; right: 0; height: 5px; background: var(--flame); }
+    .kpi-card:nth-child(2)::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+    .kpi-card:nth-child(3)::before { background: linear-gradient(90deg, #16a34a, #22c55e); }
+    .kpi-card:nth-child(4)::before { background: linear-gradient(90deg, #2563eb, #60a5fa); }
+    .kpi-card-label { font-size: 13px; color: var(--gray-500); font-weight: 800; letter-spacing: .4px; display: flex; align-items: center; gap: 6px; }
+    .kpi-card-value { font-size: 48px; font-weight: 900; color: var(--gray-900); line-height: 1; margin-top: 12px; letter-spacing: -2px; }
+    .kpi-card:nth-child(1) .kpi-card-value { color: #be123c; }
+    .kpi-card:nth-child(2) .kpi-card-value { color: #b45309; }
+    .kpi-card:nth-child(3) .kpi-card-value { color: #15803d; }
+    .kpi-card:nth-child(4) .kpi-card-value { color: #1d4ed8; }
+    .kpi-card-value .unit { font-size: 18px; font-weight: 700; color: var(--gray-500); margin-left: 4px; }
+    .kpi-card-sub { font-size: 12px; color: var(--gray-500); margin-top: 12px; line-height: 1.5; }
+    .kpi-card-sub b { font-weight: 800; color: var(--gray-700); }
+    .kpi-card-bar { height: 9px; background: var(--gray-100); border-radius: 999px; overflow: hidden; margin-top: 14px; }
     .kpi-card-bar-fill { height: 100%; background: linear-gradient(90deg, #ffd700, #ffb020); border-radius: 999px; }
 
     /* Orders rail (right column, vertical marquee) */
@@ -441,7 +494,7 @@
       ],
       "timeline": [
         {"group": "本周", "range": "8/10 – 8/16", "items": [
-          {"date": "本周", "project": "免费咨询", "text": "跑通首个完整咨询闭环"},
+          {"date": "本周", "project": "引流咨询", "text": "跑通首个完整咨询闭环"},
           {"date": "本周", "project": "内训营", "text": "销售阶段推进，冲刺本周成交目标"},
           {"date": "8/15", "project": "杭州线下", "text": "杭州线下活动举办，目标30人招募"}
         ]},
@@ -459,7 +512,7 @@
       ],
       "monthlyRevenue": { "target": 28, "done": 7, "breakdown": [
         {"id": "book", "name": "书籍招募", "target": 15, "done": 7, "note": "目标15万，已加入GMV 7万（7位作者）"},
-        {"id": "consult", "name": "免费咨询", "target": 5, "done": 0, "note": "目标5万，已收款待补充"},
+        {"id": "consult", "name": "引流咨询", "target": 5, "done": 0, "note": "目标5万，已收款待补充"},
         {"id": "training", "name": "内训营", "target": 3, "done": 0},
         {"id": "hangzhou", "name": "杭州线下", "target": 5, "done": 0, "note": "本周六(8/15)举办"}
       ]},
@@ -471,7 +524,7 @@
         ],
         "budget": [
           {"project": "深圳线下", "status": "待预算会议（场地/人员/物料/招募/奖金）", "risk": "high"},
-          {"project": "免费咨询", "status": "暂无明确预算", "risk": "medium"},
+          {"project": "引流咨询", "status": "暂无明确预算", "risk": "medium"},
           {"project": "新书共创", "status": "归入新书整体，无需单独预算", "risk": "low"},
           {"project": "内训营", "status": "核心成员待补充，成本待明确", "risk": "high"}
         ]
@@ -488,9 +541,9 @@
           ]
         },
         {
-          "id": "consult", "name": "免费咨询", "star": 4, "level": 4, "priority": "P2", "owner": "阿猫", "operator": "长安",
+          "id": "consult", "name": "引流咨询", "star": 4, "level": 4, "priority": "P2", "owner": "阿猫", "operator": "长安",
       "period": "8-10月", "icon": "💬", "revenueTarget": 5, "revenueDone": 0, "progress": null,
-      "formula": "免费咨询目标 5万（模型验证 + 转化）", "stage": "模型测试阶段", "cost": "暂无明确预算", "positioning": "长期增长模型验证：跑通「流量→咨询→成交」核心转化链路", "metrics": ["8月 30 有效咨询", "成交 3 单觉醒合伙人", "持续 2-3 个月"], "channels": [{"src":"公域(小红书/抖音)","owner":"长安"},{"src":"公众号","owner":"柒青"},{"src":"私域","owner":"童童"}],
+      "formula": "引流咨询目标 5万（模型验证 + 转化）", "stage": "模型测试阶段", "cost": "暂无明确预算", "positioning": "长期增长模型验证：跑通「流量→咨询→成交」核心转化链路", "metrics": ["8月 30 有效咨询", "成交 3 单觉醒合伙人", "持续 2-3 个月"], "channels": [{"src":"公域(小红书/抖音)","owner":"长安"},{"src":"公众号","owner":"柒青"},{"src":"私域","owner":"童童"}],
           "flag": "yellow", "flagText": "需关注", "focus": "完成咨询流程优化",
           "subProjects": [
             {"name": "用户问卷", "status": "优化中", "progress": 30, "owner": "长安"}, {"name": "用户分层", "status": "优化中", "progress": 20, "owner": "长安"},
@@ -583,24 +636,58 @@
       return section('products', '产品情况', body);
     }
 
+    const projectTheme = {
+      offline: 'theme-red',
+      consult: 'theme-blue',
+      book: 'theme-green',
+      training: 'theme-purple',
+      hangzhou: 'theme-amber'
+    };
+
+    function renderStars(star) {
+      const n = Math.min(5, Math.max(1, star || 1));
+      const full = '★'.repeat(n);
+      const empty = '☆'.repeat(5 - n);
+      return `<span class="project-stars"><span style="color:#f59e0b">${full}</span><span class="empty">${empty}</span></span>`;
+    }
+
     function projectCard(p, spanAll) {
       const progress = p.progress || 0;
       const progressText = p.progress ? `${p.progress}%` : '待启动';
-      const revDone = p.revenueDone !== null ? `${p.revenueDone}万` : '—';
-      const revTarget = p.revenueTarget !== null ? `${p.revenueTarget}万` : '非直接营收';
+      const theme = projectTheme[p.id] || 'theme-red';
       const subRows = p.subProjects.map(s => `
         <div class="subproject"><div><div class="subproject-name">${s.name}</div><div class="subproject-owner">${s.owner} · ${s.status}</div></div><div class="subproject-bar-wrap"><div class="subproject-bar"><div class="subproject-bar-fill" style="width:${s.progress}%"></div></div></div></div>`).join('');
+      const metricsTags = p.metrics && p.metrics.length ? p.metrics.map(m => `<span class="detail-tag">${m}</span>`).join('') : '<span class="detail-tag">待补充</span>';
+      const channelsText = p.channels && p.channels.length ? p.channels.map(c => `${c.src}（${c.owner}）`).join(' · ') : '待补充';
+      const detailBlock = `
+        <div class="project-detail-block">
+          <div class="detail-row"><b>营收公式：</b>${p.formula || '待补充'}</div>
+          <div class="detail-row"><b>当前阶段：</b>${p.stage || '待补充'}</div>
+          <div class="detail-row"><b>项目定位：</b>${p.positioning || '待补充'}</div>
+          <div class="detail-tags"><b>验证指标：</b>${metricsTags}</div>
+          <div class="detail-row"><b>渠道分工：</b>${channelsText}</div>
+          <div class="detail-row"><b>预算成本：</b>${p.cost || '待补充'}</div>
+          <div class="detail-row"><b>本周重点：</b>${p.focus || '待补充'}</div>
+        </div>`;
       return `
-        <div class="project-card ${p.priority.toLowerCase()} ${spanAll ? 'span-all' : ''}" onclick="toggleSub('${p.id}')">
-          <div class="project-top"><div><div class="project-title">${p.icon} ${p.name}</div><div class="project-meta">负责人 ${p.owner} · 操盘手 ${p.operator} · ${p.period}</div></div><div style="display:flex;align-items:center;gap:10px"><span class="project-priority">${p.priority}</span><div class="project-rag rag-${p.flag}"></div></div></div>
-          <div class="project-kpis"><div class="project-kpi"><div class="project-kpi-label">本月目标营收</div><div class="project-kpi-value">${revTarget}</div></div><div class="project-kpi"><div class="project-kpi-label">已完成</div><div class="project-kpi-value">${revDone}</div></div><div class="project-kpi"><div class="project-kpi-label">状态</div><div class="project-kpi-value small">${p.flagText}</div></div></div>
-          <div class="project-progress"><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${progress}%"></div></div><div class="progress-label">项目进度：${progressText}</div></div>
-          <div class="project-extra">
-            ${p.positioning ? `<div class="project-positioning">📍 ${p.positioning}</div>` : ''}
-            ${p.metrics && p.metrics.length ? `<div class="project-metrics">${p.metrics.map(m => `<span class="metric-chip">${m}</span>`).join('')}</div>` : ''}
-            ${p.channels && p.channels.length ? `<div class="project-channels"><b>渠道分工：</b>${p.channels.map(c => `${c.src} ${c.owner}`).join(' · ')}</div>` : ''}
+        <div class="project-card ${theme} ${spanAll ? 'span-all' : ''}" onclick="toggleSub('${p.id}')">
+          <div class="project-top">
+            <div>
+              <div class="project-title">${p.name}</div>
+              <div class="project-meta">负责人 ${p.owner} · 操盘手 ${p.operator} · ${p.period}</div>
+            </div>
+            <div>${renderStars(p.star)}</div>
           </div>
-          <div class="expand-hint">点击展开 4 个小项目 ▼</div><div class="subprojects" id="sub-${p.id}">${subRows}</div>
+          <div class="project-body">
+            <div class="project-numbers">
+              <div class="project-target">${p.revenueTarget}<span class="unit">万</span></div>
+              <div class="project-pct">${progressText}</div>
+            </div>
+            <div class="project-labels"><span>目标营收</span><span>当前进度</span></div>
+            <div class="project-progress"><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${progress}%"></div></div></div>
+          </div>
+          <div class="expand-hint">▼ 点击展开项目详情</div>
+          <div class="subprojects" id="sub-${p.id}">${detailBlock}<div class="subproject-divider">4 个小项目进度</div>${subRows}</div>
         </div>`;
     }
 
@@ -676,13 +763,13 @@
 
       const kpiBand = `
         <div class="kpi-band v2">
-          <div class="kpi-card"><div class="kpi-card-label">8月营收目标</div><div class="kpi-card-value">${target}<span class="unit">万</span></div><div class="kpi-card-sub">书籍 15 / 咨询 5 / 内训 3 / 杭州 5</div></div>
-          <div class="kpi-card"><div class="kpi-card-label">当前已收款</div><div class="kpi-card-value">${done}<span class="unit">万</span></div><div class="kpi-card-sub">缺口 ${gap} 万</div></div>
+          <div class="kpi-card"><div class="kpi-card-label">8月营收目标</div><div class="kpi-card-value">${target}<span class="unit">万</span></div><div class="kpi-card-sub"><b>书籍 15万</b> / <b>咨询 5万</b> / <b>内训 3万</b> / <b>杭州 5万</b></div></div>
+          <div class="kpi-card"><div class="kpi-card-label">当前已收款</div><div class="kpi-card-value">${done}<span class="unit">万</span></div><div class="kpi-card-sub">缺口 <b>${gap} 万</b></div></div>
           <div class="kpi-card"><div class="kpi-card-label">整体完成率</div><div class="kpi-card-value">${pct}<span class="unit">%</span></div><div class="kpi-card-bar"><div class="kpi-card-bar-fill" style="width:${pct}%"></div></div></div>
           <div class="kpi-card"><div class="kpi-card-label">项目动态</div><div class="kpi-card-value">${runningCount}<span class="unit">/${all.length}</span></div><div class="kpi-card-sub">${starText}</div></div>
         </div>`;
 
-      const body = `<div class="projects-page">${kpiBand}<div class="projects-layout"><div class="projects-left"><div class="project-grid">${projectCards}</div></div><div class="projects-right">${renderOrders()}${renderRevenueComposition()}</div></div></div>`;
+      const body = `<div class="projects-page">${kpiBand}<div class="project-grid">${projectCards}</div></div>`;
       return section('projects', '本月项目', body);
     }
 
