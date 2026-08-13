@@ -174,9 +174,10 @@
     .project-card .project-top { display: flex; justify-content: space-between; align-items: flex-start; }
     .project-title { font-size: 32px; font-weight: 900; color: #1a0d08; letter-spacing: -.3px; display: flex; align-items: center; gap: 8px; }
     .project-title .project-icon { font-size: 22px; }
-    .project-meta { font-size: 14px; margin-top: 8px; display: flex; flex-wrap: wrap; gap: 18px; align-items: baseline; }
-    .project-meta .meta-k { font-size: 12px; font-weight: 800; color: var(--gray-500); margin-right: 5px; letter-spacing: .5px; }
-    .project-meta .meta-v { font-size: 19px; font-weight: 900; letter-spacing: -.3px; }
+    .project-meta { font-size: 14px; margin-top: 8px; display: flex; flex-wrap: wrap; gap: 16px; align-items: baseline; }
+    .project-meta .meta-item { white-space: nowrap; }
+    .project-meta .meta-k { font-size: 12px; font-weight: 800; color: var(--gray-500); margin-right: 4px; letter-spacing: .5px; }
+    .project-meta .meta-v { font-size: 18px; font-weight: 900; letter-spacing: -.3px; }
     .project-stars { font-size: 13px; letter-spacing: 1px; }
     .project-stars .empty { opacity: .25; }
     .project-body { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; margin-top: 12px; }
@@ -258,6 +259,15 @@
     .project-card.theme-amber .project-pct { color: #f59e0b; }
     .project-card.theme-amber .progress-bar-fill { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
     .project-card.theme-amber .expand-hint { color: #b45309; }
+
+    .project-card.theme-teal::before { background: #14b8a6; }
+    .project-card.theme-teal { border-color: rgba(20,184,166,.25); background: linear-gradient(180deg, #f6fffe 0%, #ecfdfb 100%); }
+    .project-card.theme-teal .project-title { color: #0f766e; }
+    .project-card.theme-teal .project-meta .meta-v { color: #0f766e; }
+    .project-card.theme-teal .project-target { color: #14b8a6; }
+    .project-card.theme-teal .project-pct { color: #14b8a6; }
+    .project-card.theme-teal .progress-bar-fill { background: linear-gradient(90deg, #14b8a6, #2dd4bf); }
+    .project-card.theme-teal .expand-hint { color: #0f766e; }
 
     .projects-page { display: flex; flex-direction: column; height: 100%; gap: 18px; }
     .kpi-band { display: flex; gap: 14px; background: var(--flame-deep); color: #fff; border-radius: 14px; padding: 18px 24px; box-shadow: 0 10px 34px rgba(180,30,20,.42), inset 0 1px 0 rgba(255,255,255,.14); border: 1px solid rgba(255,120,80,.4); }
@@ -373,7 +383,7 @@
     .rd-panel-title::before { content: ''; width: 4px; height: 14px; border-radius: 2px; background: var(--green-600); }
     .rd-scroll { flex: 1; min-height: 0; overflow: auto; }
     .rd-matrix { display: flex; flex-direction: column; gap: 8px; }
-    .rd-mrow { display: grid; grid-template-columns: 1.4fr 0.6fr 0.9fr 0.9fr; gap: 8px; align-items: center; padding: 10px 12px; background: var(--white); border-radius: 8px; font-size: 13px; }
+    .rd-mrow { display: grid; grid-template-columns: 1.4fr 0.6fr 0.9fr 0.9fr 1fr; gap: 8px; align-items: center; padding: 10px 12px; background: var(--white); border-radius: 8px; font-size: 13px; }
     .rd-mrow.head { background: transparent; font-size: 11px; color: var(--gray-500); padding: 4px 12px; }
     .rd-mproj { font-weight: 700; color: var(--gray-900); }
     .rd-mlevel { font-size: 11px; padding: 2px 8px; border-radius: 999px; display: inline-block; }
@@ -501,16 +511,17 @@
         "groups": [
           {"level": "P1", "label": "公司级战略", "criteria": "5级项目，直接影响阶段性增长", "projects": ["offline"]},
           {"level": "P2", "label": "核心业务验证", "criteria": "4级项目，验证未来模型", "projects": ["consult"]},
-          {"level": "P3", "label": "专项推进", "criteria": "3级项目，独立推进、目标明确", "projects": ["book", "training"]}
+          {"level": "P3", "label": "专项推进", "criteria": "3级项目，独立推进、目标明确", "projects": ["book", "training", "mini"]}
         ]
       },
-      "monthlyProjects": {"august": ["offline", "consult", "book", "training", "hangzhou"], "future": []},
+      "monthlyProjects": {"august": ["offline", "consult", "book", "training", "hangzhou", "mini"], "future": []},
       "weeklyProgress": [
         {"id": "offline", "lastWeekStage": "—", "thisWeekStage": "筹备启动", "thisWeekFocus": "完成方案设计与资源规划；召开预算会议确定成本结构", "nextWeekStage": "方案定稿 & 招募启动", "rag": "red"},
         {"id": "consult", "lastWeekStage": "—", "thisWeekStage": "模型测试", "thisWeekFocus": "优化用户问卷、用户分层、咨询流程与咨询方法论", "nextWeekStage": "跑通首个完整咨询闭环", "rag": "yellow"},
         {"id": "book", "lastWeekStage": "已招募 7/15", "thisWeekStage": "冲刺招募 15/15", "thisWeekFocus": "完成剩余 8 位共创作者招募，确认收款与合同", "nextWeekStage": "内容共创 & 8/20 前提交出版社", "rag": "green"},
         {"id": "training", "lastWeekStage": "—", "thisWeekStage": "销售阶段", "thisWeekFocus": "完成用户触达、成交人数、销售转化率目标", "nextWeekStage": "直播转化阶段", "rag": "yellow"},
-        {"id": "hangzhou", "lastWeekStage": "—", "thisWeekStage": "招募冲刺", "thisWeekFocus": "完成30人招募，嘉宾/操盘手到位，确保周六活动成行", "nextWeekStage": "活动执行 & 复盘", "rag": "yellow"}
+        {"id": "hangzhou", "lastWeekStage": "—", "thisWeekStage": "招募冲刺", "thisWeekFocus": "完成30人招募，嘉宾/操盘手到位，确保周六活动成行", "nextWeekStage": "活动执行 & 复盘", "rag": "yellow"},
+        {"id": "mini", "lastWeekStage": "—", "thisWeekStage": "开发推进", "thisWeekFocus": "完成小程序开发与内测，确保最晚 8/31 上线", "nextWeekStage": "上线 & 验证", "rag": "green"}
       ],
       "timeline": [
         {"group": "本周", "range": "8/10 – 8/16", "items": [
@@ -521,6 +532,7 @@
         {"group": "本月", "range": "8月", "items": [
           {"date": "8/20", "project": "新书共创", "text": "完成 15 位作者内容共创，提交出版社"},
           {"date": "8/23", "project": "内训营", "text": "内训营结营（8/10–8/23 销售+交付）"},
+          {"date": "8/31", "project": "觉醒小程序", "text": "小程序上线（最晚 8/31）"},
           {"date": "8月内", "project": "深圳线下", "text": "方案定稿 & 招募启动（待预算会议决策）"}
         ]},
         {"group": "9月", "range": "9月（深圳大会）", "items": [
@@ -546,15 +558,17 @@
           {"project": "深圳线下", "status": "待预算会议（场地/人员/物料/招募/奖金）", "risk": "high"},
           {"project": "引流咨询", "status": "暂无明确预算", "risk": "medium"},
           {"project": "新书共创", "status": "归入新书整体，无需单独预算", "risk": "low"},
-          {"project": "内训营", "status": "核心成员待补充，成本待明确", "risk": "high"}
+          {"project": "内训营", "status": "核心成员待补充，成本待明确", "risk": "high"},
+          {"project": "觉醒小程序", "status": "成本待明确（最晚 8/31 上线）", "risk": "low"}
         ]
       },
       "projects": [
         {
           "id": "offline", "name": "深圳线下", "star": 5, "level": 5, "priority": "P1", "owner": "小楠", "operator": "若醒",
           "period": "8/17–9/12（大会9/12-13）", "icon": "🎪", "revenueTarget": 100, "revenueDone": 0, "progress": null,
+          "phase": "待启动",
           "formula": "200人招募 × 觉醒合伙人转化 = 100万营收", "stage": "内部沟通，下周一正式启动", "cost": "待预算会议确定", "positioning": "公司阶段性核心增长项目：用户聚集 + 信任建立 + 觉醒合伙人转化", "metrics": ["招募 200 人", "营收 100 万", "核心转化：觉醒合伙人"],
-          "flag": "red", "flagText": "需决策", "focus": "完成方案设计",
+          "flag": "red", "flagText": "需决策", "focus": "完成方案设计", "members": [],
           "subProjects": [
             {"name": "活动方案", "status": "待完成", "progress": 0, "owner": "若醒"}, {"name": "招募策略", "status": "待完成", "progress": 0, "owner": "小楠"},
             {"name": "转化流程", "status": "待完成", "progress": 0, "owner": "若醒"}, {"name": "预算成本", "status": "待决策", "progress": 0, "owner": "小楠"}
@@ -563,8 +577,9 @@
         {
           "id": "consult", "name": "引流咨询", "star": 4, "level": 4, "priority": "P2", "owner": "阿猫", "operator": "长安",
       "period": "8-10月", "icon": "💬", "revenueTarget": 5, "revenueDone": 1, "progress": 20,
+      "phase": "进行中",
       "formula": "引流咨询目标 5万（模型验证 + 转化）；升单觉醒合伙人 ≈ 1万/单", "stage": "咨询转化阶段（已升单1合伙人）", "cost": "暂无明确预算", "positioning": "长期增长模型验证：跑通「流量→咨询→成交」核心转化链路", "metrics": ["合计引流 11 人", "已咨询 3 人", "升单 1 合伙人"], "channels": [{"src":"公域(小红书/抖音)","owner":"长安"},{"src":"公众号","owner":"柒青"},{"src":"私域","owner":"童童"}],
-          "flag": "yellow", "flagText": "需关注", "focus": "完成咨询流程优化",
+          "flag": "yellow", "flagText": "需关注", "focus": "完成咨询流程优化", "members": ["柒青", "童童"],
           "subProjects": [
             {"name": "用户问卷", "status": "优化中", "progress": 30, "owner": "长安"}, {"name": "用户分层", "status": "优化中", "progress": 20, "owner": "长安"},
             {"name": "咨询流程 SOP", "status": "梳理中", "progress": 20, "owner": "长安"}, {"name": "咨询方法论", "status": "待建立", "progress": 10, "owner": "阿猫"}
@@ -573,8 +588,9 @@
         {
           "id": "book", "name": "新书共创", "star": 3, "level": 3, "priority": "P3", "owner": "堂主", "operator": "若醒",
           "period": "8月", "icon": "📖", "revenueTarget": 15, "revenueDone": 13, "progress": 87,
+          "phase": "进行中",
           "formula": "15位共创作者 × 1万/人 = 15万营收", "stage": "已招募 13/15（本周升3人）", "cost": "暂不单独计算，归入新书整体", "positioning": "围绕《只工作不上班》打造共创内容，用户参与案例共创并创造额外营收（IP生态）", "metrics": ["招募 13/15 位作者", "客单价 1 万/人", "营收 13 万"],
-          "flag": "green", "flagText": "不需要", "focus": "完成15人招募",
+          "flag": "green", "flagText": "不需要", "focus": "完成15人招募", "members": ["柒青"],
           "subProjects": [
             {"name": "作者招募", "status": "进行中", "progress": 47, "owner": "若醒"}, {"name": "合同与收款", "status": "进行中", "progress": 47, "owner": "若醒"},
             {"name": "内容共创", "status": "待启动", "progress": 0, "owner": "堂主"}, {"name": "出版社提交", "status": "待启动", "progress": 0, "owner": "堂主"}
@@ -583,8 +599,9 @@
         {
           "id": "training", "name": "内训营", "star": 3, "level": 3, "priority": "P3", "owner": "小楠", "operator": "小杨",
       "period": "8/10-8/23", "icon": "🎓", "revenueTarget": 3, "revenueDone": 0, "progress": 10,
+      "phase": "销售期",
       "formula": "合作内训营 × 客单价2999 = 3万营收", "stage": "销售期（今日拉群，社群进人）", "cost": "待补充", "positioning": "打造标准化内训产品，验证内训模型，形成新现金流", "metrics": ["合作内训营", "客单价 2999 元", "目标营收 3 万"],
-          "flag": "yellow", "flagText": "需关注", "focus": "完成销售目标",
+          "flag": "yellow", "flagText": "需关注", "focus": "完成销售目标", "members": ["长安", "甜甜圈"],
           "subProjects": [
             {"name": "销售招募", "status": "进行中", "progress": 20, "owner": "小杨"}, {"name": "直播转化", "status": "待启动", "progress": 0, "owner": "小杨"},
             {"name": "内容打磨", "status": "待启动", "progress": 0, "owner": "待补充"}, {"name": "交付 SOP", "status": "待启动", "progress": 0, "owner": "待补充"}
@@ -593,12 +610,21 @@
         {
           "id": "hangzhou", "name": "杭州线下", "star": 3, "level": 3, "priority": "P3", "owner": "林若醒", "operator": "林若醒",
           "period": "8月15日（本周六）", "icon": "🏙️", "revenueTarget": 5, "revenueDone": 0, "progress": 40,
+          "phase": "招募期",
           "formula": "30人招募 × 15%转化 = 3单合伙人", "stage": "招募中（已确认 12 人）", "cost": "待补充", "positioning": "本周六(8/15)杭州线下活动，作为 9月大型活动的预演与本地触点", "metrics": ["招募 30 人（已12）", "转化 3 单合伙人", "本周六举办"],
-          "flag": "yellow", "flagText": "需关注", "focus": "完成30人招募，嘉宾与操盘手到位",
+          "flag": "yellow", "flagText": "需关注", "focus": "完成30人招募，嘉宾与操盘手到位", "members": ["童童"],
           "subProjects": [
             {"name": "嘉宾邀约", "status": "已确认3人", "progress": 100, "owner": "林若醒"}, {"name": "用户招募", "status": "8/30", "progress": 27, "owner": "林若醒"},
             {"name": "付费报名", "status": "1人", "progress": 10, "owner": "林若醒"}, {"name": "合伙人转化", "status": "2单待确认", "progress": 20, "owner": "林若醒"}
           ]
+        },
+        {
+          "id": "mini", "name": "觉醒小程序", "star": 3, "level": 3, "priority": "P3", "owner": "堂主", "operator": "待补充",
+          "period": "最晚 8/31 上线", "icon": "📱", "revenueTarget": null, "revenueDone": 0, "progress": null,
+          "phase": "推进中",
+          "formula": "待补充", "stage": "开发推进中，最晚 8/31 上线", "cost": "待补充", "positioning": "觉醒小程序上线，完善用户交付与转化触点", "metrics": [], "channels": [],
+          "flag": "green", "flagText": "待跟进", "focus": "最晚 8/31 上线", "members": ["小杨"],
+          "subProjects": []
         }
       ]
     };
@@ -658,7 +684,8 @@
       consult: 'theme-blue',
       book: 'theme-green',
       training: 'theme-purple',
-      hangzhou: 'theme-amber'
+      hangzhou: 'theme-amber',
+      mini: 'theme-teal'
     };
 
     function renderStars(star) {
@@ -669,8 +696,10 @@
     }
 
     function projectCard(p, spanAll) {
-      const progress = p.revenueTarget ? Math.round((p.revenueDone || 0) / p.revenueTarget * 100) : (p.progress || 0);
-      const progressText = progress > 0 ? `${progress}%` : '待启动';
+      const hasTarget = p.revenueTarget && p.revenueTarget > 0;
+      const progress = hasTarget ? Math.round((p.revenueDone || 0) / p.revenueTarget * 100) : (p.progress || 0);
+      const progressText = p.phase || (progress > 0 ? `${progress}%` : '待启动');
+      const membersText = p.members && p.members.length ? p.members.join('、') : '—';
       const theme = projectTheme[p.id] || 'theme-red';
       const subRows = p.subProjects.map(s => `
         <div class="subproject"><div><div class="subproject-name">${s.name}</div><div class="subproject-owner">${s.owner} · ${s.status}</div></div><div class="subproject-bar-wrap"><div class="subproject-bar"><div class="subproject-bar-fill" style="width:${s.progress}%"></div></div></div></div>`).join('');
@@ -680,6 +709,8 @@
         <div class="project-detail-block">
           <div class="detail-row"><b>营收公式：</b>${p.formula || '待补充'}</div>
           <div class="detail-row"><b>当前阶段：</b>${p.stage || '待补充'}</div>
+          <div class="detail-row"><b>时间：</b>${p.period || '待补充'}</div>
+          <div class="detail-row"><b>核心成员：</b>${membersText}</div>
           <div class="detail-row"><b>项目定位：</b>${p.positioning || '待补充'}</div>
           <div class="detail-tags"><b>验证指标：</b>${metricsTags}</div>
           <div class="detail-row"><b>渠道分工：</b>${channelsText}</div>
@@ -694,21 +725,21 @@
               <div class="project-meta">
                 <span class="meta-item"><span class="meta-k">负责人</span><span class="meta-v">${p.owner}</span></span>
                 <span class="meta-item"><span class="meta-k">操盘手</span><span class="meta-v">${p.operator}</span></span>
-                <span class="meta-item"><span class="meta-k">时间</span><span class="meta-v">${p.period}</span></span>
+                <span class="meta-item"><span class="meta-k">核心成员</span><span class="meta-v">${membersText}</span></span>
               </div>
             </div>
             <div>${renderStars(p.star)}</div>
           </div>
           <div class="project-body">
             <div class="project-numbers">
-              <div class="project-target">${p.revenueTarget}<span class="unit">万</span></div>
+              <div class="project-target">${hasTarget ? p.revenueTarget + '<span class="unit">万</span>' : '无'}</div>
               <div class="project-pct">${progressText}</div>
             </div>
             <div class="project-labels"><span>目标营收</span><span>当前进度</span></div>
-            <div class="project-progress"><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${progress}%"></div></div></div>
+            ${hasTarget ? `<div class="project-progress"><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${progress}%"></div></div></div>` : ''}
           </div>
           <div class="expand-hint">▼ 点击展开项目详情</div>
-          <div class="subprojects" id="sub-${p.id}">${detailBlock}<div class="subproject-divider">4 个小项目进度</div>${subRows}</div>
+          <div class="subprojects" id="sub-${p.id}">${detailBlock}${p.subProjects && p.subProjects.length ? `<div class="subproject-divider">4 个小项目进度</div>${subRows}` : ''}</div>
         </div>`;
     }
 
@@ -778,7 +809,7 @@
       const target = DATA.monthlyRevenue.target, done = DATA.monthlyRevenue.done;
       const pct = Math.round(done / target * 100);
       const gap = target - done;
-      const runningCount = all.filter(p => (p.progress && p.progress > 0) || (p.stage && /销售|交付|测试|已启动/.test(p.stage))).length;
+      const runningCount = all.filter(p => p.phase && p.phase !== '待启动').length;
       const starCount = [5,4,3,2,1].map(s => ({s, n: all.filter(p => (p.star || 1) === s).length})).filter(x => x.n > 0);
       const starText = starCount.map(x => `${x.s}星${x.n}`).join(' · ');
 
@@ -829,20 +860,23 @@
         </div>`;
 
       const matrixInner = `
-        <div class="rd-matrix">
-          <div class="rd-mrow head"><div>项目</div><div>等级</div><div>核心负责人</div><div>操盘手</div></div>
+          <div class="rd-matrix">
+          <div class="rd-mrow head"><div>项目</div><div>等级</div><div>核心负责人</div><div>操盘手</div><div>核心成员</div></div>
           ${DATA.projects.map(p => `
             <div class="rd-mrow">
               <div class="rd-mproj">${p.icon} ${p.name}</div>
               <div><span class="rd-mlevel l${p.level}">${p.level}级</span></div>
               <div class="rd-mowner">${p.owner}</div>
               <div class="rd-mop">${p.operator}</div>
+              <div class="rd-mmembers">${p.members && p.members.length ? p.members.join('、') : '—'}</div>
             </div>`).join('')}
         </div>`;
 
       const loadMap = {};
       DATA.projects.forEach(p => {
-        [p.owner, p.operator].forEach(n => {
+        const names = [p.owner, p.operator, ...(p.members || [])];
+        names.forEach(n => {
+          if (!n || /待补充/.test(n)) return;
           if (!loadMap[n]) loadMap[n] = [];
           if (!loadMap[n].includes(p.name)) loadMap[n].push(p.name);
         });
