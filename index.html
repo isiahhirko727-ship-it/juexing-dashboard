@@ -107,19 +107,26 @@
     }
     .channel-tag.missing { color: var(--gray-400); background: transparent; }
     .people-charts { display: flex; flex-direction: column; gap: 18px; align-items: stretch; }
+
+    /* Section 1 (renamed): Products */
+    .products-page { display: flex; flex-direction: column; gap: 18px; }
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .products-charts { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .products-charts .chart-card { min-height: 220px; }
+
     .chart-card {
-      flex: 1; min-height: 0;
       background: linear-gradient(180deg, #fff6ef 0%, #ffecdc 100%);
-      border: 1px solid #ffd2b8; border-radius: 12px; padding: 14px 18px;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; box-shadow: 0 4px 18px rgba(255,107,53,.16);
+      border: 1px solid #ffd2b8; border-radius: 12px; padding: 18px 22px;
+      display: flex; flex-direction: row; align-items: center; justify-content: space-between;
+      gap: 24px; box-shadow: 0 4px 18px rgba(255,107,53,.16);
     }
-    .chart-title { font-size: 14px; font-weight: 800; color: #7a2e12; margin-bottom: 8px; }
-    .pie-chart { width: 160px; height: 160px; margin: 0 auto; }
-    .pie-center { fill: var(--gray-50); font-size: 11px; text-anchor: middle; dominant-baseline: middle; }
-    .legend { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; justify-content: center; }
-    .legend-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--gray-600); }
-    .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .chart-card-left { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; flex: 1; }
+    .chart-title { font-size: 15px; font-weight: 800; color: #7a2e12; }
+    .pie-chart { width: 180px; height: 180px; flex: 0 0 auto; }
+    .pie-center { fill: #7a2e12; font-size: 11px; font-weight: 700; text-anchor: middle; dominant-baseline: middle; }
+    .legend { display: flex; flex-direction: column; gap: 10px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--gray-700); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
     .note { font-size: 12px; color: var(--gray-500); margin-top: 14px; padding: 10px; background: var(--gray-50); border-radius: 8px; }
     .missing-note { color: var(--amber); }
 
@@ -194,6 +201,20 @@
     .kpi-bar-fill { height: 100%; background: var(--gold-grad); border-radius: 999px; box-shadow: var(--glow-gold); }
     .kpi-band .kpi-item:nth-child(2), .kpi-band .kpi-item:nth-child(3) { padding-left: 16px; border-left: 1px solid rgba(255,255,255,.2); }
     .kpi-band .kpi-item:nth-child(2) .kpi-big, .kpi-band .kpi-item:nth-child(3) .kpi-big { color: var(--gold-400); text-shadow: 0 0 20px rgba(255,200,40,.75); font-size: 42px; }
+
+    .kpi-band.v2 { background: transparent; color: var(--gray-900); border: none; box-shadow: none; padding: 0; gap: 16px; }
+    .kpi-card { flex: 1; background: var(--white); border: 1px solid var(--gray-100); border-radius: 12px; padding: 16px 18px; position: relative; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,.05); }
+    .kpi-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--flame); }
+    .kpi-card:nth-child(2)::before { background: var(--gold-400); }
+    .kpi-card:nth-child(3)::before { background: var(--green-600); }
+    .kpi-card:nth-child(4)::before { background: var(--blue); }
+    .kpi-card-label { font-size: 12px; color: var(--gray-500); font-weight: 700; letter-spacing: .3px; }
+    .kpi-card-value { font-size: 34px; font-weight: 900; color: var(--gray-900); line-height: 1.1; margin-top: 6px; letter-spacing: -1px; }
+    .kpi-card:nth-child(2) .kpi-card-value { color: var(--gold-500); }
+    .kpi-card-value .unit { font-size: 14px; font-weight: 700; color: var(--gray-500); margin-left: 2px; }
+    .kpi-card-sub { font-size: 11px; color: var(--gray-500); margin-top: 8px; line-height: 1.4; }
+    .kpi-card-bar { height: 7px; background: var(--gray-100); border-radius: 999px; overflow: hidden; margin-top: 10px; }
+    .kpi-card-bar-fill { height: 100%; background: linear-gradient(90deg, #ffd700, #ffb020); border-radius: 999px; }
 
     /* Orders rail (right column, vertical marquee) */
     .orders-rail {
@@ -332,11 +353,24 @@
       .weekly-panel { max-height: 320px; }
       .rd-hero-cards { grid-template-columns: 1fr; }
       .rd-bottom { grid-template-columns: 1fr; }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .products-charts { grid-template-columns: 1fr 1fr; }
+      .chart-card { flex-direction: column; gap: 14px; padding: 16px; }
+      .chart-card-left { align-items: center; }
+      .legend { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+      .kpi-band.v2 { flex-wrap: wrap; }
+      .kpi-card { flex: 1 1 calc(50% - 7px); min-width: 160px; }
     }
     @media (max-width: 760px) {
       .people-grid { grid-template-columns: 1fr; }
       .people-charts { flex-direction: column; }
-      .chart-card { min-height: 200px; }
+      .products-grid { grid-template-columns: 1fr; }
+      .products-charts { grid-template-columns: 1fr; }
+      .chart-card { flex-direction: column; gap: 14px; padding: 16px; }
+      .chart-card-left { align-items: center; }
+      .legend { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+      .kpi-card { flex: 1 1 100%; }
+      .chart-card { min-height: auto; }
       .health-grid { grid-template-columns: 1fr; }
       .project-grid { grid-template-columns: 1fr; }
       .project-card.span-all { grid-column: auto; }
@@ -354,8 +388,8 @@
   </div>
 
   <div class="nav-tabs">
-    <div class="nav-tab active" data-tab="people" onclick="showTab('people')">项目人数</div>
-    <div class="nav-tab" data-tab="projects" onclick="showTab('projects')">本月项目</div>
+    <div class="nav-tab active" data-tab="projects" onclick="showTab('projects')">本月项目</div>
+    <div class="nav-tab" data-tab="products" onclick="showTab('products')">产品情况</div>
     <div class="nav-tab" data-tab="weekly" onclick="showTab('weekly')">本周的重点</div>
     <div class="nav-tab" data-tab="rd" onclick="showTab('rd')">资源与决策</div>
   </div>
@@ -375,13 +409,12 @@
         "公司资源根据项目等级投入：优先流向高价值、高增长、核心能力建设项目",
         "每周进行项目状态同步：当前进度 / 当前问题 / 下一阶段重点 / 是否需要资源支持"
       ],
-      "people": {
-        "note": "项目人数看板：具体到每个核心人群/项目的当前人数、本周/本月新增、新增渠道、GMV贡献。私董/合伙人/新商学数据待补充；新书共创为临时增加的临时项目。",
+      "products": {
+        "note": "产品情况：私董 / 合伙人 / 新商学的人数、本周/本月新增、新增渠道与 GMV 贡献。",
         "items": [
           {"id": "sidong", "name": "私董", "current": null, "weekAdd": null, "monthAdd": null, "weekChannels": [], "monthChannels": [], "weekGMV": null, "monthGMV": null, "target": null, "icon": "👤"},
           {"id": "partner", "name": "合伙人", "current": null, "weekAdd": null, "monthAdd": null, "weekChannels": [], "monthChannels": [], "weekGMV": null, "monthGMV": null, "target": 30, "icon": "🤝"},
-          {"id": "newbiz", "name": "新商学", "current": null, "weekAdd": null, "monthAdd": null, "weekChannels": [], "monthChannels": [], "weekGMV": null, "monthGMV": null, "target": null, "icon": "📚"},
-          {"id": "bookco", "name": "新书共创", "current": 7, "weekAdd": 6, "monthAdd": 7, "weekChannels": [{"name": "待补充", "value": 0}], "monthChannels": [{"name": "待补充", "value": 0}], "weekGMV": 9.98, "monthGMV": 9.98, "target": null, "icon": "📖", "temporary": true}
+          {"id": "newbiz", "name": "新商学", "current": null, "weekAdd": null, "monthAdd": null, "weekChannels": [], "monthChannels": [], "weekGMV": null, "monthGMV": null, "target": null, "icon": "📚"}
         ]
       },
       "orders": [
@@ -408,20 +441,20 @@
       ],
       "timeline": [
         {"group": "本周", "range": "8/10 – 8/16", "items": [
-          {"date": "本周", "project": "引流咨询", "text": "跑通首个完整咨询闭环"},
+          {"date": "本周", "project": "免费咨询", "text": "跑通首个完整咨询闭环"},
           {"date": "本周", "project": "内训营", "text": "销售阶段推进，冲刺本周成交目标"},
           {"date": "8/15", "project": "杭州线下", "text": "杭州线下活动举办，目标30人招募"}
         ]},
         {"group": "本月", "range": "8月", "items": [
           {"date": "8/20", "project": "新书共创", "text": "完成 15 位作者内容共创，提交出版社"},
           {"date": "8/23", "project": "内训营", "text": "内训营结营（8/10–8/23 销售+交付）"},
-          {"date": "8月内", "project": "线下活动", "text": "方案定稿 & 招募启动（待预算会议决策）"}
+          {"date": "8月内", "project": "深圳线下", "text": "方案定稿 & 招募启动（待预算会议决策）"}
         ]},
-        {"group": "9月", "range": "9月（线下大会）", "items": [
-          {"date": "8/17-31", "project": "线下活动", "text": "筹备：方案/招募策略/分工/转化流程/资源"},
-          {"date": "9/1-11", "project": "线下活动", "text": "执行阶段"},
-          {"date": "9/12-13", "project": "线下活动", "text": "正式举办（招募 200 人）"},
-          {"date": "9/20前", "project": "线下活动", "text": "收尾复盘"}
+        {"group": "9月", "range": "9月（深圳大会）", "items": [
+          {"date": "8/17-31", "project": "深圳线下", "text": "筹备：方案/招募策略/分工/转化流程/资源"},
+          {"date": "9/1-11", "project": "深圳线下", "text": "执行阶段"},
+          {"date": "9/12-13", "project": "深圳线下", "text": "正式举办（招募 200 人）"},
+          {"date": "9/20前", "project": "深圳线下", "text": "收尾复盘"}
         ]}
       ],
       "monthlyRevenue": { "target": 28, "done": 7, "breakdown": [
@@ -434,18 +467,18 @@
         "directions": [
           {"name": "建立新的增长渠道", "desc": "拓展公域/私域获客来源"},
           {"name": "优化用户转化链路", "desc": "跑通流量→咨询→成交"},
-          {"name": "打造阶段性营收突破项目", "desc": "线下活动等核心增长项目"}
+          {"name": "打造阶段性营收突破项目", "desc": "深圳线下等核心增长项目"}
         ],
         "budget": [
-          {"project": "线下活动", "status": "待预算会议（场地/人员/物料/招募/奖金）", "risk": "high"},
-          {"project": "引流咨询", "status": "暂无明确预算", "risk": "medium"},
+          {"project": "深圳线下", "status": "待预算会议（场地/人员/物料/招募/奖金）", "risk": "high"},
+          {"project": "免费咨询", "status": "暂无明确预算", "risk": "medium"},
           {"project": "新书共创", "status": "归入新书整体，无需单独预算", "risk": "low"},
           {"project": "内训营", "status": "核心成员待补充，成本待明确", "risk": "high"}
         ]
       },
       "projects": [
         {
-          "id": "offline", "name": "线下活动", "level": 5, "priority": "P1", "owner": "小楠", "operator": "若醒",
+          "id": "offline", "name": "深圳线下", "star": 5, "level": 5, "priority": "P1", "owner": "小楠", "operator": "若醒",
           "period": "8-9月", "icon": "🎪", "revenueTarget": 100, "revenueDone": 0, "progress": null,
           "formula": "200人招募 × 觉醒合伙人转化 = 100万营收", "stage": "待筹备", "cost": "待预算会议确定", "positioning": "公司阶段性核心增长项目：用户聚集 + 信任建立 + 觉醒合伙人转化", "metrics": ["招募 200 人", "营收 100 万", "核心转化：觉醒合伙人"],
           "flag": "red", "flagText": "需决策", "focus": "完成方案设计",
@@ -455,7 +488,7 @@
           ]
         },
         {
-          "id": "consult", "name": "引流咨询", "level": 4, "priority": "P2", "owner": "阿猫", "operator": "长安",
+          "id": "consult", "name": "免费咨询", "star": 4, "level": 4, "priority": "P2", "owner": "阿猫", "operator": "长安",
       "period": "8-10月", "icon": "💬", "revenueTarget": 5, "revenueDone": 0, "progress": null,
       "formula": "免费咨询目标 5万（模型验证 + 转化）", "stage": "模型测试阶段", "cost": "暂无明确预算", "positioning": "长期增长模型验证：跑通「流量→咨询→成交」核心转化链路", "metrics": ["8月 30 有效咨询", "成交 3 单觉醒合伙人", "持续 2-3 个月"], "channels": [{"src":"公域(小红书/抖音)","owner":"长安"},{"src":"公众号","owner":"柒青"},{"src":"私域","owner":"童童"}],
           "flag": "yellow", "flagText": "需关注", "focus": "完成咨询流程优化",
@@ -465,7 +498,7 @@
           ]
         },
         {
-          "id": "book", "name": "新书共创", "level": 3, "priority": "P3", "owner": "堂主", "operator": "若醒",
+          "id": "book", "name": "新书共创", "star": 3, "level": 3, "priority": "P3", "owner": "堂主", "operator": "若醒",
           "period": "8月", "icon": "📖", "revenueTarget": 15, "revenueDone": 7, "progress": 47,
           "formula": "15位共创作者 × 1万/人 = 15万营收", "stage": "已启动（已招 7/15）", "cost": "暂不单独计算，归入新书整体", "positioning": "围绕《只工作不上班》打造共创内容，用户参与案例共创并创造额外营收（IP生态）", "metrics": ["招募 15 位共创作者", "客单价 1 万/人", "营收 15 万"],
           "flag": "green", "flagText": "不需要", "focus": "完成15人招募",
@@ -475,7 +508,7 @@
           ]
         },
         {
-          "id": "training", "name": "内训营", "level": 3, "priority": "P3", "owner": "小楠", "operator": "小杨",
+          "id": "training", "name": "内训营", "star": 3, "level": 3, "priority": "P3", "owner": "小楠", "operator": "小杨",
       "period": "8/10-8/23", "icon": "🎓", "revenueTarget": 3, "revenueDone": 0, "progress": null,
       "formula": "合作内训营 × 客单价2999 = 3万营收", "stage": "销售阶段（本周）", "cost": "待补充", "positioning": "打造标准化内训产品，验证内训模型，形成新现金流", "metrics": ["合作内训营", "客单价 2999 元", "目标营收 3 万"],
           "flag": "yellow", "flagText": "需关注", "focus": "完成销售目标",
@@ -485,7 +518,7 @@
           ]
         },
         {
-          "id": "hangzhou", "name": "杭州线下", "level": 3, "priority": "P3", "owner": "林若醒", "operator": "待补充",
+          "id": "hangzhou", "name": "杭州线下", "star": 3, "level": 3, "priority": "P3", "owner": "林若醒", "operator": "待补充",
           "period": "8月15日（本周六）", "icon": "🏙️", "revenueTarget": 5, "revenueDone": 0, "progress": 27,
           "formula": "30人招募 × 15%转化 = 3单合伙人", "stage": "招募冲刺（本周六举办）", "cost": "待补充", "positioning": "本周六(8/15)杭州线下活动，作为 9月大型活动的预演与本地触点", "metrics": ["招募 30 人", "转化 3 单合伙人", "本周六举办"],
           "flag": "yellow", "flagText": "需关注", "focus": "完成30人招募，嘉宾与操盘手到位",
@@ -503,14 +536,13 @@
     function fmtNum(n) { return (n === null || n === undefined) ? '—' : n; }
     function fmtMoney(n) { return (n === null || n === undefined) ? '—' : n + '万'; }
 
-    function renderPeople() {
-      const cards = DATA.people.items.map(p => {
+    function renderProducts() {
+      const cards = DATA.products.items.map(p => {
         const missing = p.current === null || p.current === undefined;
         const weekChannels = p.weekChannels && p.weekChannels.length ? p.weekChannels.map(c => `<span class="channel-tag">${c.name} ${c.value || ''}</span>`).join('') : '<span class="channel-tag missing">待补充</span>';
         const monthChannels = p.monthChannels && p.monthChannels.length ? p.monthChannels.map(c => `<span class="channel-tag">${c.name} ${c.value || ''}</span>`).join('') : '<span class="channel-tag missing">待补充</span>';
         return `
-          <div class="people-card ${p.temporary ? 'temporary' : ''}">
-            ${p.temporary ? '<div class="people-badge">临时</div>' : ''}
+          <div class="people-card">
             <div class="people-top"><div class="people-icon">${p.icon}</div><div class="people-name">${p.name}</div></div>
             <div class="people-metrics">
               <div class="people-hero">
@@ -528,30 +560,27 @@
           </div>`;
       }).join('');
 
-      const weekPie = makeDonut(DATA.people.items.map(p => ({
-        label: p.name, value: p.weekGMV || 0, color: p.id === 'sidong' ? '#e23744' : p.id === 'partner' ? '#ff6b35' : p.id === 'newbiz' ? '#ff8c66' : '#ffb020'
-      })), '本周');
-      const monthPie = makeDonut(DATA.people.items.map(p => ({
-        label: p.name, value: p.monthGMV || 0, color: p.id === 'sidong' ? '#e23744' : p.id === 'partner' ? '#ff6b35' : p.id === 'newbiz' ? '#ff8c66' : '#ffb020'
-      })), '本月');
+      const color = p => p.id === 'sidong' ? '#e23744' : p.id === 'partner' ? '#ff6b35' : '#ff8c66';
+      const weekPie = makeDonut(DATA.products.items.map(p => ({ label: p.name, value: p.weekGMV || 0, color: color(p) })), '本周');
+      const monthPie = makeDonut(DATA.products.items.map(p => ({ label: p.name, value: p.monthGMV || 0, color: color(p) })), '本月');
 
       const body = `
-        <div class="people-layout">
-          <div class="people-grid">${cards}</div>
-          <div class="people-charts">
-            <div class="chart-card"><div class="chart-title">本周 GMV 分布</div>${weekPie.svg}<div class="legend">${weekPie.legend}</div></div>
-            <div class="chart-card"><div class="chart-title">本月 GMV 分布</div>${monthPie.svg}<div class="legend">${monthPie.legend}</div></div>
+        <div class="products-page">
+          <div class="products-grid">${cards}</div>
+          <div class="products-charts">
+            <div class="chart-card">
+              <div class="chart-card-left"><div class="chart-title">本周 GMV 分布</div><div class="legend">${weekPie.legend}</div></div>
+              ${weekPie.svg}
+            </div>
+            <div class="chart-card">
+              <div class="chart-card-left"><div class="chart-title">本月 GMV 分布</div><div class="legend">${monthPie.legend}</div></div>
+              ${monthPie.svg}
+            </div>
           </div>
+          <div class="note missing-note">${DATA.products.note}</div>
         </div>
-        <div class="note missing-note">${DATA.people.note}</div>
       `;
-      return section('people', '项目人数', body);
-    }
-
-    function isProjectRunning(p) {
-      if (p.progress && p.progress > 0) return true;
-      if (p.stage && (p.stage.includes('销售') || p.stage.includes('交付') || p.stage.includes('测试') || p.stage.includes('已启动'))) return true;
-      return false;
+      return section('products', '产品情况', body);
     }
 
     function projectCard(p, spanAll) {
@@ -635,32 +664,25 @@
     }
 
     function renderProjects() {
-      const all = [...DATA.projects].sort((a, b) => {
-        const ar = isProjectRunning(a), br = isProjectRunning(b);
-        if (ar && !br) return -1;
-        if (!ar && br) return 1;
-        const order = {P1:1, P2:2, P3:3};
-        return order[a.priority] - order[b.priority];
-      });
-      const running = all.filter(isProjectRunning).sort((a, b) => (b.revenueTarget || 0) - (a.revenueTarget || 0));
-      const pending = all.filter(p => !isProjectRunning(p));
-
-      const runningCards = running.map((p, i) => projectCard(p, running.length === 3 && i === 0));
-      const pendingCards = pending.map(p => projectCard(p, false));
+      const all = [...DATA.projects].sort((a, b) => (b.star || 1) - (a.star || 1));
+      const projectCards = all.map(p => projectCard(p, false)).join('');
 
       const target = DATA.monthlyRevenue.target, done = DATA.monthlyRevenue.done;
       const pct = Math.round(done / target * 100);
+      const gap = target - done;
+      const runningCount = all.filter(p => (p.progress && p.progress > 0) || (p.stage && /销售|交付|测试|已启动/.test(p.stage))).length;
+      const starCount = [5,4,3,2,1].map(s => ({s, n: all.filter(p => (p.star || 1) === s).length})).filter(x => x.n > 0);
+      const starText = starCount.map(x => `${x.s}星${x.n}`).join(' · ');
+
       const kpiBand = `
-        <div class="kpi-band">
-          <div class="kpi-item"><div class="kpi-label">8月营收目标</div><div class="kpi-big">${target}<span class="kpi-unit">万</span></div></div>
-          <div class="kpi-item"><div class="kpi-label">当前已收款</div><div class="kpi-big">${done}<span class="kpi-unit">万</span> <span class="kpi-sub">/ ${target}万</span></div><div class="kpi-bar"><div class="kpi-bar-fill" style="width:${pct}%"></div></div></div>
-          <div class="kpi-item"><div class="kpi-label">整体完成率</div><div class="kpi-big">${pct}<span class="kpi-unit">%</span></div></div>
-          <div class="kpi-item"><div class="kpi-label">在跑项目</div><div class="kpi-big">${running.length}<span class="kpi-unit">/${all.length}</span></div></div>
+        <div class="kpi-band v2">
+          <div class="kpi-card"><div class="kpi-card-label">8月营收目标</div><div class="kpi-card-value">${target}<span class="unit">万</span></div><div class="kpi-card-sub">书籍 15 / 咨询 5 / 内训 3 / 杭州 5</div></div>
+          <div class="kpi-card"><div class="kpi-card-label">当前已收款</div><div class="kpi-card-value">${done}<span class="unit">万</span></div><div class="kpi-card-sub">缺口 ${gap} 万</div></div>
+          <div class="kpi-card"><div class="kpi-card-label">整体完成率</div><div class="kpi-card-value">${pct}<span class="unit">%</span></div><div class="kpi-card-bar"><div class="kpi-card-bar-fill" style="width:${pct}%"></div></div></div>
+          <div class="kpi-card"><div class="kpi-card-label">项目动态</div><div class="kpi-card-value">${runningCount}<span class="unit">/${all.length}</span></div><div class="kpi-card-sub">${starText}</div></div>
         </div>`;
 
-      const leftBody = `<div class="project-grid">${runningCards.join('')}</div>${pending.length ? `<div class="project-subtitle pending">待启动项目 · ${pending.length} 个</div><div class="project-grid pending-grid">${pendingCards.join('')}</div>` : ''}`;
-
-      const body = `<div class="projects-page">${kpiBand}<div class="project-subtitle">进行中项目 · ${running.length} 个</div><div class="projects-layout"><div class="projects-left">${leftBody}</div><div class="projects-right">${renderOrders()}${renderRevenueComposition()}</div></div></div>`;
+      const body = `<div class="projects-page">${kpiBand}<div class="projects-layout"><div class="projects-left"><div class="project-grid">${projectCards}</div></div><div class="projects-right">${renderOrders()}${renderRevenueComposition()}</div></div></div>`;
       return section('projects', '本月项目', body);
     }
 
@@ -739,7 +761,7 @@
     }
 
     function section(tabId, title, body) {
-      const hidden = tabId === 'people' ? '' : ' hidden';
+      const hidden = tabId === 'projects' ? '' : ' hidden';
       return `<div class="section tab-panel${hidden}" id="tab-${tabId}" aria-label="${title}"><div class="section-body">${body}</div></div>`;
     }
 
@@ -761,17 +783,18 @@
     function makeDonut(data, labelPrefix) {
       const total = data.reduce((a, b) => a + b.value, 0) || 1;
       let acc = 0;
+      const cx = 60, cy = 60, r = 48, hole = 30;
       const slices = data.map(d => {
         const start = acc / total * Math.PI * 2; acc += d.value;
         const end = acc / total * Math.PI * 2;
-        const x1 = 50 + 40 * Math.cos(start), y1 = 50 + 40 * Math.sin(start);
-        const x2 = 50 + 40 * Math.cos(end), y2 = 50 + 40 * Math.sin(end);
+        const x1 = cx + r * Math.cos(start), y1 = cy + r * Math.sin(start);
+        const x2 = cx + r * Math.cos(end), y2 = cy + r * Math.sin(end);
         const large = end - start > Math.PI ? 1 : 0;
-        return `<path d="M50,50 L${x1},${y1} A40,40 0 ${large},1 ${x2},${y2} Z" fill="${d.color}" stroke="#fff" stroke-width="1" />`;
+        return `<path d="M${cx},${cy} L${x1},${y1} A${r},${r} 0 ${large},1 ${x2},${y2} Z" fill="${d.color}" stroke="#fff" stroke-width="1.5" />`;
       }).join('');
       const legend = data.map(d => `<div class="legend-item"><div class="legend-dot" style="background:${d.color}"></div>${d.label} ${d.value ? d.value + '万' : '—'}</div>`).join('');
-      const centerText = total > 0 ? `${labelPrefix}<tspan x="50" dy="12">${total}万</tspan>` : '暂无';
-      return {svg: `<svg class="pie-chart" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="transparent"/>${slices}<circle cx="50" cy="50" r="24" fill="#f3f4f6"/><text x="50" y="48" class="pie-center">${centerText}</text></svg>`, legend};
+      const centerText = total > 0 ? `${labelPrefix}<tspan x="${cx}" dy="13">${total}万</tspan>` : '暂无';
+      return {svg: `<svg class="pie-chart" viewBox="0 0 120 120"><circle cx="${cx}" cy="${cy}" r="${r}" fill="transparent"/>${slices}<circle cx="${cx}" cy="${cy}" r="${hole}" fill="#fffaf7"/><text x="${cx}" y="${cy-2}" class="pie-center">${centerText}</text></svg>`, legend};
     }
 
     window.showTab = function(id) {
@@ -782,7 +805,7 @@
     };
     window.toggleSub = function(id) { document.getElementById('sub-' + id).classList.toggle('open'); };
 
-    app.innerHTML = renderPeople() + renderProjects() + renderWeekly() + renderRD();
+    app.innerHTML = renderProjects() + renderProducts() + renderWeekly() + renderRD();
     startOrderFeed();
 
     document.getElementById('principlesFooter').innerHTML =
