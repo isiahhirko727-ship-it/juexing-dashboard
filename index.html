@@ -186,7 +186,9 @@
     .project-target .unit { font-size: 16px; font-weight: 700; margin-left: 2px; }
     .project-pct { font-size: 26px; font-weight: 900; letter-spacing: -1px; }
     .project-labels { display: flex; gap: 14px; font-size: 11px; color: var(--gray-500); margin-bottom: 14px; }
-    .project-progress { margin-top: auto; }
+    .project-progress-row { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+    .project-progress { flex: 1; }
+    .project-progress-num { font-size: 13px; font-weight: 800; white-space: nowrap; letter-spacing: .2px; }
     .progress-bar-bg { height: 10px; background: var(--gray-100); border-radius: 999px; overflow: hidden; }
     .progress-bar-fill { height: 100%; border-radius: 999px; }
     .project-extra { margin: 10px 0 2px; }
@@ -221,6 +223,7 @@
     .project-card.theme-red .project-meta .meta-v { color: #be123c; }
     .project-card.theme-red .project-target { color: #e23744; }
     .project-card.theme-red .project-pct { color: #e23744; }
+    .project-card.theme-red .project-progress-num { color: #e23744; }
     .project-card.theme-red .progress-bar-fill { background: linear-gradient(90deg, #e23744, #ff6b6b); }
     .project-card.theme-red .expand-hint { color: #be123c; }
 
@@ -230,6 +233,7 @@
     .project-card.theme-blue .project-meta .meta-v { color: #1d4ed8; }
     .project-card.theme-blue .project-target { color: #3b82f6; }
     .project-card.theme-blue .project-pct { color: #3b82f6; }
+    .project-card.theme-blue .project-progress-num { color: #3b82f6; }
     .project-card.theme-blue .progress-bar-fill { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
     .project-card.theme-blue .expand-hint { color: #1d4ed8; }
 
@@ -239,6 +243,7 @@
     .project-card.theme-green .project-meta .meta-v { color: #15803d; }
     .project-card.theme-green .project-target { color: #22c55e; }
     .project-card.theme-green .project-pct { color: #22c55e; }
+    .project-card.theme-green .project-progress-num { color: #22c55e; }
     .project-card.theme-green .progress-bar-fill { background: linear-gradient(90deg, #22c55e, #4ade80); }
     .project-card.theme-green .expand-hint { color: #15803d; }
 
@@ -248,6 +253,7 @@
     .project-card.theme-purple .project-meta .meta-v { color: #6d28d9; }
     .project-card.theme-purple .project-target { color: #8b5cf6; }
     .project-card.theme-purple .project-pct { color: #8b5cf6; }
+    .project-card.theme-purple .project-progress-num { color: #8b5cf6; }
     .project-card.theme-purple .progress-bar-fill { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
     .project-card.theme-purple .expand-hint { color: #6d28d9; }
 
@@ -257,6 +263,7 @@
     .project-card.theme-amber .project-meta .meta-v { color: #b45309; }
     .project-card.theme-amber .project-target { color: #f59e0b; }
     .project-card.theme-amber .project-pct { color: #f59e0b; }
+    .project-card.theme-amber .project-progress-num { color: #f59e0b; }
     .project-card.theme-amber .progress-bar-fill { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
     .project-card.theme-amber .expand-hint { color: #b45309; }
 
@@ -266,6 +273,7 @@
     .project-card.theme-teal .project-meta .meta-v { color: #0f766e; }
     .project-card.theme-teal .project-target { color: #14b8a6; }
     .project-card.theme-teal .project-pct { color: #14b8a6; }
+    .project-card.theme-teal .project-progress-num { color: #14b8a6; }
     .project-card.theme-teal .progress-bar-fill { background: linear-gradient(90deg, #14b8a6, #2dd4bf); }
     .project-card.theme-teal .expand-hint { color: #0f766e; }
 
@@ -634,6 +642,7 @@
 
     function fmtNum(n) { return (n === null || n === undefined) ? '—' : n; }
     function fmtMoney(n) { return (n === null || n === undefined) ? '—' : n + '万'; }
+    function fmtPct(n) { const r = Math.round(n * 10) / 10; return Number.isInteger(r) ? String(r) : r.toFixed(1); }
 
     function renderProducts() {
       const cards = DATA.products.items.map(p => {
@@ -697,8 +706,9 @@
 
     function projectCard(p, spanAll) {
       const hasTarget = p.revenueTarget && p.revenueTarget > 0;
-      const progress = hasTarget ? Math.round((p.revenueDone || 0) / p.revenueTarget * 100) : (p.progress || 0);
-      const progressText = p.phase || (progress > 0 ? `${progress}%` : '待启动');
+      const pctExact = hasTarget ? (p.revenueDone || 0) / p.revenueTarget * 100 : 0;
+      const barPct = hasTarget ? Math.round(pctExact) : (p.progress || 0);
+      const progressText = p.phase || (barPct > 0 ? `${barPct}%` : '待启动');
       const membersText = p.members && p.members.length ? p.members.join('、') : '—';
       const theme = projectTheme[p.id] || 'theme-red';
       const subRows = p.subProjects.map(s => `
@@ -736,7 +746,11 @@
               <div class="project-pct">${progressText}</div>
             </div>
             <div class="project-labels"><span>目标营收</span><span>当前进度</span></div>
-            ${hasTarget ? `<div class="project-progress"><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${progress}%"></div></div></div>` : ''}
+            ${hasTarget ? `
+              <div class="project-progress-row">
+                <div class="project-progress"><div class="progress-bar-bg"><div class="progress-bar-fill" style="width:${barPct}%"></div></div></div>
+                <div class="project-progress-num">${fmtMoney(p.revenueDone)} / ${fmtMoney(p.revenueTarget)} · ${fmtPct(pctExact)}%</div>
+              </div>` : ''}
           </div>
           <div class="expand-hint">▼ 点击展开项目详情</div>
           <div class="subprojects" id="sub-${p.id}">${detailBlock}${p.subProjects && p.subProjects.length ? `<div class="subproject-divider">4 个小项目进度</div>${subRows}` : ''}</div>
