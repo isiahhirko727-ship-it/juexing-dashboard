@@ -429,6 +429,8 @@
     .pf-title { font-size: 13px; font-weight: 800; color: #b91c1c; white-space: nowrap; flex: 0 0 auto; }
     .pf-items { display: flex; flex-wrap: wrap; gap: 8px 22px; }
     .pf-items span { font-size: 12px; color: var(--gray-600); line-height: 1.5; }
+    .page-load-hint { padding: 60px 20px; text-align: center; color: var(--gray-500); font-size: 14px; line-height: 1.6; }
+    .page-load-hint small { display: block; margin-top: 8px; color: var(--gray-400); font-size: 12px; word-break: break-all; }
 
     @media (max-width: 1100px) {
       .people-layout { grid-template-columns: 1fr; }
@@ -467,6 +469,167 @@
       .project-card.span-all { grid-column: auto; }
       .focus-row { grid-template-columns: 1fr; }
     }
+
+    /* Mobile adaptation: ≤640px */
+    @media (max-width: 640px) {
+      body { height: auto; min-height: 100vh; overflow: auto; }
+      .topbar { padding: 10px 14px; }
+      .brand { gap: 10px; }
+      .logo { width: 34px; height: 34px; font-size: 15px; border-radius: 8px; }
+      .brand-title { font-size: 15px; }
+      .brand-sub { font-size: 11px; }
+      .update-time { font-size: 11px; text-align: right; line-height: 1.4; }
+
+      /* Nav tabs: 2×2 grid to avoid vertical text */
+      .nav-tabs {
+        padding: 8px 12px 0;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 6px;
+        border-bottom: none;
+      }
+      .nav-tab {
+        padding: 10px 6px;
+        font-size: 14px;
+        text-align: center;
+        border-bottom: none;
+        border-radius: 8px;
+        background: var(--gray-50);
+        white-space: nowrap;
+      }
+      .nav-tab.active {
+        background: var(--green-50);
+        color: var(--green-600);
+        box-shadow: inset 0 0 0 1px var(--green-600);
+        font-weight: 800;
+      }
+
+      .container { padding: 12px 12px 14px; }
+      .section-body { padding: 12px 14px; }
+
+      /* KPI band */
+      .kpi-band { flex-direction: column; padding: 14px 16px; gap: 12px; }
+      .kpi-band .kpi-item:nth-child(2), .kpi-band .kpi-item:nth-child(3) { padding-left: 0; border-left: none; border-top: 1px solid rgba(255,255,255,.15); padding-top: 12px; }
+      .kpi-band.v2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .kpi-card { padding: 16px 14px; min-width: 0; }
+      .kpi-card-value { font-size: 32px; }
+      .kpi-card-sub { font-size: 11px; }
+      .kpi-card-bar { height: 7px; }
+
+      /* Projects */
+      .project-grid { gap: 12px; }
+      .project-card { padding: 14px; }
+      .project-title { font-size: 22px; }
+      .project-title .project-icon { font-size: 18px; }
+      .project-meta { gap: 6px 10px; font-size: 12px; }
+      .project-meta .meta-item { white-space: normal; }
+      .project-meta .meta-k { font-size: 11px; }
+      .project-meta .meta-v { font-size: 15px; }
+      .project-stars { font-size: 12px; }
+      .project-numbers { gap: 10px; margin: 8px 0 4px; }
+      .project-target { font-size: 26px; }
+      .project-target .unit { font-size: 13px; }
+      .project-pct { font-size: 20px; }
+      .project-labels { gap: 10px; font-size: 10px; margin-bottom: 10px; }
+      .project-progress-row { gap: 8px; }
+      .project-progress-num { font-size: 11px; }
+      .progress-bar-bg { height: 8px; }
+      .expand-hint { font-size: 11px; margin-top: 10px; }
+      .subproject { font-size: 12px; padding: 6px 0; }
+      .subproject-bar-wrap { width: 50px; }
+      .detail-row, .detail-tags { font-size: 11px; }
+      .subprojects { margin-top: 10px; padding-top: 10px; }
+
+      /* Right column cards on projects tab */
+      .projects-layout { gap: 12px; }
+      .projects-right { gap: 12px; }
+      .comp-card { padding: 12px; }
+      .comp-card .pie-chart { width: 120px; height: 120px; }
+      .comp-title { font-size: 13px; }
+      .comp-note { font-size: 10px; }
+      .orders-rail { min-height: 180px; }
+      .order-time { font-size: 13px; }
+      .order-product { font-size: 12px; }
+      .order-member { font-size: 10px; }
+
+      /* Products */
+      .products-grid { gap: 12px; }
+      .people-card { min-height: auto; padding: 16px; }
+      .people-name { font-size: 24px; }
+      .people-owner { font-size: 13px; }
+      .people-owner .owner-v { font-size: 16px; }
+      .people-target { font-size: 28px; }
+      .people-target .unit { font-size: 13px; }
+      .people-pct { font-size: 20px; }
+      .people-hero-wrap { margin: 12px 0; gap: 10px; }
+      .people-hero { padding: 12px 6px; }
+      .people-hero .people-metric-label { font-size: 11px; }
+      .people-hero .people-metric-value { font-size: 34px; }
+      .people-deltas { gap: 8px; }
+      .people-delta { padding: 8px 4px; }
+      .people-delta-val { font-size: 20px; }
+      .people-channels { margin-top: 8px; }
+      .people-channel-title { font-size: 10px; }
+      .channel-tag { font-size: 10px; padding: 3px 8px; }
+      .people-comp { flex-direction: column; gap: 12px; align-items: stretch; margin-top: 14px; }
+      .people-comp-pie { flex: 0 0 auto; text-align: center; }
+      .people-comp-pie .pie-chart { width: 160px; height: 160px; margin: 0 auto; }
+      .people-comp .legend { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+      .people-comp .legend-item { font-size: 12px; }
+      .people-target { margin-top: 8px; }
+
+      /* Weekly */
+      .weekly-page { gap: 12px; }
+      .weekly-panel { padding: 4px 6px; }
+      .focus-row { gap: 10px; padding: 12px; }
+      .focus-project { font-size: 13px; }
+      .focus-flow { flex-wrap: wrap; }
+      .focus-stage { padding: 5px 10px; font-size: 11px; }
+      .focus-text { font-size: 12px; margin-top: 6px; }
+      .milestone { padding: 8px 10px; gap: 10px; }
+      .milestone-date { width: 48px; font-size: 12px; }
+      .milestone-body { font-size: 12px; }
+      .escalate { padding: 10px 12px; }
+      .escalate-text { font-size: 12px; }
+      .tl-group-head { font-size: 13px; }
+
+      /* Resources & Decisions */
+      .rd-page { gap: 12px; }
+      .rd-hero { padding: 14px 16px; }
+      .rd-hero-cards { gap: 10px; }
+      .rd-hero-card { padding: 12px 14px; }
+      .rd-hero-name { font-size: 14px; }
+      .rd-hero-desc { font-size: 11px; }
+      .rd-bottom { gap: 12px; }
+      .rd-panel { padding: 12px 14px; }
+      .rd-panel-title { font-size: 13px; margin-bottom: 10px; }
+      .rd-matrix { overflow-x: visible; padding-bottom: 0; gap: 10px; }
+      .rd-mrow { min-width: auto; display: flex; flex-direction: column; gap: 8px; padding: 12px 14px; }
+      .rd-mrow.head { display: none; }
+      .rd-mrow > div { display: flex; justify-content: space-between; align-items: center; line-height: 1.4; }
+      .rd-mrow > div::before { content: attr(data-label); font-size: 11px; color: var(--gray-500); font-weight: 500; min-width: 56px; }
+      .rd-mrow > div:first-child::before { display: none; }
+      .rd-mrow > div:first-child { justify-content: flex-start; }
+      .rd-mproj { font-size: 14px; padding-bottom: 8px; border-bottom: 1px dashed var(--gray-200); }
+      .rd-mlevel { font-size: 11px; }
+      .rd-load-row { padding: 8px 10px; }
+      .rd-load-avatar { width: 30px; height: 30px; font-size: 12px; }
+      .rd-load-name { font-size: 12px; }
+      .rd-load-projs { font-size: 10px; }
+      .rd-load-count { font-size: 20px; }
+      .rd-budget-row { padding: 8px 10px; }
+      .rd-budget-proj { font-size: 12px; }
+      .rd-budget-status { font-size: 11px; }
+
+      /* Footer */
+      .principles-footer { flex-direction: column; gap: 8px; padding: 12px 16px; }
+      .pf-title { font-size: 12px; }
+      .pf-items { gap: 6px 14px; }
+      .pf-items span { font-size: 11px; }
+
+      /* Page load hint */
+      .page-load-hint { padding: 40px 20px; font-size: 13px; }
+    }
   </style>
 </head>
 <body>
@@ -485,7 +648,11 @@
     <div class="nav-tab" data-tab="rd" onclick="showTab('rd')">资源与决策</div>
   </div>
 
-  <div class="container" id="app"></div>
+  <div class="container" id="app">
+    <div class="page-load-hint">
+      <noscript>本看板需要 JavaScript 才能显示数据，请用浏览器打开线上链接，或开启 JavaScript 后重试。</noscript>
+    </div>
+  </div>
   <footer class="principles-footer" id="principlesFooter"></footer>
 
   <script>
@@ -878,11 +1045,11 @@
           <div class="rd-mrow head"><div>项目</div><div>等级</div><div>核心负责人</div><div>操盘手</div><div>核心成员</div></div>
           ${DATA.projects.map(p => `
             <div class="rd-mrow">
-              <div class="rd-mproj">${p.icon} ${p.name}</div>
-              <div><span class="rd-mlevel l${p.level}">${p.level}级</span></div>
-              <div class="rd-mowner">${p.owner}</div>
-              <div class="rd-mop">${p.operator}</div>
-              <div class="rd-mmembers">${p.members && p.members.length ? p.members.join('、') : '—'}</div>
+              <div class="rd-mproj" data-label="项目">${p.icon} ${p.name}</div>
+              <div data-label="等级"><span class="rd-mlevel l${p.level}">${p.level}级</span></div>
+              <div class="rd-mowner" data-label="负责人">${p.owner}</div>
+              <div class="rd-mop" data-label="操盘手">${p.operator}</div>
+              <div class="rd-mmembers" data-label="核心成员">${p.members && p.members.length ? p.members.join('、') : '—'}</div>
             </div>`).join('')}
         </div>`;
 
@@ -970,12 +1137,17 @@
       if (document.querySelector('[data-tab="' + hashTab + '"]')) showTab(hashTab);
     }
 
-    app.innerHTML = renderProjects() + renderProducts() + renderWeekly() + renderRD();
-    startOrderFeed();
+    try {
+      app.innerHTML = renderProjects() + renderProducts() + renderWeekly() + renderRD();
+      startOrderFeed();
 
-    document.getElementById('principlesFooter').innerHTML =
-      '<div class="pf-title">📌 项目管理原则</div><div class="pf-items">' +
-      DATA.principles.map((t, i) => `<span>${'①②③④'[i]} ${t}</span>`).join('') + '</div>';
+      document.getElementById('principlesFooter').innerHTML =
+        '<div class="pf-title">📌 项目管理原则</div><div class="pf-items">' +
+        DATA.principles.map((t, i) => `<span>${'①②③④'[i]} ${t}</span>`).join('') + '</div>';
+    } catch (e) {
+      console.error(e);
+      app.innerHTML = '<div class="page-load-hint">页面加载出错，请刷新或换浏览器重试。<br><small>' + e.message + '</small></div>';
+    }
   </script>
 </body>
 </html>
